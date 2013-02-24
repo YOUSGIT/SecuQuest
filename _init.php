@@ -49,8 +49,10 @@ if (LANG != 'en')
     define('PRODUCT', 'product_p');
     define('BC_D', 'class_d');
     define('PRODUCT_D', 'product_d');
-    define('CUSTOM', 'custom');
-    define('FILES', 'files');
+    define('CUSTOMER', 'customer');
+    define('CONTACT_INFO', 'contact_info');
+    define('SUPPORT_CAT', 'support_catalog');
+    define('SUPPORT', 'support');
 }
 else
 {
@@ -62,8 +64,11 @@ else
     define('PRODUCT', 'en_product_p');
     define('BC_D', 'en_class_d');
     define('PRODUCT_D', 'en_product_d');
-    define('CUSTOM', 'en_custom');
+    define('CUSTOMER', 'en_customer');
+    define('CONTACT_INFO', 'en_contact_info');
     define('FILES', 'en_files');
+    define('SUPPORT_CAT', 'en_support_catalog');
+    define('SUPPORT', 'en_support');
 }
 
 
@@ -91,7 +96,7 @@ define('BC_Image', $root . 'images/user_images/bc/');
 define('TEMP_Image', $root . 'images/user_images/temp/');
 define('FILES_down', $root . 'download/');
 define('INC_CLASS', 'inc/class/');
-define('INC_ADMIN', _ROOT.'admin/inc/');
+define('INC_ADMIN', _ROOT . 'admin/inc/');
 define('IMAGES', $root . 'images/');
 define('WEB', 'http://www.besdon.com.tw' . $root_f);
 
@@ -99,11 +104,6 @@ $image_Prefix = array("s_", "m_", "l_", "ss_", ""); //圖檔名前綴
 #######################################################
 
 $Allp = 9; //每頁筆數
-##########################################################
-#require_once(_ROOT."inc/addslashes.php");
-// $_POST = @array_map('trim', $_POST);
-$_GET = @array_map('trim', $_GET);
-
 #############################	
 /*
   if(@$_SESSION['AdmiN'])
@@ -116,6 +116,10 @@ $_GET = @array_map('trim', $_GET);
 
 ####################################################
 require_once(_ROOT . "inc/function.php"); //引入常用功能函數
-
 // if(file_exists("admin.admin"))
-	// require_once(_ROOT."admin/inc/lang/global.php");
+// require_once(_ROOT."admin/inc/lang/global.php");
+##########################################################
+#require_once(_ROOT."inc/addslashes.php");
+TrimArray($_POST);
+TrimArray($_GET);
+// $_GET = @array_map('trim', $_GET);

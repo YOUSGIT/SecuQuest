@@ -129,35 +129,6 @@ class News extends Superobj
         return parent::killu($this->del_arr, $this->is_image, $this->sdir);
     }
 
-    function crumbs()
-    {
-
-        global $_LANG;
-
-        $this->crumbs = array("news_detail.php" => array($_LANG['crumb']['新聞管理'][LANG] => "news_list.php", $_LANG['crumb']['編輯新聞'][LANG] => ""),
-            "news_list.php" => array($_LANG['crumb']['新聞管理'][LANG] => "news_list.php", $_LANG['crumb']['新聞列表'][LANG] => "")
-        );
-
-        return parent::crumbs($this->this_Page);
-    }
-
-    function sale()
-    {
-
-        $this->back .= $this->myParent;
-
-        foreach ($this->del_arr as $k => $v)
-        {
-            $sql = "update " . $this->tbname . " set sale='" . $this->post_arr['sale'] . "' where " . $this->PK . "=" . $k;
-            //echo $sql;
-            if (!$this->qry($sql))
-            {
-                $this->alert = "更新失敗";
-                break;
-            }
-        }
-    }
-
     function is_sort()
     {
         return $this->is_sort;

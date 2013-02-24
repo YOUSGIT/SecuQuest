@@ -244,14 +244,12 @@ class Superobj extends DB
 
                 if ($is_time == 1 && strtotime($post_arr[$k]) == '')
                 {
-
                     $d = '';
                     $post_arr[$k] = 'NOW()';
                 }
 
                 if ($is_number == 1 && $post_arr[$k] == '')
                 {
-
                     $d = '';
                     $post_arr[$k] = 0;
                 }
@@ -284,7 +282,7 @@ class Superobj extends DB
                     {
                         // update
                         $field.=" = ";
-                        $field.="'" . $this->quote($post_arr[$k]) . "'";
+                        $field.=$d . $this->quote($post_arr[$k]) . $d;
                     }
 
                     if ($j < $field_count)

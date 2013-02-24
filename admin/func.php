@@ -28,14 +28,20 @@ if ($FUNC)
             $func = new About;
             break;
 
-        case "pdp":
+        case "contact":
 
-            $func = new Product;
+            $func = new Contact;
             break;
 
-        case "bcd":
+        case "support_cat":
 
-            $func = new Catalog_d;
+            $func = new Support;
+            $func->set_field(SUPPORT_CAT);
+            break;
+
+        case "support":
+
+            $func = new Support;
             break;
 
         case "pdd":
@@ -114,6 +120,10 @@ switch ($DOIT)
     case "sort":
         $func->sortable();
 
+        break;
+
+    case "info":
+        $func->renew_info();
         break;
 }
 

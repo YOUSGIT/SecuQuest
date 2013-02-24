@@ -59,8 +59,6 @@ require_once(INC_ADMIN . "head.inc.php");
                     </div>
                 </div>
             </div>
-
-
         </td>
     </tr>
 </table>

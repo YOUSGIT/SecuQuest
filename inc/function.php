@@ -230,3 +230,11 @@ function add_field_quotes($str)
     // print_r( $ret);
     return trim($ret);
 }
+
+function TrimArray(&$Input)
+{
+    if (!is_array($Input))
+        return trim($Input);
+
+    return array_map('TrimArray', $Input);
+}
