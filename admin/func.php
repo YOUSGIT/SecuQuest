@@ -23,9 +23,9 @@ if ($FUNC)
             $func = new News;
             break;
 
-        case "bcp":
+        case "about":
 
-            $func = new Catalog;
+            $func = new About;
             break;
 
         case "pdp":
@@ -71,7 +71,7 @@ switch ($DOIT)
     case "renew":
 
         $func->renew();
-        if ($func->is_sort)
+        if ($func->is_sort())
             $func->resort();
 
         break;
@@ -79,7 +79,7 @@ switch ($DOIT)
     case "del":
 
         $r = $func->killu();
-        if ($func->is_sort)
+        if ($func->is_sort())
             $func->resort();
 
         break;

@@ -56,7 +56,8 @@ require_once(INC_ADMIN . "head.inc.php");
 <script>
     function del()
     {
-        var ret = $(".mbody").find("input[type='checkbox']:checked");
+        var form=$('form[data-target="form"]');
+        var ret = form.find("input[type='checkbox']:checked");
         
         if (!ret.length > 0)
         {
@@ -67,7 +68,7 @@ require_once(INC_ADMIN . "head.inc.php");
         if(!confirm("Confirm to delete ?"))
             return false;
         
-        $('form[data-target="form"]').submit();
+        form.submit();
         return false;
     }
 </script>

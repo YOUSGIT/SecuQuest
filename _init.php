@@ -101,7 +101,7 @@ $image_Prefix = array("s_", "m_", "l_", "ss_", ""); //圖檔名前綴
 $Allp = 9; //每頁筆數
 ##########################################################
 #require_once(_ROOT."inc/addslashes.php");
-$_POST = @array_map('trim', $_POST);
+// $_POST = @array_map('trim', $_POST);
 $_GET = @array_map('trim', $_GET);
 
 #############################	

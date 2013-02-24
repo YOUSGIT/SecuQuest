@@ -80,26 +80,28 @@ class Superobj extends DB
         //print_r($this->field);
     }
 
-    function resort($where = "", $sequ = "sequ", $tbname = "", $pk = "", $asc = "asc")
+    function resort($where = "", $sequ = "sequ", $tbname = "", $pk = "", $asc = "ASC")
     { //排序
         $tbname = (trim($tbname) == '') ? $this->tbname : $tbname;
         $pk = (trim($pk) == '') ? $this->PK : $pk;
-        $where = "where " . ((trim($where) == '') ? $this->sort_where : $where);
+        $where = "WHERE " . ((trim($where) == '') ? $this->sort_where : $where);
 
-        $sql = sprintf("select * from `%s` %s order by `%s` %s;", $tbname, $where, $sequ, $asc); //目錄區重新編號
+        $sql = sprintf("SELECT " . add_field_quotes($pk) . " FROM %s %s ORDER BY `%s` %s;", $tbname, $where, $sequ, $asc); //目錄區重新編號
 
         if (!$ret = self::get_list($sql))
             return false;
 
-
         #for($i=0;$i<count($ret);$i++)
         foreach ($ret as $i => $v)
         {
+            $arr = array();
+            // $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote($i + 1), $pk, $v[$pk]);
+            $arr[$sequ] = $i + 1;
+            $arr[$pk] = $v[$pk];
 
-            $sql = sprintf("update %s set `%s`=%d where %s=%d", $tbname, $sequ, mysql_real_escape_string($i + 1), $pk, $ret[$i][$pk]);
-
-            if (!$this->qry($sql))
-                return false("排序失敗");
+            self::renew($arr);
+            // if (!$this->qry($sql))
+            // return false("排序失敗");
         }
 
         return true;
@@ -109,20 +111,21 @@ class Superobj extends DB
     { //排序
         $tbname = (trim($tbname) == '') ? $this->tbname : $tbname;
         $pk = (trim($pk) == '') ? $this->PK : $pk;
-        $where = "where " . ((trim($where) == '') ? $this->sort_where : $where);
+        $where = "WHERE " . ((trim($where) == '') ? $this->sort_where : $where);
 
-        $sort_arr = explode(',', $this->sort_arr);
-
+        // $sort_arr = explode(',', $this->sort_arr);
+        $sort_arr = $this->get_sort_arr();
         foreach ($sort_arr as $i => $v)
         {
-
             if (is_numeric($v))
             {
+                // $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote(($i + 1), $pk, $v);
+                $arr = array();
+                // $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote($i + 1), $pk, $v[$pk]);
+                $arr[$sequ] = $i + 1;
+                $arr[$pk] = $v;
 
-                $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, mysql_real_escape_string($i + 1), $pk, $v);
-
-                if (!$this->qry($sql))
-                    return false("排序失敗");
+                self::renew($arr);
             }
         }
 
@@ -305,7 +308,7 @@ class Superobj extends DB
 
         // exit($sql);
         #if(Debug)
-        #	echo $sql;
+        // echo $sql;
 
         $this->alert = '更新完成';
 

@@ -185,5 +185,9 @@ class Banner extends Superobj
         }
     }
 
-}
+    function is_sort()
+    {
+        return $this->is_sort;
+    }
 
+}
