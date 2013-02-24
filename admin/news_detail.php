@@ -10,6 +10,7 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript" src='../script/jquery.validate.js'></script>
 <script type="text/javascript" src='../script/jquery.form.js'></script>
 <script type="text/javascript" src="./inc/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="./inc/ckfinder/ckfinder.js"></script>
 <script type="text/javascript" src="./inc/fineuploader.jquery/jquery.fineuploader-3.0.min.js"></script>
 <link href="inc/fineuploader.jquery/fineuploader.css" rel="stylesheet" type="text/css" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
@@ -73,7 +74,8 @@ require_once(INC_ADMIN . "head.inc.php");
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
-        CKEDITOR.replace('content');
+        var editor = CKEDITOR.replace( 'content' );
+        CKFinder.setupCKEditor( editor, 'inc/ckfinder/' ) ;
         init_file_upload();
         // validator.resetForm();
     });
