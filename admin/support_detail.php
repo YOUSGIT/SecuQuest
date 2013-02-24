@@ -43,7 +43,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">標題</th>
-                                    <td><input type="text" placeholder="請輸入問題…" name="title" value="<?= $ret['title']; ?>" class="span10" required></td>
+                                    <td><input type="text" placeholder="請輸入問題…" name="title" value="<?= $ret['title']; ?>" class="span10" required/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">分類</th>

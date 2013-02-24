@@ -44,9 +44,9 @@ if ($FUNC)
             $func = new Support;
             break;
 
-        case "pdd":
+        case "catalog":
 
-            $func = new Product_d;
+            $func = new Catalog;
             break;
 
         case "sv":

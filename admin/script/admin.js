@@ -21,4 +21,12 @@ $(document).ready(function(e){
 	$(".sortable tr").each(function(index, element) {
         $(element).find("td:first").addClass("handle");
     });
+    
+    $(document).on("keypress", "input[type='text']", (function (event)
+    {
+        if (event.which == 13)
+        {
+            event.preventDefault();
+        }
+    }))
 });

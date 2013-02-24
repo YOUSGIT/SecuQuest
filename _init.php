@@ -45,10 +45,8 @@ if (LANG != 'en')
     define('ADV', 'adv');
     define('ABOUT', 'about');
     define('NEWS', 'news');
-    define('BC', 'class_p');
+    define('CATALOG', 'catalog');
     define('PRODUCT', 'product_p');
-    define('BC_D', 'class_d');
-    define('PRODUCT_D', 'product_d');
     define('CUSTOMER', 'customer');
     define('CONTACT_INFO', 'contact_info');
     define('SUPPORT_CAT', 'support_catalog');
@@ -60,13 +58,10 @@ else
     define('ADV', 'en_adv');
     define('ABOUT', 'en_about');
     define('NEWS', 'en_news');
-    define('BC', 'en_class_p');
+    define('CATALOG', 'en_catalog');
     define('PRODUCT', 'en_product_p');
-    define('BC_D', 'en_class_d');
-    define('PRODUCT_D', 'en_product_d');
     define('CUSTOMER', 'en_customer');
     define('CONTACT_INFO', 'en_contact_info');
-    define('FILES', 'en_files');
     define('SUPPORT_CAT', 'en_support_catalog');
     define('SUPPORT', 'en_support');
 }
