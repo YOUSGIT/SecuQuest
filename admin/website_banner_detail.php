@@ -55,7 +55,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= ADM_Image . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a>                                	
+                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= $obj->get_dir() . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a>                                	
                                     </td>
                                 </tr>
                                 <tr class="tr_image">
@@ -83,7 +83,7 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    var adv_image_url = "<?= ADM_Image; ?>";
+    var _image_url = "<?= $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
     
@@ -125,14 +125,11 @@ require_once(INC_ADMIN . "head.inc.php");
         {
             if (responseJSON.success)
             {
-                // alert(responseJSON.filename);
-                // newimgArray.push(upload_temp_path + responseJSON.filename);
                 path.val(responseJSON.filename);
-                pre_img.prop("src", adv_image_url + responseJSON.filename).fadeIn();
-                // addedFiles ++;
-                // if(addedFiles >= fileLimit) {
-                // $('#jquery-wrapped-fine-uploader').hide();
-                // }
+                pre_img.load(_image_url + responseJSON.filename,function(){
+                    $(this).prop("src",_image_url + responseJSON.filename).fadeIn();
+                    $('li[class=" qq-upload-success"]').fadeOut("slow");
+                });
             }
             
         });

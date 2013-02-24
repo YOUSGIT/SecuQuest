@@ -15,7 +15,7 @@ class Banner extends Superobj
     public $is_sort = false; //是否排序
     public $sdir = ADM_Image;
     public $back = './website_banner.php';
-    public $s_size = array("m" => array("w" => 1280, "h" => 1280), "s" => array("w" => 150, "h" => 2400), "ss" => array("w" => 2400, "h" => 50));
+    public $s_size = array("m" => array("w" => 1000, "h" => 1000), "s" => array("w" => 150, "h" => 2400), "ss" => array("w" => 2400, "h" => 50));
     public $detail_id; //編輯細節ID
     public $is_image = true;
     public $list_this;
@@ -38,6 +38,11 @@ class Banner extends Superobj
             $this->set_field($this->tbname);
     }
 
+    function get_dir()
+    {
+        return $this->sdir;
+    }
+
     function get_all()
     { //列出全部資料
         $this->list_this = "select * from " . $this->tbname . " order by sequ asc, dates desc";
@@ -53,8 +58,8 @@ class Banner extends Superobj
     {
         if ($type == 0)
         {
-            if (is_file(ADM_Image . $path))
-                return ADM_Image . "s_" . $path;
+            if (is_file($this->get_dir() . $path))
+                return $this->get_dir() . "s_" . $path;
             else
                 return "images/logo.png";
         }else

@@ -28,6 +28,11 @@ switch ($_GET['func'])
         $f = $obj->sdir;
         $s_size = $obj->s_size;
         break;
+    case "news":
+        $obj = new News;
+        $f = $obj->sdir;
+        $s_size = $obj->s_size;
+        break;
 
     default:
         $f = TEMP_Image;
