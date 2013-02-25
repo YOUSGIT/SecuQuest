@@ -9,7 +9,7 @@ class Catalog extends Superobj
     protected $file_arr = array();
     protected $del_arr;
     protected $limit = 2; //上傳檔案大小
-    protected $sort_where = " 1";
+    protected $sort_where = " AND `parent` = 0";
     protected $tbname = CATALOG;
     var $sdir;
     var $back = './product_bcatalog.php';
@@ -79,14 +79,38 @@ class Catalog extends Superobj
         return $crumb;
     }
 
+    function get_cat_detail_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                    <li><a href="index.php" class="home">&nbsp;</a></li>
+                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
+                    <li><span>編輯子分類</span></li>
+                </ul>';
+
+        return $crumb;
+    }
+
+    function get_cat_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                        <li><a href="index.php" class="home">&nbsp;</a></li>
+                        <li><a href="product_bcatalog.php">產品管理</a></li>                    
+                        <li><span>子分類列表</span></li>
+                    </ul>';
+
+        return $crumb;
+    }
+
     function get_cat_toolbar_html()
     {
         $toolbar = '<ul class="group">
-                        <li><a href="support_catalog_detail.php" class="folder-add">新增分類</a></li>
+                        <li><a href="product_catalog_detail.php" class="folder-add">新增子分類</a></li>
                     </ul>
                     <ul class="group">
                         <li><a href="#" onclick="return del();" class="folder-delete">批次刪除</a></li>
-                    </ul> ';
+                        <li><a href="#" onclick="return sale(1);" class="on">批次上架</a></li>
+                        <li><a href="#" onclick="return sale(0);" class="off">批次下架</a></li>
+                    </ul>';
 
         return $toolbar;
     }
@@ -96,13 +120,24 @@ class Catalog extends Superobj
         if (is_numeric($_GET['s']) && $_GET['s'] != '')
             $wheres = " AND `status` = " . $_GET['s'];
 
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE 1 " . $wheres . " ORDER BY `sequ` ASC";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE `parent` = 0 " . $wheres . " ORDER BY `sequ` ASC";
         return parent::get_list($this->list_this);
     }
 
     function get_cat_all()
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname_cat . " ORDER BY `sequ` ASC";
+        if (is_numeric($_GET['cs']) && $_GET['cs'] != '')
+            $wheres = " AND a.`status` = " . $_GET['cs'];
+
+
+        if ((int) $_GET['bc'] > 0)
+        {
+            $parent = "a.`parent` = " . (int) $_GET['bc'];
+        }else
+            $parent = "a.`parent` != 0 ";
+
+        $this->list_this = "SELECT a.*, b.`title` `bc` FROM " . $this->tbname . " a, " . $this->tbname . " b WHERE (a.`parent` = b.`id`) AND " . $parent . $wheres . " ORDER BY a.`sequ` ASC";
+        // exit($this->list_this);
         return parent::get_list($this->list_this);
     }
 
@@ -111,7 +146,7 @@ class Catalog extends Superobj
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname_cat . " where " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " where " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }
@@ -167,20 +202,31 @@ class Catalog extends Superobj
     ############################################################################
     function renew()
     {
-        if ($this->tbname == add_field_quotes($this->tbname_cat))
-            self::set_back("support_catalog.php");
+        /* 子分類 */
+        if ($this->post_arr['parent'] > 0)
+        {
+            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+            self::set_sort_where($this->post_arr['parent']);
+        }
         parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
     }
 
     function killu()
     {
-        if ($this->tbname == add_field_quotes($this->tbname_cat))
-            self::set_back("support_catalog.php");
+        if ($this->post_arr['parent'])
+        {
+            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+        }
         return parent::killu($this->del_arr, $this->is_image, $this->sdir);
     }
 
     function sale()
     {
+        if ($this->post_arr['parent'])
+        {
+            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+        }
+
         foreach ($this->del_arr as $v)
         {
             $arr = array();
@@ -208,7 +254,16 @@ class Catalog extends Superobj
 
     function get_sort_arr()
     {
+        if ($this->post_arr['parent'] > 0)
+        {
+            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+        }
         return $this->sort_arr;
+    }
+
+    function set_sort_where($parent)
+    {
+        $this->sort_where = " AND `parent` = " . (int) $parent;
     }
 
 }

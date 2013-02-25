@@ -8,7 +8,7 @@ class Banner extends Superobj
     protected $sort_arr = array();
     protected $del_arr; //刪除者
     protected $limit = 2; //上傳檔案大小
-    protected $sort_where = '1'; //排序
+    protected $sort_where; //排序
     protected $tbname = ADV;
     protected $tbname_about = ABOUT;
     public $crumbs = array();

@@ -9,7 +9,7 @@ class Support extends Superobj
     protected $file_arr = array();
     protected $del_arr;
     protected $limit = 2; //上傳檔案大小
-    protected $sort_where = " 1";
+    protected $sort_where;
     protected $tbname = SUPPORT;
     protected $tbname_info = CONTACT_INFO;
     protected $tbname_cat = SUPPORT_CAT;
