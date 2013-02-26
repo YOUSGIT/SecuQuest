@@ -98,10 +98,9 @@ class Superobj extends DB
             $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote($i + 1), $pk, $v[$pk]);
             // $arr[$sequ] = $i + 1;
             // $arr[$pk] = $v[$pk];
-
             // self::renew($arr);
             if (!$this->qry($sql))
-            return false("排序失敗");
+                return false("排序失敗");
         }
 
         return true;
@@ -124,10 +123,9 @@ class Superobj extends DB
                 $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote($i + 1), $pk, $v);
                 // $arr[$sequ] = $i + 1;
                 // $arr[$pk] = $v;
-
                 // self::renew($arr);
                 if (!$this->qry($sql))
-                return false("排序失敗");
+                    return false("排序失敗");
             }
         }
 
@@ -332,7 +330,7 @@ class Superobj extends DB
         else
             $arr = $del_arr;
 
-        //print_r($arr);
+        // print_r($arr);
 
         foreach ($arr as $k)
         {

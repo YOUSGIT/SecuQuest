@@ -1,132 +1,171 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SecuQuest 網站管理系統</title>
-<link href="theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="theme/core/admin.css" rel="stylesheet" type="text/css" />
-<link href="theme/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
+<?php
+require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+define("CAT", 3);
 
-<script type="text/javascript" src="script/jquery1.9.min.js"></script>
-<script type="text/javascript" src="script/jquery-ui-1.10.0.custom.min.js"></script>
-<script type="text/javascript" src="theme/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="script/admin.js"></script>
-<script type="text/javascript">
-	
-</script>
-</head>
-
-<body>
-	<div class="global-container">
-    	<div class="header">
-            <div class="guide clearfix">
-                <div class="logo"><img src="images/logo.png" height="25" /></div>
-                <ul class="guide-nav">
-                    <li>登入中</li>
-                    <li><a href="../index.php" target="_blank">首頁</a></li>
-                </ul>
-            </div>
-            <ul class="nav">
-                <li><a href="website_banner.php">網站管理</a></li>
-                <li><a href="news.php">新聞管理</a></li>
-                <li><a href="product_bcatalog.php" class="active">產品管理</a></li>
-                <li><a href="support.php">支援管理</a></li>
-                <li><a href="contact.php">聯絡我們</a></li>                
-                <li><a href="about.php">關於我們</a></li>
+$obj = new Product;
+$crumb = $obj->get_detail_crumb_html();
+$ret = $obj->get_detail();
+$catalog = new Catalog;
+$bcatalog_arr = $catalog->get_all_for_product(0);
+$bcatalog = $catalog->get_parent_for_product($ret['parent']);
+$catalog_arr = $bcatalog > 0 ? $catalog->get_all_for_product($bcatalog) : $catalog->get_all_for_product($ret['parent']);
+require_once(INC_ADMIN . "head.inc.php");
+?> 
+<script type="text/javascript" src='../script/jquery.validate.js'></script>
+<script type="text/javascript" src='../script/jquery.form.js'></script>
+<script type="text/javascript" src="./inc/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="./inc/ckfinder/ckfinder.js"></script>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+        <td class="left-col">
+            <ul class="side-bar">
+                <li><a href="product_bcatalog.php">大分類列表</a></li>
+                <li><a href="product_catalog.php">子分類列表</a></li>
+                <li><a href="product.php" class="active">產品列表</a></li>
             </ul>
-            <div class="tool-bar clearfix">            	            	            
-            </div>
-            <div class="info-bar">
-                <ul class="crumb">
-                    <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                    <li><span>產品列表</span></li>
-                </ul>
-            </div>
-        </div>
-        
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
-          <tr>
-            <td class="left-col">
-            	<ul class="side-bar">
-                    <li><a href="product_bcatalog.php">大分類列表</a></li>
-                    <li><a href="product_catalog.php">子分類列表</a></li>
-                    <li><a href="product.php" class="active">產品列表</a></li>
-                </ul>
-            </td>
-            <td class="middle-col">&nbsp;</td>
-            <td class="right-col">
-            	<div class="module-tool">
-                    <div class="group">
-                	<button class="btn btn-info" type="button">儲存</button>
-                    <button class="btn" type="button">取消</button>
-                    </div>
-                </div> 
-              <div class="module-form">
-                    <ul class="mheader">
-                    	<li><a href="product_detail.php" class="active">新增產品/修改產品</a></li>
-                        <li><a href="product_detail_photo.php">產品圖片</a></li>                        
-                    </ul>
-                    <div class="main-container">
-                    	<div class="mbody">
-                          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <th width="100" align="right">產品名稱</th>
-                                <td><input type="text" placeholder="請輸入名稱…" class="span10"></td>
-                              </tr>
-                              <tr>
-                                <th align="right">大分類</th>
-                                <td>
-                                	<select class="span5">                        	
-                                    	<option>請選擇大分類</option>
-                                        <option>Camera</option>
-                                        <option>DVD System</option>
-                                    </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th align="right">子分類</th>
-                                <td>
-                                	<select class="span5">         
-                                    	<option>請選子大分類（可不選）</option>               	
-                                        <option>HD-SDI Camera</option>
-			                            <option>Turret Camera</option>
-                                    </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th align="right">狀態</th>
-                                <td>
-                                	<select class="span2">
-                                      <option selected="selected">上架</option>
-                                      <option >下架</option>
-                                    </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th align="right">產品概述</th>
-                                <td><textarea class="span10" rows="5"></textarea></td>
-                              </tr>
-                              <tr>
-                                <th align="right">特色</th>
-                                <td>編輯器</td>
-                              </tr>
-                              <tr>
-                                <th align="right">規格</th>
-                                <td>編輯器</td>
-                              </tr>
-                            </table>
-						</div>
-               	  </div>
+        </td>
+        <td class="middle-col">&nbsp;</td>
+        <td class="right-col">
+            <div class="module-tool">
+                <div class="group">
+                    <button class="btn btn-info" type="button" onclick="return save();">儲存</button>
+                    <!--<button class="btn" type="button">取消</button>-->
                 </div>
-                
-
-            </td>
-          </tr>
-        </table>
-        <div class="footer">
-        	Power By YOUS
-        </div>
-    </div>
-</body>
-</html>
+            </div> 
+            <div class="module-form">
+                <ul class="mheader">
+                    <li><a href="product_detail.php" class="active">新增產品/修改產品</a></li>
+                    <li><a href="product_detail_photo.php?p=<?= $ret['id']; ?>">產品圖片</a></li>                        
+                </ul>
+                <div class="main-container">
+                    <div class="mbody">
+                        <form data-target="form" method="post" action="func.php">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="100" align="right">產品名稱</th>
+                                    <td><input name="title" type="text" placeholder="請輸入名稱…" value="<?= $ret['title']; ?>" class="span10" required/></td>
+                                </tr>
+                                <tr>
+                                    <th align="right">大分類</th>
+                                    <td>
+                                        <select data-target="bcatalog" class="span5 required catalog_confirm">                        	
+                                            <option value="">請選擇分類</option>
+                                            <?php
+                                            foreach ($bcatalog_arr as $v)
+                                            {
+                                                ?>
+                                                <option value="<?= $v['id']; ?>" <?= $ret['parent'] == $v['id'] || ($bcatalog == $v['id']) ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="right">子分類</th>
+                                    <td>
+                                        <select class="span5" data-target="catalog">         
+                                            <option value="<?= $bcatalog; ?>">請選擇子分類(可不選)</option>
+                                            <?php
+                                            foreach ($catalog_arr as $v)
+                                            {
+                                                ?>
+                                                <option value="<?= $v['id']; ?>" <?= $ret['parent'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <?php
+                                            }
+                                            ?>           	
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="right">狀態</th>
+                                    <td>
+                                        <select name="status" class="span2">
+                                            <option value="1" <?= $ret['status'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
+                                            <option value="0" <?= $ret['status'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="right">產品概述</th>
+                                    <td><textarea name="brief" class="span10" rows="5"><?= htmlentities($ret['brief']); ?></textarea></td>
+                                </tr>
+                                <tr>
+                                    <th align="right">特色</th>
+                                    <td><textarea name="feature" class="span10" rows="10"><?= ($ret['feature']); ?></textarea></td>
+                                </tr>
+                                <tr>
+                                    <th align="right">規格</th>
+                                    <td><textarea name="spec" class="span10" rows="10"><?= ($ret['spec']); ?></textarea></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="func" value="product"/>
+                            <input type="hidden" name="parent" value="<?= $ret['parent']; ?>"/>
+                            <input type="hidden" name="doit" value="renew"/>
+                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var validator;
+    var _FORM = $("form[data-target='form']");
+    var parent = $("input[name='parent']");
+    
+    $.validator.addMethod("catalog_confirm", function (value)
+    {
+        return (value != "0" && value != "");
+    }, "請選擇分類");
+    
+    $(document).ready(function (e)
+    {
+        validator = _FORM.validate();
+        var editor2 = CKEDITOR.replace('feature');
+        var editor3 = CKEDITOR.replace('spec');
+        CKFinder.setupCKEditor(editor2, 'inc/ckfinder/');
+        CKFinder.setupCKEditor(editor3, 'inc/ckfinder/');
+        set_parent();
+        get_catalog();
+        // init_file_upload();
+        // validator.resetForm();
+    });
+    
+    function save()
+    {
+        if (_FORM.valid()) _FORM.submit();
+        
+        return false;
+    }
+    
+    function set_parent()
+    {
+        $("select[data-target]").on("change", function ()
+        {
+            parent.val($(this).val());
+        });
+    }
+    
+    function get_catalog()
+    {
+        $("select[data-target='bcatalog']").on("change", function ()
+        {
+            $.post("func.php",
+            {
+                func: 'product',
+                doit: 'catalog',
+                p: $(this).val()
+            }, function (ret)
+            {
+                var s = $("select[data-target='catalog']");
+                s.html(ret);
+                return;
+            }, "html");
+        });
+    }
+</script>
+<?php
+require_once(INC_ADMIN . "footer.inc.php");

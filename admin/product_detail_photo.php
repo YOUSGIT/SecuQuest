@@ -1,104 +1,170 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SecuQuest 網站管理系統</title>
-<link href="theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="theme/core/admin.css" rel="stylesheet" type="text/css" />
-<link href="theme/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
+<?php
+require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+define("CAT", 3);
 
-<script type="text/javascript" src="script/jquery1.9.min.js"></script>
-<script type="text/javascript" src="script/jquery-ui-1.10.0.custom.min.js"></script>
-<script type="text/javascript" src="theme/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="script/admin.js"></script>
-<script type="text/javascript">
-	
-</script>
-</head>
-
-<body>
-	<div class="global-container">
-    	<div class="header">
-            <div class="guide clearfix">
-                <div class="logo"><img src="images/logo.png" height="25" /></div>
-                <ul class="guide-nav">
-                    <li>登入中</li>
-                    <li><a href="../index.php" target="_blank">首頁</a></li>
-                </ul>
-            </div>
-            <ul class="nav">
-                <li><a href="website_banner.php">網站管理</a></li>
-                <li><a href="news.php">新聞管理</a></li>
-                <li><a href="product_bcatalog.php" class="active">產品管理</a></li>
-                <li><a href="support.php">支援管理</a></li>
-                <li><a href="contact.php">聯絡我們</a></li>                
-                <li><a href="about.php">關於我們</a></li>
+$obj = new Product;
+$ret = $obj->get_img_detail();
+$crumb = $obj->get_detail_crumb_html();
+require_once(INC_ADMIN . "head.inc.php");
+?>         
+<script type="text/javascript" src="./inc/fineuploader.jquery/jquery.fineuploader-3.0.min.js"></script>
+<link href="inc/fineuploader.jquery/fineuploader.css" rel="stylesheet" type="text/css" />
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+        <td class="left-col">
+            <ul class="side-bar">
+                <li><a href="product_bcatalog.php">大分類列表</a></li>
+                <li><a href="product_catalog.php">子分類列表</a></li>
+                <li><a href="product.php" class="active">產品列表</a></li>
             </ul>
-            <div class="tool-bar clearfix">            	            	            
-            </div>
-            <div class="info-bar">
-                <ul class="crumb">
-                    <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                    <li><span>產品列表</span></li>
-                </ul>
-            </div>
-        </div>
-        
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
-          <tr>
-            <td class="left-col">
-            	<ul class="side-bar">
-                    <li><a href="product_bcatalog.php">大分類列表</a></li>
-                    <li><a href="product_catalog.php">子分類列表</a></li>
-                    <li><a href="product.php" class="active">產品列表</a></li>
-                </ul>
-            </td>
-            <td class="middle-col">&nbsp;</td>
-            <td class="right-col">
-            	<div class="module-tool">
-                    <div class="group">
-                	<button class="btn btn-info" type="button">上傳</button>
-                    <button class="btn" type="button">取消</button>
-                    </div>
-                </div> 
-              <div class="module-form">
-                    <ul class="mheader">
-                    	<li><a href="product_detail.php">新增產品/修改產品</a></li>
-                        <li><a href="product_detail_photo.php" class="active">產品圖片</a></li>                        
-                    </ul>
-                    <div class="main-container">
-                    	<div class="mbody">
-                          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <th width="100" align="right">上傳圖片</th>
-                                <td><input type="file"></td>
-                              </tr>
-                              <tr>
-                                <th align="right">主圖設定</th>
-                                <td>
-                                	<input type="radio" name="photo" />
-                                	<a href="#" class="remove"><span class="text">移除</span><img src="../images/temp_new_product01.jpg" width="150" /></a>
-                                    <input type="radio" name="photo" />
-                                	<a href="#" class="remove"><span class="text">移除</span><img src="../images/temp_new_product01.jpg" width="150" /></a>
-                                    <input type="radio" name="photo" />
-                                	<a href="#" class="remove"><span class="text">移除</span><img src="../images/temp_new_product01.jpg" width="150" /></a>
-                                    <input type="radio" name="photo" />
-                                	<a href="#" class="remove"><span class="text">移除</span><img src="../images/temp_new_product01.jpg" width="150" /></a>
-                                </td>
-                              </tr>
-                            </table>
-						</div>
-               	  </div>
+        </td>
+        <td class="middle-col">&nbsp;</td>
+        <td class="right-col">
+            <div class="module-tool">
+                <div class="group">
+                    <button style="display:none;" data-target="upload-btn" class="btn btn-info" type="button" onclick="return save();">儲存</button>
+                    <button style="display:none;" data-target="upload-btn" class="btn" type="button" onclick="return cancel();">取消</button>
                 </div>
-                
-
-            </td>
-          </tr>
-        </table>
-        <div class="footer">
-        	Power By YOUS
-        </div>
-    </div>
-</body>
-</html>
+            </div> 
+            <div class="module-form">
+                <ul class="mheader">
+                    <li><a href="product_detail.php?id=<?= $_GET['p']; ?>">新增產品/修改產品</a></li>
+                    <li><a href="product_detail_photo.php?p=<?= $_GET['p']; ?>" class="active">產品圖片</a></li>                        
+                </ul>
+                <div class="main-container">
+                    <div class="mbody">
+                        <form data-target="form" method="post" action="func.php">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr data-target="upload">
+                                    <th width="100" align="right">上傳圖片</th>
+                                    <td><div id="jquery-wrapped-fine-uploader"></div><div target="input"></div></td>
+                                </tr>
+                                <tr data-target="setup">
+                                    <th align="right">主圖設定</th>
+                                    <td>
+                                        <?php
+                                        foreach ($ret as $v)
+                                        {
+                                            ?>
+                                            <span data-target="imgs">
+                                                <input type="radio" value="<?= $v['id']; ?>" <?= $v['master'] == '1' ? 'checked="checked"' : ''; ?> name="master" data-target="master"/>
+                                                <a href="#" class="remove" onclick="return pic_remove(this,<?= $v['id']; ?>);"><span class="text">移除</span><img src="<?= PD_Image . 's_' . $v['path']; ?>" width="150" /></a>
+                                            </span>
+                                            <?php
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="func" value="product_img"/>
+                            <input type="hidden" name="parent" value="<?= (int) $_GET['p']; ?>"/>
+                            <input type="hidden" name="doit" value="renew"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var _FORM = $("form[data-target='form']");
+    var _image_url = "<?= $obj->get_dir(); ?>";
+    var pre_img = $('img[data-target="pre_img"]');
+    var setup = $('tr[data-target="setup"]');
+    var upload = $('tr[data-target="upload"]');
+    var inputs = $('div[target="input"]');
+    var btns = $('button[data-target="upload-btn"]');
+    var parent = $('input[name="parent"]');
+    var flag;
+    
+    $(document).ready(function (e)
+    {
+        init_file_upload();
+        set_master();
+        // validator.resetForm();
+    });
+    
+    function init_file_upload()
+    {
+        // var addedFiles=0;
+        // var fileLimit=1;
+        $('#jquery-wrapped-fine-uploader').fineUploader(
+        {
+            request: {
+                endpoint: 'inc/fineuploader.jquery/upload.php?func=pd'
+            },
+            debug: true
+        }).on('complete', function (event, id, fileName, responseJSON)
+        {
+            if (responseJSON.success)
+            {
+                setup.fadeOut();
+                btns.slideDown();
+                inputs.append('<input name="path[]" type="hidden" value="' + responseJSON.filename + '"/>');
+                flag = true;
+            }
+            
+        });
+        
+        // alert(upload_temp_path);
+        return;
+    }
+    
+    function save()
+    {
+        if (!flag)
+        {
+            alert("請上傳圖片");
+            return false;
+        }
+        setup.remove();
+        _FORM.submit();
+        return false;
+    }
+    
+    function pic_remove(e, id)
+    {
+        if (!confirm("確認刪除?")) return false;
+        
+        $.post("func.php",
+        {
+            func: "product_img",
+            doit: "del",
+            parent: parent.val(),
+            delid: id
+        }, function (ret)
+        {
+            if (ret == 'ok') $(e).parent().fadeOut("slow", function ()
+            {
+                $(this).remove();
+            });
+        }, "html");
+        
+        return false;
+    }
+    
+    function cancel()
+    {
+        btns.slideUp();
+        $('li[class=" qq-upload-success"]').fadeOut();
+        setup.fadeIn();
+        // upload.fadeOut();
+        inputs.empty();
+    }
+    
+    function set_master()
+    {
+        $("input[data-target='master']").on("click", function ()
+        {
+            $.post("func.php",
+            _FORM.serializeArray(), function (ret)
+            {
+                // if (ret == 'ok')
+                alert("已設定主圖");
+            }, "html");
+        });
+        
+    }
+</script>
+<?php
+require_once(INC_ADMIN . "footer.inc.php");

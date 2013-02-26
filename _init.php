@@ -46,7 +46,8 @@ if (LANG != 'en')
     define('ABOUT', 'about');
     define('NEWS', 'news');
     define('CATALOG', 'catalog');
-    define('PRODUCT', 'product_p');
+    define('PRODUCT', 'product');
+    define('PRODUCT_IMG', 'product_img');
     define('CUSTOMER', 'customer');
     define('CONTACT_INFO', 'contact_info');
     define('SUPPORT_CAT', 'support_catalog');
@@ -59,7 +60,8 @@ else
     define('ABOUT', 'en_about');
     define('NEWS', 'en_news');
     define('CATALOG', 'en_catalog');
-    define('PRODUCT', 'en_product_p');
+    define('PRODUCT', 'en_product');
+    define('PRODUCT_IMG', 'en_product_img');
     define('CUSTOMER', 'en_customer');
     define('CONTACT_INFO', 'en_contact_info');
     define('SUPPORT_CAT', 'en_support_catalog');

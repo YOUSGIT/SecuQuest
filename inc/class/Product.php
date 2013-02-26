@@ -1,6 +1,6 @@
 <?php
 
-class Catalog extends Superobj
+class Product extends Superobj
 {
 
     //var $Crumbs_local;
@@ -8,18 +8,19 @@ class Catalog extends Superobj
     protected $post_arr = array();
     protected $file_arr = array();
     protected $del_arr;
-    protected $limit = 2; //上傳檔案大小
-    protected $sort_where = " AND `parent` = 0";
-    protected $tbname = CATALOG;
-    var $sdir;
-    var $back = './product_bcatalog.php';
-    var $s_size = array();
+    // protected $limit = 2; //上傳檔案大小
+    protected $sort_where;
+    protected $tbname = PRODUCT;
+    protected $tbname_img = PRODUCT_IMG;
+    var $sdir = PD_Image;
+    var $back = './product.php?p=';
+    public $s_size = array("m" => array("w" => 600, "h" => 600), "s" => array("w" => 2400, "h" => 150), "ss" => array("w" => 2400, "h" => 50));
     var $is_image = false;
     var $list_this;
     var $detail_this;
     var $this_Page = this_Page;
     var $detail_id; //編輯細節ID
-    var $is_sort = true;
+    var $is_sort = false;
     var $sort_arr = array();
     var $status_arr = array(1 => "上架", 0 => "下架");
 
@@ -48,7 +49,7 @@ class Catalog extends Superobj
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
                     <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                    <li><span>大分類列表</span></li>
+                    <li><span>產品列表</span></li>
                 </ul>';
 
         return $crumb;
@@ -57,15 +58,28 @@ class Catalog extends Superobj
     function get_toolbar_html()
     {
         $toolbar = '<ul class="group">
-                        <li><a href="product_bcatalog_detail.php" class="folder-add">新增大分類</a></li>
+                        <li><a href="product_detail.php" class="file-add">新增商品</a></li>
                     </ul>
                     <ul class="group">
-                        <li><a href="#" onclick="return del();" class="folder-delete">批次刪除</a></li>
+                        <li><a href="#" onclick="return del();" class="file-delete">批次刪除</a></li>
                         <li><a href="#" onclick="return sale(1);" class="on">批次上架</a></li>
                         <li><a href="#" onclick="return sale(0);" class="off">批次下架</a></li>
-                    </ul>  ';
+                    </ul>';
 
         return $toolbar;
+    }
+
+    function get_catalog()
+    {
+        $p = $_POST['p'];
+        $obj = new Catalog;
+        $ret = $obj->get_all_for_product($p);
+        $output = '<option value="' . $p . '">請選子分類（可不選）</option>';
+        foreach ($ret as $v)
+            $output.='<option value="' . $v['id'] . '">' . $v['title'] . '</option>';
+
+        echo $output;
+        exit;
     }
 
     function get_detail_crumb_html()
@@ -73,114 +87,23 @@ class Catalog extends Superobj
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
                     <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                    <li><span>新增大分類</span></li>
+                    <li><span>產品列表</span></li>
                 </ul>';
 
         return $crumb;
     }
 
-    function get_cat_detail_crumb_html()
-    {
-        $crumb = '<ul class="crumb">
-                    <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                    <li><span>編輯子分類</span></li>
-                </ul>';
-
-        return $crumb;
-    }
-
-    function get_cat_crumb_html()
-    {
-        $crumb = '<ul class="crumb">
-                        <li><a href="index.php" class="home">&nbsp;</a></li>
-                        <li><a href="product_bcatalog.php">產品管理</a></li>                    
-                        <li><span>子分類列表</span></li>
-                    </ul>';
-
-        return $crumb;
-    }
-
-    function get_cat_toolbar_html()
-    {
-        $toolbar = '<ul class="group">
-                        <li><a href="product_catalog_detail.php" class="folder-add">新增子分類</a></li>
-                    </ul>
-                    <ul class="group">
-                        <li><a href="#" onclick="return del();" class="folder-delete">批次刪除</a></li>
-                        <li><a href="#" onclick="return sale(1);" class="on">批次上架</a></li>
-                        <li><a href="#" onclick="return sale(0);" class="off">批次下架</a></li>
-                    </ul>';
-
-        return $toolbar;
-    }
-
-    #################################################################################################
     function get_all()
     {
         if (is_numeric($_GET['s']) && $_GET['s'] != '')
             $wheres = " AND `status` = " . $_GET['s'];
 
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE `parent` = 0 " . $wheres . " ORDER BY `sequ` ASC";
-        return parent::get_list($this->list_this);
-    }
+        if ($_GET['p'] != 0)
+            $parent = " AND `parent` = " . (int) $_GET['p'];
 
-    function get_parent_title_arr_for_product()
-    {
-        $this->list_this = "SELECT * FROM " . $this->tbname;
-        $ret = parent::get_list($this->list_this);
-        $arr = array();
-        foreach ($ret as $v)
-            $arr[$v['id']] = $v['title'];
-
-        return $arr;
-    }
-
-    function get_all_for_product($p)
-    {
-        if (!is_numeric($p))
-            return false;
-
-        $this->list_this = "SELECT a.* FROM " . $this->tbname . " a WHERE 1 AND a.`parent` = " . $p . " " . $wheres . " ORDER BY a.`sequ` ASC";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE  1 " . $parent . " " . $wheres . " ORDER BY `sequ` ASC";
         // exit($this->list_this);
         return parent::get_list($this->list_this);
-    }
-
-    function get_parent_for_product($p)
-    {
-        if (!is_numeric($p))
-            return false;
-
-        $this->list_this = "SELECT `parent` FROM " . $this->tbname . " WHERE `id` = " . $p;
-        $ret = parent::get_list($this->list_this, 1);
-        return $ret['parent'];
-    }
-
-    function get_cat_all()
-    {
-        if (is_numeric($_GET['cs']) && $_GET['cs'] != '')
-            $wheres = " AND a.`status` = " . $_GET['cs'];
-
-
-        if ((int) $_GET['bc'] > 0)
-        {
-            $parent = "a.`parent` = " . (int) $_GET['bc'];
-        }else
-            $parent = "a.`parent` != 0 ";
-
-        $this->list_this = "SELECT a.*, b.`title` `bc` FROM " . $this->tbname . " a, " . $this->tbname . " b WHERE (a.`parent` = b.`id`) AND " . $parent . $wheres . " ORDER BY a.`sequ` ASC";
-        // exit($this->list_this);
-        return parent::get_list($this->list_this);
-    }
-
-    function get_cat_detail($pk = '')
-    { //列出單筆細節
-        $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
-
-        if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " where " . $this->PK . "=" . $pk;
-
-        return parent::get_list($this->detail_this, 1);
     }
 
     function get_detail($pk = '')
@@ -191,16 +114,6 @@ class Catalog extends Superobj
             $this->detail_this = "SELECT * FROM " . $this->tbname . " where " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
-    }
-
-    function get_catalog($id)
-    {
-        if (!is_numeric($id))
-            return false;
-
-        $this->set_field($this->tbname_cat);
-        $ret = self::get_cat_detail($id);
-        return $ret['title'];
     }
 
     #############################################################################
@@ -231,20 +144,78 @@ class Catalog extends Superobj
         return $this->status_arr[$v];
     }
 
+    function get_pre_img($path = "")
+    {
+        if (is_file($this->get_dir() . $path))
+            return $this->get_dir() . "s_" . $path;
+        else
+            return "images/logo.png";
+    }
+
+    function get_img_detail($p = "")
+    {
+        $p = (is_numeric($_GET['p'])) ? $_GET['p'] : $p;
+
+        $sql = "SELECT * FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " ORDER BY `master` DESC, `id` ASC";
+        return parent::get_list($sql);
+    }
+
+    function get_img_master($p)
+    {
+        if (!is_numeric($p))
+            return false;
+
+        $sql = "SELECT `id` FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " AND `master` = 1";
+        return parent::get_list($sql, 1);
+    }
+
     ############################################################################
     function renew()
     {
-        /* 子分類 */
-        if ($this->post_arr['parent'] > 0)
+        /* for images */
+        if ($this->tbname == add_field_quotes($this->tbname_img))
         {
-            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
-            self::set_sort_where($this->post_arr['parent']);
+            /* 手動設定封面 */
+            if (is_numeric($_POST['master']))
+            {
+                $ret = self::get_img_master($_POST['parent']);
+                $arr = array('id' => $ret['id'], 'master' => 0);
+                parent::renew($arr);
+                $arr = array('id' => $_POST['master'], 'master' => 1);
+                parent::renew($arr);
+                return;
+            }
+
+            self::set_back("product_detail_photo.php?p=" . $_POST['parent']);
+            foreach ($_POST['path'] as $v)
+            {
+                $arr = array('path' => $v, 'parent' => $_POST['parent']);
+                parent::renew($arr);
+            }
+
+            self::set_master();
+            
+            return;
         }
+
+        self::set_back("product.php?p=" . $_POST['parent']);
         parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
     }
 
     function killu()
     {
+        /* for images */
+        if ($this->tbname == add_field_quotes($this->tbname_img))
+        {
+            parent::killu();
+            
+            self::set_master();
+            ob_clean();
+
+            echo 'ok';
+            exit;
+        }
+
         if ($this->post_arr['parent'])
         {
             self::set_back("product_catalog.php?bc=" . $_POST['parent']);
@@ -256,7 +227,7 @@ class Catalog extends Superobj
     {
         if ($this->post_arr['parent'])
         {
-            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+            self::set_back("product.php?p=" . $_POST['parent'] . "&s=" . $_POST['status']);
         }
 
         foreach ($this->del_arr as $v)
@@ -298,4 +269,21 @@ class Catalog extends Superobj
         $this->sort_where = " AND `parent` = " . (int) $parent;
     }
 
+    function get_s_size()
+    {
+        return $this->s_size;
+    }
+
+    function set_master(){
+        /* 自動設定封面 */
+        if (!$ret = self::get_img_master($_POST['parent']))
+        {
+            if ($ret = self::get_img_detail($_POST['parent']))
+            {
+                $arr = array('id' => $ret[0]['id'], 'master' => 1);
+                parent::renew($arr);
+            }
+        }
+        return;
+    }
 }

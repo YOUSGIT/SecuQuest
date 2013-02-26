@@ -25,13 +25,20 @@ switch ($_GET['func'])
 {
     case "adv":
         $obj = new Banner;
-        $f = $obj->sdir;
-        $s_size = $obj->s_size;
+        $f = $obj->get_dir();
+        $s_size = $obj->get_s_size();
         break;
+
     case "news":
         $obj = new News;
-        $f = $obj->sdir;
-        $s_size = $obj->s_size;
+        $f = $obj->get_dir();
+        $s_size = $obj->get_s_size();
+        break;
+
+    case "pd":
+        $obj = new Product;
+        $f = $obj->get_dir();
+        $s_size = $obj->get_s_size();
         break;
 
     default:
@@ -43,5 +50,6 @@ define("pin_upload_path", _ROOT . $f);
 require_once("class_qqUploaded.php");
 $uploader = new qqFileUploader;
 // echo(pin_upload_path);
+usleep(mt_rand(500000, 1000000));
 $result = $uploader->handleUpload(pin_upload_path, $s_size);
 echo json_encode($result);

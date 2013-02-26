@@ -49,14 +49,15 @@ if ($FUNC)
             $func = new Catalog;
             break;
 
-        case "sv":
+        case "product_img":
 
-            $func = new Service;
+            $func = new Product;
+            $func->set_field(PRODUCT_IMG);
             break;
 
-        case "svf":
+        case "product":
 
-            $func = new Service_files;
+            $func = new Product;
             break;
 
         case "custom":
@@ -124,6 +125,10 @@ switch ($DOIT)
 
     case "info":
         $func->renew_info();
+        break;
+
+    case "catalog":
+        $func->get_catalog();
         break;
 }
 

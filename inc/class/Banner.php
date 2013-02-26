@@ -190,4 +190,9 @@ class Banner extends Superobj
         return $this->is_sort;
     }
 
+    function get_s_size()
+    {
+        return $this->s_size;
+    }
+
 }

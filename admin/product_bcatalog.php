@@ -72,10 +72,10 @@ require_once(INC_ADMIN . "head.inc.php");
 </table>
 <script>
     var form = $('form[data-target="form"]');
-
+    
     $(function ()
     {
-        sel_status()
+        sel_status();
     });
     
     function del()
@@ -103,14 +103,16 @@ require_once(INC_ADMIN . "head.inc.php");
         });
     }
     
-    function save(){
+    function save()
+    {
         $("input[name='doit']").val("sort");
         form.submit();
         return false;
     }
     
-    function sale(status){
-        if(isNaN(status))
+    function sale(status)
+    {
+        if (isNaN(status))
         {
             alert("Error");
             return false;
