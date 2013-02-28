@@ -43,7 +43,7 @@ require_once("inc/head.inc.php");
                 <div class="static-html">
                     <legend><?= $ret['title']; ?></legend>
                     <small><?= $ret['dates']; ?></small>
-                    <p><?= nl2br($ret['content']); ?></p>
+                    <p><?= ($ret['content']); ?></p>
                 </div>
             </div>
         </div>            	            

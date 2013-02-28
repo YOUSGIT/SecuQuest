@@ -90,10 +90,10 @@ require_once("inc/head.inc.php");
                     <li><a href="#downloads">Downloads</a></li>
                 </ul>
                 <div id="features" class="product-detail">
-                    <p><?= nl2br($ret['feature']); ?></p>
+                    <p><?= $ret['feature']; ?></p>
                 </div>
                 <div id="specifications" class="product-detail">
-                    <p><?= nl2br($ret['spec']); ?></p>                   	
+                    <p><?= $ret['spec']; ?></p>                   	
                 </div>
                 <div id="downloads" class="product-detail">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-normal">

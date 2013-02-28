@@ -66,7 +66,7 @@ require_once("inc/head.inc.php");
                         ?>
                         <li class="item">
                             <a href="product_detail.php?id=<?= $v['id']; ?>">
-                                <img src="<?= $product->get_pre_img($v['path']); ?>" width="200" height="200" />
+                                <img src="<?= $product->get_pre_img($v['path']); ?>" />
                                 <h1><?= $v['title']; ?></h1>
                                 <p><?= mb_substr(strip_tags($v['brief']), 0, 50) . '...'; ?></p>
                             </a>

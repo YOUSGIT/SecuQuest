@@ -134,6 +134,7 @@ switch ($DOIT)
 
     case "product":
         $func->get_product();
+        exit;
         break;
 }
 

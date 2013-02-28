@@ -37,7 +37,7 @@ require_once("inc/head.inc.php");
             <div class="right-col">
                 <div class="location-list">
                     <legend>General Info</legend>
-                    <?= nl2br($ret['content']); ?>
+                    <?= ($ret['content']); ?>
                 </div>
             </div>
         </div>            	            

@@ -251,7 +251,7 @@ class Support extends Superobj
         return parent::get_list($this->detail_this, 1);
     }
 
-    function get_down_all_front($c)
+    function get_down_all_front($c, $p)
     { //列出檔案全部
         if (is_numeric($c))
             $wheres = " AND ( c.`parent` = " . $c . " || c.`id` = " . $c . ")";
@@ -264,7 +264,7 @@ class Support extends Superobj
                                 LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
                                 LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
                                 LEFT JOIN " . $this->tbname_bcat . " d ON c.`parent` = d.`id`
-                                WHERE 1" . $wheres;
+                                WHERE a.`pid` = " . $p . " " . $wheres;
         // exit($this->detail_this);
         return parent::get_list($this->detail_this);
     }

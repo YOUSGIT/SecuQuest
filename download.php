@@ -12,7 +12,7 @@ $catalog_arr = $catalog->get_all_front();
 $c = (!$_GET['c']) ? (int) $catalog_arr[0]['id'] : $_GET['c'];
 $pd = new Product;
 $pd_arr = $pd->get_product($c);
-$down_arr = $support->get_down_all_front($c);
+
 
 require_once("inc/head.inc.php");
 ?>
@@ -78,6 +78,7 @@ require_once("inc/head.inc.php");
                                 <th colspan="5" align="left"><?= $v['title']; ?></th>
                             </tr>
                             <?php
+                            $down_arr = $support->get_down_all_front($c, $v['id']);
                             foreach ($down_arr as $v2)
                             {
                                 ?>

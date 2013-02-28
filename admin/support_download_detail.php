@@ -65,7 +65,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 <tr>
                                     <th align="right">產品</th>
                                     <td><select name="pid" data-target="product" class="span2 required catalog_confirm">
-                                            <option value="0" selected="selected">請選擇產品</option>
+                                            <option value="0" selected="selected">請選擇分類</option>
                                             <?php
                                             foreach ($pd_arr as $v)
                                             {
@@ -123,7 +123,7 @@ require_once(INC_ADMIN . "head.inc.php");
     {
         validator = _FORM.validate();
         init_file_upload();
-        get_product();
+        get_products();
         // validator.resetForm();
     });
 
@@ -173,7 +173,7 @@ require_once(INC_ADMIN . "head.inc.php");
         return false;
     }
 
-    function get_product()
+    function get_products()
     {
         $('select[data-target="bcatalog"]').on("change", function ()
         {
@@ -185,7 +185,7 @@ require_once(INC_ADMIN . "head.inc.php");
             {
                 func: 'product',
                 doit: 'product',
-                p: $(this).val()
+                p: self.val()
             }, function (ret)
             {
                 $('select[data-target="product"]').html(ret);

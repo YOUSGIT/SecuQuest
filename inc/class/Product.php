@@ -14,7 +14,7 @@ class Product extends Superobj
     protected $tbname_img = PRODUCT_IMG;
     var $sdir = PD_Image;
     var $back = './product.php?p=';
-    public $s_size = array("m" => array("w" => 600, "h" => 600), "s" => array("w" => 2400, "h" => 150), "ss" => array("w" => 2400, "h" => 50));
+    public $s_size = array("m" => array("w" => 2400, "h" => 360), "s" => array("w" => 2400, "h" => 150), "ss" => array("w" => 2400, "h" => 50));
     var $is_image = false;
     var $list_this;
     var $detail_this;
@@ -152,16 +152,20 @@ class Product extends Superobj
     /* for 檔案下載列表 */
     function get_product($p = '')
     {
-        if (!is_numeric($_POST['p']) && !is_numeric($p))
-            exit("[331]");
+        if ($_POST['p'] <= 0 && $p <= 0)
+            return false;
 
-        if (is_numeric($_POST['p']) && !$p)
+        if (is_numeric($_POST['p']) && $p == '')
             $p = $_POST['p'];
 
         $obj = new Catalog;
         $ret = $obj->get_all_for_product($p);
         $parent_arr = array();
         $parent_arr[0] = $p;
+
+        if (!$_POST['p'])
+            $ret_arr = array();
+
         foreach ($ret as $v)
             $parent_arr[] = $v['id'];
 
@@ -169,17 +173,21 @@ class Product extends Superobj
 
         foreach ($parent_arr as $v)
         {
-            $ret = self::get_all($v);
-            foreach ($ret as $v2)
+            $ret2 = self::get_all($v);
+            foreach ($ret2 as $v2)
             {
                 $vr = $v2['id'];
                 $tr = $v2['title'];
+                $ret_arr[] = $v2;
                 $output .= '<option value="' . $v2['id'] . '">' . $v2['title'] . '</option>';
             }
         }
+
+        /* for下拉二層選單 */
         if (!$_POST['p'])
-            return $ret;
+            return $ret_arr;
         echo $output;
+
         exit;
     }
 
@@ -206,11 +214,14 @@ class Product extends Superobj
         // if (is_numeric($s) && $s != '')
         // $wheres = " AND a.`status` = " . $s;
 
-        if (is_numeric($p) && $p != '')
+        if ((is_numeric($p) && $p != '')/*  ||  */)
         {
             $parent = " AND a.`parent` = " . $p;
             $brief = " , a.`brief` ";
         }
+
+        if ($this->this_Page == 'products.php')
+            $brief = " , a.`brief` ";
 
         if (is_numeric($l) && $l > 0)
             $limit = " LIMIT 0, " . $l;

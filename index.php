@@ -40,8 +40,8 @@ $news_arr = $news->get_front(3);
                 <div class="title">
                     <div class="intro">
                         <h1><?= $v['title']; ?></h1>
-                        <div class="content"><?= mb_substr(strip_tags($v['content']), 0, 50) . '...'; ?></div>
-                        <a href="#" class="more">Learn More</a>
+                        <div class="content"><?= strip_tags($v['content']) . '...'; ?></div>
+                        <a href="<?= $v['link']; ?>" target="_blank" class="more">Learn More</a>
                     </div>                           
                 </div>
                 <?php
@@ -81,7 +81,7 @@ $news_arr = $news->get_front(3);
                             echo'<div class="group">';
                         ?>
                         <?= $k; ?><a class="item" href="product_detail.php?id=<?= $v['id']; ?>">
-                            <span class="photo"><img src="<?= $product->get_pre_img($v['path']); ?>" width="150" height="150" /></span>
+                            <span class="photo"><img src="<?= $product->get_pre_img($v['path']); ?>" /></span>
                             <span class="name"><?= $v['title']; ?></span>
                         </a>
                         <?php
@@ -97,7 +97,7 @@ $news_arr = $news->get_front(3);
                 foreach ($news_arr as $k => $v)
                 {
                     ?>
-                    <div class="item <?= $k == 2 ? "LST" : "" ?>">
+                    <div class="item <?= $k == 2 ? "lst" : "" ?>">
                         <div class="photo" style="background-image:url(<?= $news->get_pre_img($v['path']); ?>)"></div>
                         <a href="news.php?id=<?= $v['id']; ?>" class="content">
                             <h1><?= $v['title']; ?></h1>

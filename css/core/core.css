@@ -272,6 +272,12 @@ a:hover{ color:#666;}
 	zoom:1;
 	background-color:#FFF;
 }
+.body .banner .pager a img{
+	width:auto;
+	height:auto;
+	max-width:50px;
+	max-height:50px;
+}
 
 .body .banner .pager .activeSlide a{
 	border-color:#ec8e00;
@@ -399,6 +405,10 @@ a:hover{ color:#666;}
 	display:inline-block;
 	*display:inline;
 	zoom:1;
+	width:150px;
+	height:150px;
+	text-align:center;
+	vertical-align:middle;
 }
 .index-new-products .frame .group .item .name{
 	display:block;	
@@ -447,8 +457,7 @@ a:hover{ color:#666;}
 	background-position:right bottom;
 }
 .index-new-products img{
-	width:150px;
-	height:150px;
+vertical-align:middle;
 }
 
 .index-news{ margin-top:30px;font-size:0px;}
@@ -607,12 +616,18 @@ a:hover{ color:#666;}
 	display:block;
 	padding-bottom: 27px;
 	text-decoration:none;
-	color:#333;	
+	color:#333;
+	width:200px;
+	display:inline-block;
+	*display:inline;
+	zoom:1;
+	text-align:center;
 }
 .products-list .item h1{
 	font-size:11pt;
 	margin:0px;
 	margin-top:5px;
+	text-align:left;
 }
 .products-list .item p{
 	font-size:9pt;
@@ -623,6 +638,7 @@ a:hover{ color:#666;}
 	color:#666;
 	margin:0px;
 	margin-top:5px;
+	text-align:left;
 }
 .products-list .item:hover h1{
 	color:#ec8e00;
