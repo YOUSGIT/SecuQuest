@@ -1,117 +1,202 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SecuQuest 網站管理系統</title>
-<link href="theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="theme/core/admin.css" rel="stylesheet" type="text/css" />
-<link href="theme/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
+<?php
+require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+define("CAT", 4);
 
-<script type="text/javascript" src="script/jquery1.9.min.js"></script>
-<script type="text/javascript" src="script/jquery-ui-1.10.0.custom.min.js"></script>
-<script type="text/javascript" src="theme/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="script/admin.js"></script>
-<script type="text/javascript">
-	
-</script>
-</head>
+$obj = new Support;
+$crumb = $obj->get_down_detail_crumb_html();
+$ret = $obj->get_down_detail();
 
-<body>
-	<div class="global-container">
-    	<div class="header">
-            <div class="guide clearfix">
-                <div class="logo"><img src="images/logo.png" height="25" /></div>
-                <ul class="guide-nav">
-                    <li>登入中</li>
-                    <li><a href="../index.php" target="_blank">首頁</a></li>
-                </ul>
-            </div>
-            <ul class="nav">
-                <li><a href="website_banner.php">網站管理</a></li>
-                <li><a href="news.php">新聞管理</a></li>
-                <li><a href="product_bcatalog.php">產品管理</a></li>
-                <li><a href="support.php" class="active">支援管理</a></li>
-                <li><a href="contact.php">聯絡我們</a></li>                
-                <li><a href="about.php">關於我們</a></li>
+$catalog = new Catalog;
+$bcatalog_arr = $catalog->get_all_for_product(0);
+
+$pd = new Product;
+$pd_arr = $pd->get_all();
+require_once(INC_ADMIN . "head.inc.php");
+?>
+<script type="text/javascript" src='../script/jquery.validate.js'></script>
+<script type="text/javascript" src='../script/jquery.form.js'></script>
+<script type="text/javascript" src="./inc/fineuploader.jquery/jquery.fineuploader-3.0.min.js"></script>
+<link href="inc/fineuploader.jquery/fineuploader.css" rel="stylesheet" type="text/css" />
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+        <td class="left-col">
+            <ul class="side-bar">
+                <li><a href="support.php">支援列表</a></li>
+                <li><a href="support_catalog.php">支援分類</a></li>
+                <li><a href="support_download.php" class="active">檔案下載列表</a></li>
             </ul>
-            <div class="tool-bar clearfix">            	            	            
-            </div>
-            <div class="info-bar">
-                <ul class="crumb">
-                    <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">支援管理</a></li>                    
-                    <li><span>支援列表</span></li>
-                </ul>
-            </div>
-        </div>
-        
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
-          <tr>
-            <td class="left-col">
-            	<ul class="side-bar">
-                    <li><a href="support.php">支援列表</a></li>
-                    <li><a href="support_catalog.php">支援分類</a></li>
-                    <li><a href="support_download.php" class="active">檔案下載列表</a></li>
-                </ul>
-            </td>
-            <td class="middle-col">&nbsp;</td>
-            <td class="right-col">
-            	<div class="module-tool">
-                    <div class="group">
-                	<button class="btn btn-info" type="button">儲存</button>
-                    <button class="btn" type="button">取消</button>
-                    </div>
-                </div> 
-              <div class="module-form">
-                    <ul class="mheader">
-                    	<li><a href="#" class="active">新增檔案/修改檔案</a></li>                        
-                    </ul>
-                    <div class="main-container">
-                    	<div class="mbody">
-                          <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <th width="100" align="right">名稱</th>
-                                <td><input type="text" placeholder="請輸入名稱…" class="span10"></td>
-                              </tr>
-                              <tr>
-                                <th align="right">分類</th>
-                                <td>
-                                	<select class="span2">
-                                      <option selected="selected">IP Cam（產品大分類）</option>
-                                      <option >DVD System</option>
-                                    </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th align="right">產品</th>
-                                <td><select name="select" class="span2">
-                                  <option selected="selected">Product1</option>
-                                  <option >Product2</option>
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <th align="right">簡述</th>
-                                <td><input type="text" placeholder="請輸入簡述…" class="span10" /></td>
-                              </tr>
-                              <tr>
-                                <th rowspan="2" align="right">檔案上傳</th>
-                                <td><a href="#" class="remove word">Readme.pdf<span class="text">移除</span></a></td>
-                              </tr>
-                              <tr>
-                                <td><input type="file"/></td>
-                              </tr>
-                            </table>
-						</div>
-               	  </div>
+        </td>
+        <td class="middle-col">&nbsp;</td>
+        <td class="right-col">
+            <div class="module-tool">
+                <div class="group">
+                    <button class="btn btn-info" type="button" onclick="return save();">儲存</button>
+                    <!--<button class="btn" type="button">取消</button>-->
                 </div>
-                
+            </div> 
+            <div class="module-form">
+                <ul class="mheader">
+                    <li><a href="#" class="active">新增檔案/修改檔案</a></li>                        
+                </ul>
+                <div class="main-container">
+                    <div class="mbody">
+                        <form data-target="form" method="post" action="func.php">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th width="100" align="right">名稱</th>
+                                    <td><input type="text" placeholder="請輸入名稱…" name="title" class="span10" value="<?= $ret['title']; ?>" required/></td>
+                                </tr>
+                                <tr>
+                                    <th align="right">分類</th>
+                                    <td>
+                                        <select data-target="bcatalog" class="span4">                        	
+                                            <option value="">請選擇分類</option>
+                                            <?php
+                                            foreach ($bcatalog_arr as $v)
+                                            {
+                                                ?>
+                                                <option value="<?= $v['id']; ?>" <?= ($ret['parent'] == $v['id']) ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="right">產品</th>
+                                    <td><select name="pid" data-target="product" class="span2 required catalog_confirm">
+                                            <option value="0" selected="selected">請選擇產品</option>
+                                            <?php
+                                            foreach ($pd_arr as $v)
+                                            {
+                                                ?>
+                                                <option value="<?= $v['id']; ?>" <?= $ret['pid'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="right">簡述</th>
+                                    <td><input type="text" name="brief" placeholder="請輸入簡述…" class="span10" value="<?= $ret['brief']; ?>" required/></td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2" align="right">檔案上傳</th>
+                                    <td><div <?= !$ret['path'] ? 'style="display:none;"' : ''; ?> data-target="download">
+                                            <a href="#" class="remove word" data-target="link_path"><span data-target="pre_path"><?= $ret['path']; ?></span><span class="text" onclick="return file_remove(this,<?= $v['id']; ?>);">移除</span></a>
+                                            <a data-target="download"  href="<?= $obj->get_dir() . $ret['path']; ?>" target="_blank"> (開啟檔案)</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div id="jquery-wrapped-fine-uploader"></div></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="func" value="support_down"/>
+                            <input type="hidden" name="doit" value="renew"/>
+                            <input type="hidden" name="path" value="<?= $ret['path']; ?>"/>
+                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var validator;
+    var _FORM = $("form[data-target='form']");
+    var _path_url = "<?= $obj->get_dir(); ?>";
+    var file_path = $("input[name='path']");
+    var pre_link = $('a[data-target="link_path"]');
+    var pre_download = $('div[data-target="download"]');
+    var link_download = $('a[data-target="download"]');
+    var pre_path = $('span[data-target="pre_path"]');
 
-            </td>
-          </tr>
-        </table>
-        <div class="footer">
-        	Power By YOUS
-        </div>
-    </div>
-</body>
-</html>
+    $.validator.addMethod("catalog_confirm", function (value)
+    {
+        return value != "0";
+    }, "請選擇產品");
+
+    $(document).ready(function (e)
+    {
+        validator = _FORM.validate();
+        init_file_upload();
+        get_product();
+        // validator.resetForm();
+    });
+
+    function save()
+    {
+        if (_FORM.valid()) _FORM.submit();
+
+        return false;
+    }
+
+    function init_file_upload()
+    {
+        // var addedFiles=1;
+        // var fileLimit=1;
+        $('#jquery-wrapped-fine-uploader').fineUploader(
+        {
+            request: {
+                endpoint: 'inc/fineuploader.jquery/upload.php?func=down'
+            },
+            debug: true
+        }).on('complete', function (event, id, fileName, responseJSON)
+        {
+            if (responseJSON.success)
+            {
+                alert("上傳成功");
+                file_path.val(responseJSON.filename);
+                pre_path.text(fileName);
+                pre_download.fadeIn();
+                link_download.prop("href", _path_url + responseJSON.filename);
+                // addedFiles++;
+            }
+            else alert("上傳失敗");
+        });
+
+        // alert(upload_temp_path);
+        return;
+    }
+
+    function file_remove(id)
+    {
+        if (!confirm("確認刪除?")) return false;
+
+        file_path.val("");
+        pre_download.fadeOut();
+        pre_path.text("");
+        alert("請儲存以設定變更");
+        return false;
+    }
+
+    function get_product()
+    {
+        $('select[data-target="bcatalog"]').on("change", function ()
+        {
+            var self = $(this);
+            self.css("cursor", "wait");
+            $('select[name="pid"]').css("cursor", "wait");
+
+            $.post("func.php",
+            {
+                func: 'product',
+                doit: 'product',
+                p: $(this).val()
+            }, function (ret)
+            {
+                $('select[data-target="product"]').html(ret);
+                self.css("cursor", "auto");
+                $('select[name="pid"]').css("cursor", "auto");
+                return;
+            }, 'html');
+
+            return false;
+        });
+    }
+</script>
+<?php
+require_once(INC_ADMIN . "footer.inc.php");

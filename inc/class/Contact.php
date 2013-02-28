@@ -10,7 +10,7 @@ class Contact extends Superobj
     protected $del_arr;
     protected $limit = 2; //上傳檔案大小
     protected $sort_where = " 1";
-    protected $tbname = CUSTOMER;
+    protected $tbname = CONTACT;
     protected $tbname_info = CONTACT_INFO;
     var $sdir;
     var $back = './contact.php';
@@ -54,7 +54,29 @@ class Contact extends Superobj
         return $crumb;
     }
 
-    function get_toolbar_html()
+    function get_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                    <li><a href="index.php" class="home">&nbsp;</a></li>
+                    <li><a href="product_bcatalog.php">聯絡我們</a></li>                    
+                    <li><span>客服列表</span></li>
+                    </ul>';
+
+        return $crumb;
+    }
+
+    function get_detail_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                    <li><a href="index.php" class="home">&nbsp;</a></li>
+                    <li><a href="contact.php">聯絡我們</a></li>                    
+                    <li><span>客服列表</span></li>
+                </ul>';
+
+        return $crumb;
+    }
+
+    function get_info_toolbar_html()
     {
         $toolbar = '<ul class="group">
                         <li><a href="about_detail.php" class="file-add">新增內容</a></li>
@@ -66,15 +88,32 @@ class Contact extends Superobj
         return $toolbar;
     }
 
+    function get_toolbar_html()
+    {
+        $toolbar = '<ul class="group">
+                        <li><a href="#" onclick="return del();" class="file-delete">批次刪除</a></li>
+                    </ul>';
+
+        return $toolbar;
+    }
+
     function get_all()
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `sequ` ASC";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `dates` DESC";
         return parent::get_list($this->list_this);
     }
 
     function get_info_detail()
     {
         $this->detail_this = "SELECT * FROM " . $this->tbname_info . " WHERE " . $this->PK . "= 1";
+
+        return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_detail($pk = '')
+    {
+        $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
+        $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE " . $this->PK . "= " . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }

@@ -35,7 +35,11 @@ require_once(INC_ADMIN . "head.inc.php");
             <div class="module-form">
                 <ul class="mheader">
                     <li><a href="product_detail.php" class="active">新增產品/修改產品</a></li>
-                    <li><a href="product_detail_photo.php?p=<?= $ret['id']; ?>">產品圖片</a></li>                        
+                    <?php if ($ret['id']): ?>
+                        <li><a href="product_detail_photo.php?p=<?= $ret['id']; ?>">產品圖片</a></li>                        
+                        <?php
+                    endif;
+                    ?>
                 </ul>
                 <div class="main-container">
                     <div class="mbody">
@@ -58,7 +62,6 @@ require_once(INC_ADMIN . "head.inc.php");
                                                 <?php
                                             }
                                             ?>
-                                        </select>
                                         </select>
                                     </td>
                                 </tr>
@@ -115,32 +118,33 @@ require_once(INC_ADMIN . "head.inc.php");
     var validator;
     var _FORM = $("form[data-target='form']");
     var parent = $("input[name='parent']");
-    
+
     $.validator.addMethod("catalog_confirm", function (value)
     {
         return (value != "0" && value != "");
     }, "請選擇分類");
-    
+
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
+
+        /* init ckeditor */
         var editor2 = CKEDITOR.replace('feature');
         var editor3 = CKEDITOR.replace('spec');
         CKFinder.setupCKEditor(editor2, 'inc/ckfinder/');
         CKFinder.setupCKEditor(editor3, 'inc/ckfinder/');
+
         set_parent();
         get_catalog();
-        // init_file_upload();
-        // validator.resetForm();
     });
-    
+
     function save()
     {
         if (_FORM.valid()) _FORM.submit();
-        
+
         return false;
     }
-    
+
     function set_parent()
     {
         $("select[data-target]").on("change", function ()
@@ -148,11 +152,14 @@ require_once(INC_ADMIN . "head.inc.php");
             parent.val($(this).val());
         });
     }
-    
+
     function get_catalog()
     {
         $("select[data-target='bcatalog']").on("change", function ()
         {
+            var s = $("select[data-target='catalog']");
+            s.prop("disabled", true).css("cursor", "wait");
+
             $.post("func.php",
             {
                 func: 'product',
@@ -160,8 +167,8 @@ require_once(INC_ADMIN . "head.inc.php");
                 p: $(this).val()
             }, function (ret)
             {
-                var s = $("select[data-target='catalog']");
                 s.html(ret);
+                s.prop("disabled", false).css("cursor", "auto");
                 return;
             }, "html");
         });

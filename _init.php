@@ -48,10 +48,11 @@ if (LANG != 'en')
     define('CATALOG', 'catalog');
     define('PRODUCT', 'product');
     define('PRODUCT_IMG', 'product_img');
-    define('CUSTOMER', 'customer');
+    define('CONTACT', 'contact');
     define('CONTACT_INFO', 'contact_info');
     define('SUPPORT_CAT', 'support_catalog');
     define('SUPPORT', 'support');
+    define('SUPPORT_DOWN', 'support_download');
 }
 else
 {
@@ -62,10 +63,11 @@ else
     define('CATALOG', 'en_catalog');
     define('PRODUCT', 'en_product');
     define('PRODUCT_IMG', 'en_product_img');
-    define('CUSTOMER', 'en_customer');
+    define('CONTACT', 'en_contact');
     define('CONTACT_INFO', 'en_contact_info');
     define('SUPPORT_CAT', 'en_support_catalog');
     define('SUPPORT', 'en_support');
+    define('SUPPORT_DOWN', 'en_support_download');
 }
 
 

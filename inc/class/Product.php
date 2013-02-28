@@ -93,15 +93,23 @@ class Product extends Superobj
         return $crumb;
     }
 
-    function get_all()
+    function get_all($p = '', $s = '')
     {
-        if (is_numeric($_GET['s']) && $_GET['s'] != '')
-            $wheres = " AND `status` = " . $_GET['s'];
 
-        if ($_GET['p'] != 0)
-            $parent = " AND `parent` = " . (int) $_GET['p'];
+        $s = (!is_numeric($s)) ? $_GET['s'] : $s;
+        $p = (!is_numeric($p)) ? $_GET['p'] : $p;
 
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE  1 " . $parent . " " . $wheres . " ORDER BY `sequ` ASC";
+        if (is_numeric($s) && $s != '')
+            $wheres = " AND a.`status` = " . $s;
+
+        if (is_numeric($p) && $p != '')
+            $parent = " AND a.`parent` = " . $p;
+
+        $this->list_this = "SELECT a.*, b.`path` 
+                            FROM " . $this->tbname . " a
+                            LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` 
+                            WHERE  1 " . $parent . " " . $wheres . " AND b.`master` = 1
+                            ORDER BY a.`sequ` ASC";
         // exit($this->list_this);
         return parent::get_list($this->list_this);
     }
@@ -111,9 +119,63 @@ class Product extends Superobj
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " where " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_pre_img($path = "")
+    {
+        if (is_file($this->get_dir() . $path))
+            return $this->get_dir() . "s_" . $path;
+        else
+            return "images/logo.png";
+    }
+
+    function get_img_detail($p = "")
+    {
+        $p = (is_numeric($_GET['p'])) ? $_GET['p'] : $p;
+
+        $sql = "SELECT * FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " ORDER BY `master` DESC, `id` ASC";
+        return parent::get_list($sql);
+    }
+
+    function get_img_master($p)
+    {
+        if (!is_numeric($p))
+            return false;
+
+        $sql = "SELECT `id` FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " AND `master` = 1";
+        return parent::get_list($sql, 1);
+    }
+
+    /* for 檔案下載列表 */
+    function get_product()
+    {
+        if (!is_numeric($_POST['p']))
+            exit;
+
+        $obj = new Catalog;
+        $ret = $obj->get_all_for_product($_POST['p']);
+        $parent_arr = array();
+        $parent_arr[0] = $_POST['p'];
+        foreach ($ret as $v)
+            $parent_arr[] = $v['id'];
+
+        $output = '<option value="0" selected="selected">請選擇產品</option>';
+
+        foreach ($parent_arr as $v)
+        {
+            $ret = self::get_all($v);
+            foreach ($ret as $v2)
+            {
+                $vr = $v2['id'];
+                $tr = $v2['title'];
+                $output .= '<option value="' . $v2['id'] . '">' . $v2['title'] . '</option>';
+            }
+        }
+        echo $output;
+        exit;
     }
 
     #############################################################################
@@ -144,31 +206,6 @@ class Product extends Superobj
         return $this->status_arr[$v];
     }
 
-    function get_pre_img($path = "")
-    {
-        if (is_file($this->get_dir() . $path))
-            return $this->get_dir() . "s_" . $path;
-        else
-            return "images/logo.png";
-    }
-
-    function get_img_detail($p = "")
-    {
-        $p = (is_numeric($_GET['p'])) ? $_GET['p'] : $p;
-
-        $sql = "SELECT * FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " ORDER BY `master` DESC, `id` ASC";
-        return parent::get_list($sql);
-    }
-
-    function get_img_master($p)
-    {
-        if (!is_numeric($p))
-            return false;
-
-        $sql = "SELECT `id` FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " AND `master` = 1";
-        return parent::get_list($sql, 1);
-    }
-
     ############################################################################
     function renew()
     {
@@ -194,7 +231,7 @@ class Product extends Superobj
             }
 
             self::set_master();
-            
+
             return;
         }
 
@@ -208,7 +245,7 @@ class Product extends Superobj
         if ($this->tbname == add_field_quotes($this->tbname_img))
         {
             parent::killu();
-            
+
             self::set_master();
             ob_clean();
 
@@ -274,7 +311,8 @@ class Product extends Superobj
         return $this->s_size;
     }
 
-    function set_master(){
+    function set_master()
+    {
         /* 自動設定封面 */
         if (!$ret = self::get_img_master($_POST['parent']))
         {
@@ -286,4 +324,5 @@ class Product extends Superobj
         }
         return;
     }
+
 }

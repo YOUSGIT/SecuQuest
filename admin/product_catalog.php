@@ -88,9 +88,9 @@ require_once(INC_ADMIN . "head.inc.php");
 </table>
 <script>
     var form = $('form[data-target="form"]');
-    var bc_e=$('select[data-target="bcatalog"]');
-    var status_e=$("select[data-target='status']");
-
+    var bc_e = $('select[data-target="bcatalog"]');
+    var status_e = $("select[data-target='status']");
+    
     $(function ()
     {
         sel_status();
@@ -118,7 +118,7 @@ require_once(INC_ADMIN . "head.inc.php");
     {
         status_e.on("change", function ()
         {
-            window.location = '?bc='+bc_e.val()+'&cs=' + $(this).val();
+            window.location = '?bc=' + bc_e.val() + '&cs=' + $(this).val();
         });
     }
     
@@ -126,19 +126,21 @@ require_once(INC_ADMIN . "head.inc.php");
     {
         bc_e.on("change", function ()
         {
-            window.location = '?bc='+$(this).val()+'&cs=' + status_e.val();
+            window.location = '?bc=' + $(this).val() + '&cs=' + status_e.val();
         });
     }
     
-    function save(){
+    function save()
+    {
         $("input[name='doit']").val("sort");
         $("input[name='parent']").val(bc_e.val());
         form.submit();
         return false;
     }
     
-    function sale(status){
-        if(isNaN(status))
+    function sale(status)
+    {
+        if (isNaN(status))
         {
             alert("Error");
             return false;

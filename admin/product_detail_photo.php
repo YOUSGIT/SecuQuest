@@ -3,6 +3,12 @@ require_once("/Hosting/9606194/html/SecuQuest/_init.php");
 define("CAT", 3);
 
 $obj = new Product;
+if (!$check = $obj->get_detail($_GET['p']))
+{
+    header("location: product_detail.php");
+    exit;
+}
+
 $ret = $obj->get_img_detail();
 $crumb = $obj->get_detail_crumb_html();
 require_once(INC_ADMIN . "head.inc.php");
@@ -46,7 +52,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                         foreach ($ret as $v)
                                         {
                                             ?>
-                                            <span data-target="imgs">
+                                            <span data-target="imgs" style="display:inline-block;">
                                                 <input type="radio" value="<?= $v['id']; ?>" <?= $v['master'] == '1' ? 'checked="checked"' : ''; ?> name="master" data-target="master"/>
                                                 <a href="#" class="remove" onclick="return pic_remove(this,<?= $v['id']; ?>);"><span class="text">移除</span><img src="<?= PD_Image . 's_' . $v['path']; ?>" width="150" /></a>
                                             </span>
@@ -75,19 +81,17 @@ require_once(INC_ADMIN . "head.inc.php");
     var inputs = $('div[target="input"]');
     var btns = $('button[data-target="upload-btn"]');
     var parent = $('input[name="parent"]');
+    var master_radio = $("input[data-target='master']");
     var flag;
-    
+        
     $(document).ready(function (e)
     {
         init_file_upload();
         set_master();
-        // validator.resetForm();
     });
-    
+        
     function init_file_upload()
     {
-        // var addedFiles=0;
-        // var fileLimit=1;
         $('#jquery-wrapped-fine-uploader').fineUploader(
         {
             request: {
@@ -103,13 +107,12 @@ require_once(INC_ADMIN . "head.inc.php");
                 inputs.append('<input name="path[]" type="hidden" value="' + responseJSON.filename + '"/>');
                 flag = true;
             }
-            
+                
         });
-        
         // alert(upload_temp_path);
         return;
     }
-    
+        
     function save()
     {
         if (!flag)
@@ -121,11 +124,11 @@ require_once(INC_ADMIN . "head.inc.php");
         _FORM.submit();
         return false;
     }
-    
+        
     function pic_remove(e, id)
     {
         if (!confirm("確認刪除?")) return false;
-        
+            
         $.post("func.php",
         {
             func: "product_img",
@@ -139,10 +142,10 @@ require_once(INC_ADMIN . "head.inc.php");
                 $(this).remove();
             });
         }, "html");
-        
+            
         return false;
     }
-    
+        
     function cancel()
     {
         btns.slideUp();
@@ -151,19 +154,22 @@ require_once(INC_ADMIN . "head.inc.php");
         // upload.fadeOut();
         inputs.empty();
     }
-    
+        
     function set_master()
     {
-        $("input[data-target='master']").on("click", function ()
+        master_radio.on("click", function ()
         {
+            master_radio.css("cursor", "wait");;
+            
             $.post("func.php",
             _FORM.serializeArray(), function (ret)
             {
                 // if (ret == 'ok')
                 alert("已設定主圖");
+                master_radio.css("cursor", "auto");;
             }, "html");
         });
-        
+            
     }
 </script>
 <?php

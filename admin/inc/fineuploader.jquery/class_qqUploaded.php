@@ -129,7 +129,7 @@ class qqFileUploader
     {
         if ($allowedExtensions === null)
         {
-            $allowedExtensions = array("jpg", "jpeg", "png", "gif", "bmp");
+            $allowedExtensions = array("jpg", "jpeg", "png", "gif", "bmp", "pdf", "zip", "rar", "doc", "txt");
         }
         if ($sizeLimit === null)
         {

@@ -82,7 +82,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 ?>
                                 <tr>
                                     <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?= $v['id']; ?>"/></td>
-                                    <td width="100"><img src="<?= $obj->get_pre_img($v['type'], $v['path']); ?>" width="100" /></td>
+                                    <td width="100"><img src="<?= $obj->get_pre_img($v['path']); ?>" width="100" /></td>
                                     <td width="200"><?= $bc > 0 ? $parent_title_arr[$bc] : $parent_title_arr[$v['parent']]; ?></td>
                                     <td width="200"><?= $bc > 0 ? $parent_title_arr[$v['parent']] : ''; ?></td>
                                     <td><?= $v['title']; ?></td>

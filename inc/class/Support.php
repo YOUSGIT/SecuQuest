@@ -13,7 +13,10 @@ class Support extends Superobj
     protected $tbname = SUPPORT;
     protected $tbname_info = CONTACT_INFO;
     protected $tbname_cat = SUPPORT_CAT;
-    var $sdir;
+    protected $tbname_down = SUPPORT_DOWN;
+    protected $tbname_bcat = CATALOG;
+    protected $tbname_product = PRODUCT;
+    var $sdir = FILES_down;
     var $back = './support.php';
     var $s_size = array();
     var $is_image = false;
@@ -78,6 +81,28 @@ class Support extends Superobj
         return $crumb;
     }
 
+    function get_down_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                    <li><a href="index.php" class="home">&nbsp;</a></li>
+                    <li><a href="product_bcatalog.php">支援管理</a></li>                    
+                    <li><span>檔案下載列表</span></li>
+                </ul>';
+
+        return $crumb;
+    }
+
+    function get_down_detail_crumb_html()
+    {
+        $crumb = '<ul class="crumb">
+                    <li><a href="index.php" class="home">&nbsp;</a></li>
+                    <li><a href="product_bcatalog.php">支援管理</a></li>                    
+                    <li><span>支援列表</span></li>
+                </ul>';
+
+        return $crumb;
+    }
+
     function get_cat_toolbar_html()
     {
         $toolbar = '<ul class="group">
@@ -86,6 +111,18 @@ class Support extends Superobj
                     <ul class="group">
                         <li><a href="#" onclick="return del();" class="folder-delete">批次刪除</a></li>
                     </ul> ';
+
+        return $toolbar;
+    }
+
+    function get_down_toolbar_html()
+    {
+        $toolbar = '<ul class="group">
+                    <li><a href="support_download_detail.php" class="file-add">新增檔案</a></li>
+                </ul>
+                <ul class="group">
+                    <li><a href="#" onclick="return del();" class="file-delete">批次刪除</a></li>
+                </ul>';
 
         return $toolbar;
     }
@@ -110,7 +147,7 @@ class Support extends Superobj
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname_cat . " where " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname_cat . " WHERE " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }
@@ -120,9 +157,54 @@ class Support extends Superobj
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " where " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_down_all()
+    { //列出檔案全部
+        if (is_numeric($_GET['c']) && $_GET['c'] > 0)
+            $wheres = " AND ( c.`parent` = " . $_GET['c'] . " || c.`id` = " . $_GET['c'] . ")";
+
+        $this->detail_this = "SELECT a.*,
+                                       b.`title` `p_title`,
+                                       IF(c.`parent` > 0, d.`title`, c.`title`) `c_title`
+                                       /* d.`title` `c_title` */
+                                FROM " . $this->tbname_down . " a
+                                        LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
+                                        LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
+                                        LEFT JOIN " . $this->tbname_bcat . " d ON c.`parent` = d.`id`
+                                        WHERE 1" . $wheres;
+        // exit($this->detail_this);
+        return parent::get_list($this->detail_this);
+    }
+
+    function get_down_detail($pk = '')
+    { //列出檔案單筆細節
+        $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
+
+        if (trim($pk) != '')
+            $this->detail_this = "SELECT a.*, IF(c.`parent` > 0, c.`parent`, c.`id`) `parent` 
+                                    FROM " . $this->tbname_down . " a
+                                    LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
+                                    LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
+                                    WHERE a." . $this->PK . "=" . $pk;
+        // exit($this->detail_this);
+        return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_down_catalog($pid)
+    { //找出檔案產品父分類
+        $pid = (is_numeric($pid)) ? $pid : '';
+        if (trim($pid) != '')
+            $this->detail_this = "SELECT IF(c.`parent` > 0, c.`parent`, c.`id`) `parent` 
+                                FROM " . $this->tbname_product . " b 
+                                LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
+                                WHERE b.`id` = " . (int) $pid;
+        // exit($this->detail_this);
+        $ret = parent::get_list($this->detail_this, 1);
+        return $ret['parent'];
     }
 
     function get_catalog($id)
@@ -161,8 +243,16 @@ class Support extends Superobj
     ############################################################################
     function renew()
     {
+        /* 新增分類 */
         if ($this->tbname == add_field_quotes($this->tbname_cat))
             self::set_back("support_catalog.php");
+
+        /* 檔案列表 */
+        if ($this->tbname == add_field_quotes($this->tbname_down))
+        {
+            $catalog = self::get_down_catalog($this->post_arr['pid']);
+            self::set_back("support_download.php?c=" . (int) $catalog);
+        }
         parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
     }
 
@@ -170,6 +260,11 @@ class Support extends Superobj
     {
         if ($this->tbname == add_field_quotes($this->tbname_cat))
             self::set_back("support_catalog.php");
+
+        /* 檔案下載 */
+        if ($this->tbname == add_field_quotes($this->tbname_down))
+            self::set_back("support_download.php?c=" . (int) $_POST['parent']);
+
         return parent::killu($this->del_arr, $this->is_image, $this->sdir);
     }
 
@@ -191,6 +286,11 @@ class Support extends Superobj
     function get_sort_arr()
     {
         return $this->sort_arr;
+    }
+
+    function get_s_size()
+    {
+        return $this->s_size;
     }
 
 }

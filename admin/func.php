@@ -60,9 +60,10 @@ if ($FUNC)
             $func = new Product;
             break;
 
-        case "custom":
+        case "support_down":
 
-            $func = new Custom;
+            $func = new Support;
+            $func->set_field(SUPPORT_DOWN);
             break;
 
 
@@ -129,6 +130,10 @@ switch ($DOIT)
 
     case "catalog":
         $func->get_catalog();
+        break;
+
+    case "product":
+        $func->get_product();
         break;
 }
 

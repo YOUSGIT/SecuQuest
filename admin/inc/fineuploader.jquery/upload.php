@@ -41,6 +41,12 @@ switch ($_GET['func'])
         $s_size = $obj->get_s_size();
         break;
 
+    case "down":
+        $obj = new Support;
+        $f = $obj->get_dir();
+        $s_size = $obj->get_s_size();
+        break;
+
     default:
         $f = TEMP_Image;
         break;

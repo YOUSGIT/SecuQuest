@@ -11,6 +11,16 @@ function __autoload($class_name)
     include_once _ROOT . $path;
 }
 
+function file_size($path, $unit = "MB")
+{
+    $unit_arr = array("MB" => 1048576, "KB" => 1024);
+
+    if (trim($path) != '')
+        return round((filesize($path) / $unit_arr[strtoupper($unit)]), 2);
+
+    return "0";
+}
+
 function convert_mem($size)
 {
     $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
