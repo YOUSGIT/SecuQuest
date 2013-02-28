@@ -1,181 +1,102 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>SecuQuest</title>
-<link href="css/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="css/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
-<link href="css/core/core.css" rel="stylesheet" type="text/css" />
+<?php
+require_once("_init.php");
+define("CAT", 2);
 
-<script type="text/javascript" language="javascript" src="script/jquery1.9.min.js"></script>
-<script type="text/javascript" language="javascript" src="script/jquery.backgroundpos.min.js"></script>
-<script type="text/javascript" language="javascript" src="script/jquery-ui-1.10.0.custom.min.js"></script>
-<script type="text/javascript" language="javascript" src="script/jquery.cycle.all.js"></script>
-<script type="text/javascript" language="javascript" src="css/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="script/global.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(e) {
-		
-	});
-</script>
+$support = New Support;
+$support_arr = $support->get_cat_all_front();
 
-</head>
 
-<body>
-	<div class="header">
-    	<div class="fire f1">
-            <div class="bar">
-                <ul class="guide">
-                    <li><a href="index.php" title="Home">Home</a></li>
-                    <li>
-                    	<div class="btn-group">
-                          <a class="btn dropdown-toggle btn-small btn-inverse" data-toggle="dropdown" href="#">English -Change <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">English</a></li>
-                            <li><a href="#">繁體中文</a></li>
-                            <li><a href="#">簡体中文</a></li>
-                          </ul>
-                        </div>
-                    	
+$catalog = new Catalog;
+$catalog_arr = $catalog->get_all_front();
+
+$c = (!$_GET['c']) ? (int) $catalog_arr[0]['id'] : $_GET['c'];
+$pd = new Product;
+$pd_arr = $pd->get_product($c);
+$down_arr = $support->get_down_all_front($c);
+
+require_once("inc/head.inc.php");
+?>
+<div class="body">
+    <div class="banner">
+        <div class="container">            	
+            <div class="gallery">
+                <div class="media"></div>                
+            </div>
+            <ul class="crumb">
+                <li><a href="index.php">Home</a>/</li>
+                <li>Support</li>
+            </ul>
+            <div class="title">
+                <div class="intro">
+                    <h1>Support</h1>                        
+                </div>                           
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="container clearfix">
+            <div class="left-col">
+                <ul class="side-nav">
+                    <li><a href="support.php">FAQ</a>
+                        <ul>
+                            <?php
+                            foreach ($support_arr as $v)
+                            {
+                                ?>
+                                <li><a href="support.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="download.php">Download</a>
+                        <ul>
+                            <?php
+                            foreach ($catalog_arr as $v)
+                            {
+                                ?>
+                                <li <?= $v['id'] == $c ? 'class="active"' : ''; ?>><a href="download.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
                     </li>
                 </ul>
-            </div>
-            <div class="menu">        	
-                <ul class="nav">        	
-                    <li class="logo"><a href="index.php" title="SecuQuest">&nbsp;</a></li>
-                    <li><a href="products.php" title="Products">Products</a></li>
-                    <li><a href="support.php" title="Support" class="active">Support</a></li>
-                    <li><a href="contact.php" title="Contact">Contact</a></li>
-                    <li><a href="about.php" title="About Us">About Us</a></li>
+                <ul class="side-news">
+                    <?php include_once("inc/side.news.inc.php"); ?>
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="body">
-    	<div class="banner">
-        	<div class="container">            	
-                <div class="gallery">
-                    <div class="media"></div>                
-                </div>
-                <ul class="crumb">
-                	<li><a href="index.php">Home</a>/</li>
-                    <li>Support</li>
-                </ul>
-                <div class="title">
-                    <div class="intro">
-                        <h1>Support</h1>                        
-                    </div>                           
-                </div>
-			</div>
-        </div>
-        
-        <div class="main">
-        	<div class="container clearfix">
-            	<div class="left-col">
-                	<ul class="side-nav">
-                    	<li><a href="support.php">FAQ</a>
-                            <ul>
-                                <li><a href="support.php">Accessories</a></li>
-                                <li><a href="support.php">Download</a></li>
-                                <li><a href="support.php">DVR</a></li>
-                                <li><a href="support.php">IP Cameras</a></li>
-                            </ul>
-                        </li>
-                        <li class="active"><a href="download.php">Download</a>
-                        	<ul>
-                            <li class="active"><a href="download.php">IP Solution</a></li>
-                            <li><a href="download.php">Access Control</a></li>
-                            <li><a href="download.php">Alarm Product</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="side-news">
-                    	<li>
-                        	<a href="#" class="clearfix">
-                            	<img src="images/temp_index_news01.jpg" width="60" />
-                                <h1>The ISC East 2012 At NewYork</h1>
-                            </a>
-                        </li>
-                        <li>
-                        	<a href="#" class="clearfix">
-                            	<img src="images/temp_index_news01.jpg" width="60" />
-                                <h1>The ISC East 2012 At NewYork</h1>
-                            </a>
-                        </li>
-                        <li>
-                        	<a href="#" class="clearfix">
-                            	<img src="images/temp_index_news01.jpg" width="60" />
-                                <h1>The ISC East 2012 At NewYork</h1>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="right-col">
-                	<div class="download-list">
+            <div class="right-col">
+                <div class="download-list">
                     <legend>Download</legend>
-                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-normal">
-                          <tr>                          
-                            <th colspan="5" align="left">LTD2516HE LTD2516HE-HDMI</th>
-                          </tr>
-                          <tr>
-                            <td>IP Search Tools</td>
-                            <td>Software</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">2.8Mb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                          <tr>
-                            <td>cmip2642</td>
-                            <td>Datasheet</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">680Kb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                          <tr>                          
-                            <th colspan="5" align="left">LTD2516HE LTD2516HE-HDMI</th>
-                          </tr>
-                          <tr>
-                            <td>IP Search Tools</td>
-                            <td>Software</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">2.8Mb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                          <tr>
-                            <td>cmip2642</td>
-                            <td>Datasheet</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">680Kb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                          <tr>                          
-                            <th colspan="5" align="left">LTD2516HE LTD2516HE-HDMI</th>
-                          </tr>
-                          <tr>
-                            <td>IP Search Tools</td>
-                            <td>Software</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">2.8Mb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                          <tr>
-                            <td>cmip2642</td>
-                            <td>Datasheet</td>
-                            <td align="center">2013/1/1</td>
-                            <td align="center">680Kb</td>
-                            <td align="center"><a href="#" class="download">Download</a></td>
-                          </tr>
-                        </table>
-                    </div>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-normal">
+                        <?php
+                        foreach ($pd_arr as $v)
+                        {
+                            ?>
+                            <tr>                          
+                                <th colspan="5" align="left"><?= $v['title']; ?></th>
+                            </tr>
+                            <?php
+                            foreach ($down_arr as $v2)
+                            {
+                                ?>
+                                <tr>
+                                    <td><?= $v2['title']; ?></td>
+                                    <td><?= $v2['brief']; ?></td>
+                                    <td align="center"><?= date('Y-m-d', strtotime($v2['dates'])); ?></td>
+                                    <td align="center"><?= file_size($support->get_dir() . $v2['path']); ?> MB</td>
+                                    <td align="center"><a href="readfile.php?title=<?= base64_encode('attach'); ?>&t1=<?= base64_encode(Extension($v2['path'])); ?>&b=<?= base64_encode($support->get_dir() . $v2['path']); ?>" class="download">Download</a></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </table>
                 </div>
-            </div>            	            
-        </div>
-        
+            </div>
+        </div>            	            
     </div>
-    <div class="footer">
-    	<div class="container">
-    		<div class="copyright">Copyright &copy; 2013 SecuQuest Technology Inc. All Rights Reserved.</div>
-        </div>
-    </div>
-</body>
-</html>
+</div>
+<?php
+require_once("inc/footer.inc.php");

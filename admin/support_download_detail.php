@@ -10,7 +10,7 @@ $catalog = new Catalog;
 $bcatalog_arr = $catalog->get_all_for_product(0);
 
 $pd = new Product;
-$pd_arr = $pd->get_all();
+$pd_arr = $pd->get_product($ret['parent']);
 require_once(INC_ADMIN . "head.inc.php");
 ?>
 <script type="text/javascript" src='../script/jquery.validate.js'></script>

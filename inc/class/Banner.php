@@ -45,7 +45,7 @@ class Banner extends Superobj
 
     function get_all()
     { //列出全部資料
-        $this->list_this = "select * from " . $this->tbname . " order by sequ asc, dates desc";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `sequ` ASC, `dates` DESC";
         return parent::get_list($this->list_this);
     }
 
@@ -117,7 +117,7 @@ class Banner extends Superobj
     ##############################################################
     function get_all_front()
     { //列出全部資料
-        $this->list_this = "select * from " . $this->tbname . " where sale='1' order by sequ asc, dates desc";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE 1 ORDER BY `sequ` ASC, `dates` DESC";
         return parent::get_list($this->list_this);
     }
 
@@ -129,6 +129,17 @@ class Banner extends Superobj
             $this->detail_this = "select * from " . $this->tbname . " where sale='1'  and " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_youtubeID($path)
+    {
+        $a = 'youtube.com/watch?v=';
+        $b = 'youtu.be/';
+
+        $find = (mb_substr_count($path, $a) > 0) ? $a : $b;
+        $StrArray = explode($find, $path);
+        $StrArray2 = explode("&", $StrArray[1]);
+        return $StrArray2[0];
     }
 
     #################################################################

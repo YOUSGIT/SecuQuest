@@ -140,6 +140,13 @@ class Contact extends Superobj
 
         return parent::get_list($this->detail_this, 1);
     }
+    
+    function get_info_detail_front()
+    {
+        $this->detail_this = "SELECT * FROM " . $this->tbname_info . " WHERE " . $this->PK . "= 1";
+        
+        return parent::get_list($this->detail_this, 1);
+    }
 
     ############################################################################
     function renew()

@@ -399,7 +399,7 @@ class Superobj extends DB
     {
 
         $url = trim($this->back);
-        $title = trim($this->alert);
+        $title = (trim($title) != '') ? $title : trim($this->alert);
         $str = null;
 
         $str.= '<script type="text/javascript">';

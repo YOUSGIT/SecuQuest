@@ -212,7 +212,27 @@ class Catalog extends Superobj
 
     function get_all_front()
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE `parent` = 0 AND `status` = 1 " . $wheres . " ORDER BY `sequ` ASC";
+        return parent::get_list($this->list_this);
+    }
+
+    function get_cat_all_front($c)
+    {
+        if (!is_numeric($c))
+            return array();
+
+        if (true)
+            $wheres = " AND a.`status` = 1 ";
+
+
+        if ((int) $c > 0)
+        {
+            $parent = "a.`parent` = " . (int) $c;
+        }else
+            $parent = "a.`parent` != 0 ";
+
+        $this->list_this = "SELECT a.*, b.`title` `bc` FROM " . $this->tbname . " a, " . $this->tbname . " b WHERE (a.`parent` = b.`id`) AND " . $parent . $wheres . " ORDER BY a.`sequ` ASC";
+        // exit($this->list_this);
         return parent::get_list($this->list_this);
     }
 

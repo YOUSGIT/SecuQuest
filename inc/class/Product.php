@@ -105,10 +105,10 @@ class Product extends Superobj
         if (is_numeric($p) && $p != '')
             $parent = " AND a.`parent` = " . $p;
 
-        $this->list_this = "SELECT a.*, b.`path` 
+        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` 
                             FROM " . $this->tbname . " a
-                            LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` 
-                            WHERE  1 " . $parent . " " . $wheres . " AND b.`master` = 1
+                            LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
+                            WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */
                             ORDER BY a.`sequ` ASC";
         // exit($this->list_this);
         return parent::get_list($this->list_this);
@@ -150,15 +150,18 @@ class Product extends Superobj
     }
 
     /* for 檔案下載列表 */
-    function get_product()
+    function get_product($p = '')
     {
-        if (!is_numeric($_POST['p']))
-            exit;
+        if (!is_numeric($_POST['p']) && !is_numeric($p))
+            exit("[331]");
+
+        if (is_numeric($_POST['p']) && !$p)
+            $p = $_POST['p'];
 
         $obj = new Catalog;
-        $ret = $obj->get_all_for_product($_POST['p']);
+        $ret = $obj->get_all_for_product($p);
         $parent_arr = array();
-        $parent_arr[0] = $_POST['p'];
+        $parent_arr[0] = $p;
         foreach ($ret as $v)
             $parent_arr[] = $v['id'];
 
@@ -174,29 +177,59 @@ class Product extends Superobj
                 $output .= '<option value="' . $v2['id'] . '">' . $v2['title'] . '</option>';
             }
         }
+        if (!$_POST['p'])
+            return $ret;
         echo $output;
         exit;
     }
 
     #############################################################################
+    function get_img_detail_front($p = "")
+    {
+        $p = (is_numeric($_GET['id'])) ? $_GET['id'] : $p;
+
+        $sql = "SELECT * FROM " . $this->tbname_img . " WHERE `parent` = " . (int) $p . " ORDER BY `master` DESC, `id` ASC";
+        return parent::get_list($sql);
+    }
+
     function get_front()
     {
         $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc limit 5";
         return parent::get_list($this->list_this);
     }
 
-    function get_all_front()
+    function get_all_front($p = '', $l = '')
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc";
-        return parent::get_list($this->list_this);
+        // $s = (!is_numeric($s)) ? $_GET['s'] : $s;
+        $p = (!is_numeric($p)) ? $_GET['p'] : $p;
+
+        // if (is_numeric($s) && $s != '')
+        // $wheres = " AND a.`status` = " . $s;
+
+        if (is_numeric($p) && $p != '')
+        {
+            $parent = " AND a.`parent` = " . $p;
+            $brief = " , a.`brief` ";
+        }
+
+        if (is_numeric($l) && $l > 0)
+            $limit = " LIMIT 0, " . $l;
+
+        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` " . $brief
+                . " FROM " . $this->tbname . " a
+                            LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
+                            WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1 
+                            ORDER BY a.`sequ` ASC";
+        // exit($this->list_this);
+        return parent::get_list($this->list_this . $limit);
     }
 
-    function get_detail_front($pk)
-    {
-        $pk = (trim($pk) != '') ? $pk : $this->detail_id;
+    function get_detail_front($pk = '')
+    { //列出單筆細節
+        $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  sale='1' and " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE `status` = 1 AND " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }
@@ -235,7 +268,9 @@ class Product extends Superobj
             return;
         }
 
-        self::set_back("product.php?p=" . $_POST['parent']);
+        $returnID = (!$_POST['id']) ? $this->get_lastID() : $_POST['id'];
+        // self::set_back("product_detail.php?p=" . $_POST['parent']);
+        self::set_back("product_detail.php?id=" . $returnID);
         parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
     }
 

@@ -67,7 +67,7 @@ class About extends Superobj
 
     function get_all()
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `sequ` ASC";
+        $this->list_this = "SELECT `id`, `title` FROM " . $this->tbname . " ORDER BY `sequ` ASC";
         return parent::get_list($this->list_this);
     }
 
@@ -90,16 +90,16 @@ class About extends Superobj
 
     function get_all_front()
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc";
+        $this->list_this = "SELECT `id`, `title` FROM " . $this->tbname . " ORDER BY `sequ` ASC";
         return parent::get_list($this->list_this);
     }
 
-    function get_detail_front($pk)
+    function get_detail_front($pk = '')
     {
         $pk = (trim($pk) != '') ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  sale='1' and " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  1 AND " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }

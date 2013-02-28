@@ -74,14 +74,12 @@ class News extends Superobj
 
     function get_all()
     {
-
-        $this->list_this = "select * from " . $this->tbname . " order by dates desc";
+        $this->list_this = "SELECT `id`, `title`, `path` FROM " . $this->tbname . " ORDER BY `dates` DESC";
         return parent::get_list($this->list_this);
     }
 
     function get_detail($pk = '')
     {
-
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
@@ -91,27 +89,30 @@ class News extends Superobj
     }
 
     #############################################################################
-    function get_front()
+    function get_front($l = '')
     {
+        if (is_numeric($l) && $l > 0)
+            $limit = " LIMIT 0, " . $l;
 
-        $this->list_this = "select * from " . $this->tbname . " where sale='1' order by dates desc limit 5";
-        return parent::get_list($this->list_this);
+        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `dates` DESC";
+        return parent::get_list($this->list_this . $limit);
     }
 
-    function get_all_front()
+    function get_all_front($l = '')
     {
+        if (is_numeric($l) && $l > 0)
+            $limit = " LIMIT 0, " . $l;
 
-        $this->list_this = "select * from " . $this->tbname . " where sale='1' order by dates desc";
-        return parent::get_list($this->list_this);
+        $this->list_this = "SELECT `title`, `id`, `dates`, `path` FROM " . $this->tbname . " ORDER BY `dates` DESC";
+        return parent::get_list($this->list_this . $limit);
     }
 
-    function get_detail_front($pk)
+    function get_detail_front($pk = '')
     {
-
         $pk = (trim($pk) != '') ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "select * from " . $this->tbname . " where  sale='1' and " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  1 AND " . $this->PK . " = " . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }

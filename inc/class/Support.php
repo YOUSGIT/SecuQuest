@@ -47,6 +47,7 @@ class Support extends Superobj
         return $this->sdir;
     }
 
+    ################################# HTML #######################################
     function get_crumb_html()
     {
         $crumb = '<ul class="crumb">
@@ -127,12 +128,13 @@ class Support extends Superobj
         return $toolbar;
     }
 
+    ########################## GET DATA ############################################################################
     function get_all()
     {
         if (is_numeric($_GET['c']) && $_GET['c'] != '0')
-            $wheres = " AND `catalog` = " . $_GET['c'];
+            $wheres = " AND a.`catalog` = " . $_GET['c'];
 
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE 1 " . $wheres . " ORDER BY `sequ` ASC";
+        $this->list_this = "SELECT a.`id`, a.`title`, a.`catalog`, a.`dates`, a.`sequ` FROM " . $this->tbname . " a WHERE 1 " . $wheres . " ORDER BY a.`sequ` ASC";
         return parent::get_list($this->list_this);
     }
 
@@ -217,16 +219,25 @@ class Support extends Superobj
         return $ret['title'];
     }
 
-    #############################################################################
+    ######################### FRONT ####################################################
+    function get_cat_all_front()
+    {
+        $this->list_this = "SELECT * FROM " . $this->tbname_cat . " ORDER BY `sequ` ASC";
+        return parent::get_list($this->list_this);
+    }
+
     function get_front()
     {
         $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc limit 5";
         return parent::get_list($this->list_this);
     }
 
-    function get_all_front()
+    function get_all_front($c)
     {
-        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE sale='1' ORDER BY dates desc";
+        if (is_numeric($c) && $c != '0')
+            $wheres = " AND `catalog` = " . $c;
+
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE 1 " . $wheres . " ORDER BY `sequ` ASC";
         return parent::get_list($this->list_this);
     }
 
@@ -238,6 +249,37 @@ class Support extends Superobj
             $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  sale='1' and " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
+    }
+
+    function get_down_all_front($c)
+    { //列出檔案全部
+        if (is_numeric($c))
+            $wheres = " AND ( c.`parent` = " . $c . " || c.`id` = " . $c . ")";
+
+        $this->detail_this = "SELECT a.*,
+                                    b.`title` `p_title`,
+                                    IF(c.`parent` > 0, d.`title`, c.`title`) `c_title`
+                                    /* d.`title` `c_title` */
+                                FROM " . $this->tbname_down . " a
+                                LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
+                                LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
+                                LEFT JOIN " . $this->tbname_bcat . " d ON c.`parent` = d.`id`
+                                WHERE 1" . $wheres;
+        // exit($this->detail_this);
+        return parent::get_list($this->detail_this);
+    }
+
+    function get_down_product_front($p)
+    {
+        if (!is_numeric($p))
+            return false;
+
+        $this->detail_this = "SELECT a.*
+                                FROM " . $this->tbname_down . " a
+                                WHERE a.`pid` = " . $p;
+
+        // exit($this->detail_this);
+        return parent::get_list($this->detail_this);
     }
 
     ############################################################################

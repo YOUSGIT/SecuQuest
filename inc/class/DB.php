@@ -117,6 +117,11 @@ class DB
         }
     }
 
+    function get_lastID()
+    {
+        return mysql_insert_id();
+    }
+
     protected function list_tb()
     {
 
