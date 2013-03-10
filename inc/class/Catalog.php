@@ -11,10 +11,10 @@ class Catalog extends Superobj
     protected $limit = 2; //上傳檔案大小
     protected $sort_where = " AND `parent` = 0";
     protected $tbname = CATALOG;
-    var $sdir;
+    var $sdir = BC_Image;
     var $back = './product_bcatalog.php';
-    var $s_size = array();
-    var $is_image = false;
+    public $s_size = array("m" => array("w" => 400, "h" => 400), "s" => array("w" => 100, "h" => 2400), "ss" => array("w" => 2400, "h" => 50));
+    var $is_image = true;
     var $list_this;
     var $detail_this;
     var $this_Page = this_Page;
@@ -41,6 +41,17 @@ class Catalog extends Superobj
     function get_dir()
     {
         return $this->sdir;
+    }
+
+    function get_pre_img($path)
+    {
+        if (true)
+        {
+            if (is_file($this->get_dir() . $path))
+                return $this->get_dir() . "s_" . $path;
+            else
+                return "images/logo.png";
+        }
     }
 
     function get_crumb_html()
@@ -316,6 +327,11 @@ class Catalog extends Superobj
     function set_sort_where($parent)
     {
         $this->sort_where = " AND `parent` = " . (int) $parent;
+    }
+
+    function get_s_size()
+    {
+        return $this->s_size;
     }
 
 }

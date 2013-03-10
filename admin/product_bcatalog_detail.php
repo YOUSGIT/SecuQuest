@@ -9,6 +9,8 @@ require_once(INC_ADMIN . "head.inc.php");
 ?>
 <script type="text/javascript" src='../script/jquery.validate.js'></script>
 <script type="text/javascript" src='../script/jquery.form.js'></script>
+<script type="text/javascript" src="./inc/fineuploader.jquery/jquery.fineuploader-3.0.min.js"></script>
+<link href="inc/fineuploader.jquery/fineuploader.css" rel="stylesheet" type="text/css" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
         <td class="left-col">
@@ -38,6 +40,13 @@ require_once(INC_ADMIN . "head.inc.php");
                                     <th width="100" align="right">分類名稱</th>
                                     <td><input type="text" placeholder="請輸入名稱…" name="title" value="<?= $ret['title']; ?>" class="span10" required/></td>
                                 </tr>
+                                <tr class="tr_image">
+                                    <th rowspan="2" align="right">圖片</th>
+                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= $obj->get_dir() . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
+                                </tr>
+                                <tr class="tr_image">
+                                    <td><div id="jquery-wrapped-fine-uploader"></div></td>
+                                </tr>
                                 <tr>
                                     <th align="right">狀態</th>
                                     <td>
@@ -61,16 +70,54 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
+    var _image_url = "<?= $obj->get_dir(); ?>";
+    var path = $("input[name='path']");
+    var pre_img = $('img[data-target="pre_img"]');
 
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
+        init_file_upload();
     });
 
     function save()
     {
         if (_FORM.valid()) _FORM.submit();
 
+        return false;
+    }
+    
+    function init_file_upload()
+    {
+        // var addedFiles=0;
+        // var fileLimit=1;
+        $('#jquery-wrapped-fine-uploader').fineUploader(
+        {
+            request: {
+                endpoint: 'inc/fineuploader.jquery/upload.php?func=bc'
+            },
+            debug: true
+        }).on('complete', function (event, id, fileName, responseJSON)
+        {
+            if (responseJSON.success)
+            {
+                path.val(responseJSON.filename);
+                pre_img.load(_image_url + responseJSON.filename,function(){
+                    $(this).prop("src",_image_url + responseJSON.filename).fadeIn();
+                    $('li[class=" qq-upload-success"]').fadeOut("slow");
+                });
+            }
+            
+        });
+        
+        // alert(upload_temp_path);
+        return;
+    }
+    
+    function pic_remove()
+    {
+        path.val("");
+        pre_img.prop("src", "").fadeOut();
         return false;
     }
 </script>

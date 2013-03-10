@@ -1,7 +1,7 @@
 <?php
 
 require_once("/Hosting/9606194/html/SecuQuest/_init.php");
-// header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 $back = './';
 
 $FUNC = trim($_REQUEST['func']);

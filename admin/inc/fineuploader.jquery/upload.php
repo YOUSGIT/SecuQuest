@@ -34,6 +34,12 @@ switch ($_GET['func'])
         $f = $obj->get_dir();
         $s_size = $obj->get_s_size();
         break;
+        
+    case "bc":
+    $obj = new Catalog;
+    $f = $obj->get_dir();
+    $s_size = $obj->get_s_size();
+    break;
 
     case "pd":
         $obj = new Product;

@@ -38,6 +38,7 @@ require_once(INC_ADMIN . "head.inc.php");
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mheader">
                     <tr>
                         <td width="30"><input type="checkbox" class="check-all" /></td>
+                        <td width="100">預覽</td>
                         <td>大分類名稱</td>
                         <td width="100">狀態</td>
                         <td width="50">編輯</td>
@@ -52,6 +53,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 ?>
                                 <tr>
                                     <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?= $v['id']; ?>"/></td>
+                                    <td width="100"><img src="<?= $obj->get_pre_img($v['path']); ?>" width="100"/></td>
                                     <td><a href="product_catalog.php?bc=<?= $v['id']; ?>"><?= $v['title']; ?></a></td>
                                     <td width="100" align="center"><?= $obj->get_status($v['status']); ?></td>
                                     <td width="50"><a class="btn btn-info btn-small" type="button" href="product_bcatalog_detail.php?id=<?= $v['id']; ?>">編輯</a></td>

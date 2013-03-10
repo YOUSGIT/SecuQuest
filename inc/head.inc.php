@@ -36,7 +36,7 @@
                 <div class="menu">        	
                     <ul class="nav">        	
                         <li class="logo"><a href="./" title="SecuQuest">&nbsp;</a></li>
-                        <li><a href="products.php" <?= CAT == 1 ? 'class="active"' : ''; ?> title="Products">Products</a></li>
+                        <li><a href="bcatalog.php" <?= CAT == 1 ? 'class="active"' : ''; ?> title="Products">Products</a></li>
                         <li><a href="support.php" <?= CAT == 2 ? 'class="active"' : ''; ?> title="Support">Support</a></li>
                         <li><a href="contact.php" <?= CAT == 3 ? 'class="active"' : ''; ?> title="Contact">Contact</a></li>
                         <li><a href="about.php" <?= CAT == 4 ? 'class="active"' : ''; ?> title="About Us">About Us</a></li>
