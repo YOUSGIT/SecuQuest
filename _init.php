@@ -119,6 +119,6 @@ require_once(_ROOT . "inc/function.php"); //引入常用功能函數
 // require_once(_ROOT."admin/inc/lang/global.php");
 ##########################################################
 #require_once(_ROOT."inc/addslashes.php");
-// TrimArray($_POST);
+TrimArray($_POST);
 TrimArray($_GET);
 // $_GET = @array_map('trim', $_GET);
