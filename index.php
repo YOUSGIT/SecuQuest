@@ -1,7 +1,8 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 require_once("inc/head.inc.php");
-
+// print_r($_LANG);
 $banner = new Banner;
 $banner_arr = $banner->get_all_front();
 

@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 2);
 
 $support = New Support;
@@ -18,12 +19,12 @@ require_once("inc/head.inc.php");
                 <div class="media"></div>                
             </div>
             <ul class="crumb">
-                <li><a href="index.php">Home</a>/</li>
-                <li>Support</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
+                <li><?php echo $_LANG['btn']['Support'][LANG]; ?></li>
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1>Support</h1>                        
+                    <h1><?php echo $_LANG['btn']['Support'][LANG]; ?></h1>                        
                 </div>                           
             </div>
         </div>
@@ -32,7 +33,7 @@ require_once("inc/head.inc.php");
         <div class="container clearfix">
             <div class="left-col">
                 <ul class="side-nav">
-                    <li class="active"><a href="support.php">FAQ</a>
+                    <li class="active"><a href="support.php"><?php echo $_LANG['Support']['FAQ'][LANG]; ?></a>
                         <ul>
                             <?php
                             foreach ($support_arr as $v)
@@ -44,7 +45,7 @@ require_once("inc/head.inc.php");
                             ?>
                         </ul>
                     </li>
-                    <li><a href="download.php">Download</a>
+                    <li><a href="download.php"><?php echo $_LANG['Support']['Download'][LANG]; ?></a>
                         <ul>
                             <?php
                             foreach ($catalog_arr as $v)
@@ -63,7 +64,7 @@ require_once("inc/head.inc.php");
             </div>
             <div class="right-col">
                 <div class="faq-list">
-                    <legend>FAQ</legend>
+                    <legend><?php echo $_LANG['Support']['FAQ'][LANG]; ?></legend>
                     <?php
                     foreach ($qsk_arr as $v)
                     {

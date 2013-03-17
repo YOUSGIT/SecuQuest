@@ -23,11 +23,10 @@
                         <li><a href="./" title="Home">Home</a></li>
                         <li>
                             <div class="btn-group">
-                                <a class="btn dropdown-toggle btn-small btn-inverse" data-toggle="dropdown" href="#">English -Change <span class="caret"></span></a>
+                                <a class="btn dropdown-toggle btn-small btn-inverse" data-toggle="dropdown" href="#"><?php echo $_lang['title'][LANG]; ?> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">繁體中文</a></li>
-                                    <li><a href="#">簡体中文</a></li>
+                                    <li><a href="?LANG=en" <?php echo(LANG == 'en') ? 'class="active"' : ''; ?>>English</a></li>
+                                    <li><a href="?LANG=cn" <?php echo(LANG == 'cn') ? 'class="active"' : ''; ?>>簡体中文</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -36,10 +35,10 @@
                 <div class="menu">        	
                     <ul class="nav">        	
                         <li class="logo"><a href="./" title="SecuQuest">&nbsp;</a></li>
-                        <li><a href="bcatalog.php" <?php echo CAT == 1 ? 'class="active"' : ''; ?> title="Products">Products</a></li>
-                        <li><a href="support.php" <?php echo CAT == 2 ? 'class="active"' : ''; ?> title="Support">Support</a></li>
-                        <li><a href="contact.php" <?php echo CAT == 3 ? 'class="active"' : ''; ?> title="Contact">Contact</a></li>
-                        <li><a href="about.php" <?php echo CAT == 4 ? 'class="active"' : ''; ?> title="About Us">About Us</a></li>
+                        <li><a href="bcatalog.php" <?php echo CAT == 1 ? 'class="active"' : ''; ?> title="Products"><?php echo $_LANG['btn']['Products'][LANG]; ?></a></li>
+                        <li><a href="support.php" <?php echo CAT == 2 ? 'class="active"' : ''; ?> title="Support"><?php echo $_LANG['btn']['Support'][LANG]; ?></a></li>
+                        <li><a href="contact.php" <?php echo CAT == 3 ? 'class="active"' : ''; ?> title="Contact"><?php echo $_LANG['btn']['Contact'][LANG]; ?></a></li>
+                        <li><a href="about.php" <?php echo CAT == 4 ? 'class="active"' : ''; ?> title="About Us"><?php echo $_LANG['btn']['About Us'][LANG]; ?></a></li>
                     </ul>
                 </div>
             </div>

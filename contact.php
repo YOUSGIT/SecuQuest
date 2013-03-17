@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 3);
 
 require_once("inc/head.inc.php");
@@ -13,12 +14,12 @@ require_once("inc/head.inc.php");
                 <div class="media"></div>                
             </div>
             <ul class="crumb">
-                <li><a href="index.php">Home</a>/</li>
-                <li>Contact</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
+                <li><?php echo $_LANG['btn']['Contact'][LANG]; ?></li>
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1>Contact</h1>                        
+                    <h1><?php echo $_LANG['btn']['Contact'][LANG]; ?></h1>                        
                 </div>                           
             </div>
         </div>
@@ -27,8 +28,8 @@ require_once("inc/head.inc.php");
         <div class="container clearfix">
             <div class="left-col">
                 <ul class="side-nav">                    	
-                    <li class="active"><a href="contact.php">Contact Us</a></li>
-                    <li><a href="info.php">General Info</a></li>
+                    <li class="active"><a href="contact.php"><?php echo $_LANG['btn']['Contact'][LANG]; ?></a></li>
+                    <li><a href="info.php"><?php echo $_LANG['btn']['General Info'][LANG]; ?></a></li>
                 </ul>
                 <ul class="side-news">
                     <?php include_once("inc/side.news.inc.php"); ?>
@@ -38,8 +39,8 @@ require_once("inc/head.inc.php");
                 <div class="contact">
                     <form data-target='form' method="post" action="func.php">
                         <fieldset>
-                            <legend>Contact Us</legend>
-                            <p>If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.</p>
+                            <legend><?php echo $_LANG['btn']['Contact'][LANG]; ?></legend>
+                            <p><?php echo $_LANG['notice']['Contact'][LANG]; ?></p>
                             <label>Name</label>
                             <input name="name" type="text" required/>
                             <label>EMail</label>
@@ -51,8 +52,7 @@ require_once("inc/head.inc.php");
                             <label>Verification Code</label>
                             <img src="inc/imgcode.php" width="90" height="32"/>
                             <input name="imgcode" type="text" class="span1" required/>
-                            <div class="help-block">Please enter the letters as they are shown in the image above. 
-                                Letters are not case-sensitive.</div>
+                            <div class="help-block"><?php echo $_LANG['notice']['verify'][LANG]; ?></div>
                             <div>
                                 <button type="button" onclick='return save();' class="btn btn-warning">Submit</button>
                             </div>
@@ -81,7 +81,7 @@ require_once("inc/head.inc.php");
 
             $.post("func.php",_FORM.serializeArray(),function(ret){
                 if(ret=='vcode'){
-                    alert("驗證碼不正確");
+                    alert("Please input the correct verify code.");
                     return false;
                 }
                 

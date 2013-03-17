@@ -11,68 +11,45 @@ session_start();
 
 if (true)
 {
-    define('myDB', 'sqi2');
+    // define('myDB', 'Secuquest');
     define('Debug', true);
     // $root_f = '/_offline/';
     $root_f = '/';
 }
 else
 {
-    define('myDB', 'sqi2');
+    // define('myDB', 'sqi2');
     define('Debug', false);
     $root_f = '/';
 }
 
-#########################
-$_lang = array('cht', 'cn', 'en');
+#############################################
+$_lang = array('cht', 'cn', 'en', 'db' => array('cht' => '_cht', 'cn' => '_cn', 'en' => ''), 'title' => array('cht' => '正體中文', 'cn' => '简体中文', 'en' => 'English'));
 
-if (isset($_GET['LANG']) && in_array($_GET['LANG'], $_lang))
-    $_SESSION['LANG'] = $_GET['LANG'];
+$_SESSION['LANG'] = (isset($_REQUEST['LANG']) && in_array($_REQUEST['LANG'], $_lang)) ? $_REQUEST['LANG'] : $_SESSION['LANG'];
 
-
-if (trim($_SESSION['LANG']) == '')
-    $_SESSION['LANG'] = 'cht';
+if ($_SESSION['LANG'] == '')
+    $_SESSION['LANG'] = 'en';
 
 define('LANG', $_SESSION['LANG']);
-
+// exit(LANG);
+define('myDB', 'Secuquest' . $_lang['db'][LANG]);
 
 //========定義資料表之通用名
 define('CUSTOMER', 'customer');
 define('ADM', 'admin');
+define('ADV', 'adv');
+define('ABOUT', 'about');
+define('NEWS', 'news');
+define('CATALOG', 'catalog');
+define('PRODUCT', 'product');
+define('PRODUCT_IMG', 'product_img');
+define('CONTACT', 'contact');
+define('CONTACT_INFO', 'contact_info');
+define('SUPPORT_CAT', 'support_catalog');
+define('SUPPORT', 'support');
+define('SUPPORT_DOWN', 'support_download');
 
-if (LANG != 'en')
-{
-
-    define('ADV', 'adv');
-    define('ABOUT', 'about');
-    define('NEWS', 'news');
-    define('CATALOG', 'catalog');
-    define('PRODUCT', 'product');
-    define('PRODUCT_IMG', 'product_img');
-    define('CONTACT', 'contact');
-    define('CONTACT_INFO', 'contact_info');
-    define('SUPPORT_CAT', 'support_catalog');
-    define('SUPPORT', 'support');
-    define('SUPPORT_DOWN', 'support_download');
-}
-else
-{
-
-    define('ADV', 'en_adv');
-    define('ABOUT', 'en_about');
-    define('NEWS', 'en_news');
-    define('CATALOG', 'en_catalog');
-    define('PRODUCT', 'en_product');
-    define('PRODUCT_IMG', 'en_product_img');
-    define('CONTACT', 'en_contact');
-    define('CONTACT_INFO', 'en_contact_info');
-    define('SUPPORT_CAT', 'en_support_catalog');
-    define('SUPPORT', 'en_support');
-    define('SUPPORT_DOWN', 'en_support_download');
-}
-
-
-define("_KEY", 192); //編號編碼
 ####################################################
 // $root_f = '/SecuQuest/';
 $inPage = pathinfo($_SERVER["PHP_SELF"]);
@@ -89,8 +66,6 @@ else
 define('ADM_Image', $root . 'images/user_images/ad/');
 define('NEWS_Image', $root . 'images/user_images/news/');
 define('PD_Image', $root . 'images/user_images/pd/');
-//define('SPEC_Image',$root.'images/user_images/spec/');
-//define('PACK_Image',$root.'images/user_images/pack/');
 define('BC_Image', $root . 'images/user_images/bc/');
 define('TEMP_Image', $root . 'images/user_images/temp/');
 define('FILES_down', $root . 'download/');
@@ -101,24 +76,15 @@ define('WEB', 'http://www.secuquest.com' . $root_f);
 
 $image_Prefix = array("s_", "m_", "l_", "ss_", ""); //圖檔名前綴
 #######################################################
-
 $Allp = 9; //每頁筆數
-#############################	
-/*
-  if(@$_SESSION['AdmiN'])
-  $AdmiN=$_SESSION['AdmiN'];
-
-  if((!isset($AdmiN) || empty($AdmiN)) && file_exists("admin.admin")==true)
-  if(($inPage["basename"]!='index.php')&&($inPage["basename"]!='logincheck.php') &&($inPage["basename"]!='logout.php'))
-  header("Location:  index.php");
- */
-
 ####################################################
 require_once(_ROOT . "inc/function.php"); //引入常用功能函數
-// if(file_exists("admin.admin"))
-// require_once(_ROOT."admin/inc/lang/global.php");
+####################################################
+if (!is_object(unserialize($_SESSION['loginObj'])))
+    Site::checkLogin();
+else
+    unserialize($_SESSION['loginObj'])->checkLogin();
+
 ##########################################################
-#require_once(_ROOT."inc/addslashes.php");
 TrimArray($_POST);
 TrimArray($_GET);
-// $_GET = @array_map('trim', $_GET);

@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 1);
 
 $catalog = new Catalog;
@@ -17,12 +18,12 @@ require_once("inc/head.inc.php");
                 <div class="media"></div>                
             </div>
             <ul class="crumb">
-                <li><a href="index.php">Home</a>/</li>
-                <li>Products</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
+                <li><?php echo $_LANG['btn']['Products'][LANG]; ?></li>
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1>Products</h1>                        
+                    <h1><?php echo $_LANG['btn']['Products'][LANG]; ?></h1>                        
                 </div>                           
             </div>
         </div>
@@ -32,7 +33,7 @@ require_once("inc/head.inc.php");
             <div class="left-col">
                 <ul class="side-nav">
                     <li>
-                        <a href="products.php">New Item</a>
+                        <a href="products.php"><?php echo $_LANG['Products']['New Item'][LANG]; ?></a>
                     </li>
                     <?php
                     foreach ($bc_arr as $v)

@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 4);
 
 $about = New About;
@@ -16,12 +17,12 @@ require_once("inc/head.inc.php");
                 <div class="media"></div>                
             </div>
             <ul class="crumb">
-                <li><a href="index.php">Home</a>/</li>
-                <li>About Us</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
+                <li><?php echo $_LANG['btn']['About Us'][LANG]; ?></li>
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1>About Us</h1>                        
+                    <h1><?php echo $_LANG['btn']['About Us'][LANG]; ?></h1>                        
                 </div>                           
             </div>
         </div>

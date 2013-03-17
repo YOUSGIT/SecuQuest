@@ -18,12 +18,12 @@ class DB
 
         if ($debug)
         {
-			$this->hostname_prof = "localhost";
+            $this->hostname_prof = "localhost";
             $this->username_prof = "sqi2admin";
             $this->password_prof = "";
-            /*$this->hostname_prof = "Secuquest.db.9606194.hostedresource.com";
-            $this->username_prof = "Secuquest";
-            $this->password_prof = "ZAQ!2wsx";*/
+            /* $this->hostname_prof = "Secuquest.db.9606194.hostedresource.com";
+              $this->username_prof = "Secuquest";
+              $this->password_prof = "ZAQ!2wsx"; */
         }
         else
         {
@@ -80,7 +80,7 @@ class DB
 
     function quote($str)
     {
-        return mysql_real_escape_string($str);
+        return mysql_real_escape_string($str, $this->prof);
     }
 
     function get_list($sql = '', $num = '')

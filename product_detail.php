@@ -29,8 +29,8 @@ require_once("inc/head.inc.php");
                 ?>
             </div>
             <ul class="crumb">
-                <li><a href="index.php">Home</a>/</li>
-                <li>Products</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?>Home</a>/</li>
+                <li><?php echo $_LANG['btn']['Products'][LANG]; ?></li>
             </ul>
             <div class="title">
                 <div class="intro">
@@ -56,6 +56,9 @@ require_once("inc/head.inc.php");
         <div class="container clearfix">
             <div class="left-col">
                 <ul class="side-nav">
+                    <li>
+                        <a href="products.php"><?php echo $_LANG['Products']['New Item'][LANG]; ?></a>
+                    </li>
                     <?php
                     foreach ($bc_arr as $v)
                     {
@@ -85,9 +88,9 @@ require_once("inc/head.inc.php");
             </div>
             <div class="right-col">
                 <ul class="product-switch">
-                    <li><a href="#features" class="active">Features</a></li>
-                    <li><a href="#specifications">Specifications</a></li>
-                    <li><a href="#downloads">Downloads</a></li>
+                    <li><a href="#features" class="active"><?php echo $_LANG['Products']['Features'][LANG]; ?></a></li>
+                    <li><a href="#specifications"><?php echo $_LANG['Products']['Specifications'][LANG]; ?></a></li>
+                    <li><a href="#downloads"><?php echo $_LANG['Support']['Download'][LANG]; ?></a></li>
                 </ul>
                 <div id="features" class="product-detail">
                     <p><?php echo $ret['feature']; ?></p>
@@ -98,11 +101,11 @@ require_once("inc/head.inc.php");
                 <div id="downloads" class="product-detail">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-normal">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Size</th>
-                            <th>Download</th>
+                            <th><?php echo $_LANG['Products']['Name'][LANG]; ?></th>
+                            <th><?php echo $_LANG['Products']['Description'][LANG]; ?></th>
+                            <th><?php echo $_LANG['Products']['Date'][LANG]; ?></th>
+                            <th><?php echo $_LANG['Products']['Size'][LANG]; ?></th>
+                            <th><?php echo $_LANG['Support']['Download'][LANG]; ?></th>
                         </tr>
                         <?php
                         foreach ($downloads as $v)
@@ -113,7 +116,7 @@ require_once("inc/head.inc.php");
                                 <td><?php echo $v['brief']; ?></td>
                                 <td align="center"><?php echo date('Y-m-d', strtotime($v['dates'])); ?></td>
                                 <td align="center"><?php echo file_size($support->get_dir() . $v['path']); ?> MB</td>
-                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i>Download</a></td>
+                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i><?php echo $_LANG['Support']['Download'][LANG]; ?></a></td>
                             </tr>
                             <?php
                         }
