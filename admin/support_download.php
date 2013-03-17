@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -24,12 +24,12 @@ require_once(INC_ADMIN . "head.inc.php");
             <div class="module-tool">
                 <div class="group">
                     分類 <select class="span4" data-target="catalog">                        	
-                        <option value="0" <?= $_GET['c'] == 0 || !$_GET['c'] ? 'selected="selected"' : ''; ?>>全部</option>
+                        <option value="0" <?php echo $_GET['c'] == 0 || !$_GET['c'] ? 'selected="selected"' : ''; ?>>全部</option>
                         <?php
                         foreach ($bcatalog_arr as $v)
                         {
                             ?>
-                            <option value="<?= $v['id']; ?>" <?= $_GET['c'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                            <option value="<?php echo $v['id']; ?>" <?php echo $_GET['c'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                             <?php
                         }
                         ?>
@@ -57,14 +57,14 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?= $v['id']; ?>" /></td>
-                                    <td width="100"><?= $v['c_title']; ?></td>
-                                    <td width="200"><?= $v['p_title']; ?></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="200"><?= $v['brief']; ?></td>
-                                    <td width="100" align="center"><?= file_size($obj->get_dir() . $v['path']); ?> MB</td>
-                                    <td width="100" align="center"><?= date("Y-m-d", strtotime($v['dates'])); ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_download_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?php echo $v['id']; ?>" /></td>
+                                    <td width="100"><?php echo $v['c_title']; ?></td>
+                                    <td width="200"><?php echo $v['p_title']; ?></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="200"><?php echo $v['brief']; ?></td>
+                                    <td width="100" align="center"><?php echo file_size($obj->get_dir() . $v['path']); ?> MB</td>
+                                    <td width="100" align="center"><?php echo date("Y-m-d", strtotime($v['dates'])); ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_download_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                                 <?php
                             }
@@ -72,7 +72,7 @@ require_once(INC_ADMIN . "head.inc.php");
                         </table>
                         <input type="hidden" name="func" value="support_down"/>
                         <input type="hidden" name="doit" value="del"/>
-                        <input type="hidden" name="parent" value="<?= $_GET['c']; ?>"/>
+                        <input type="hidden" name="parent" value="<?php echo $_GET['c']; ?>"/>
                     </form>
                 </div>
             </div>

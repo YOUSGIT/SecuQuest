@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 3);
 
 $obj = new Catalog;
@@ -29,7 +29,7 @@ require_once(INC_ADMIN . "head.inc.php");
                         foreach ($bcatalog as $v)
                         {
                             ?>
-                            <option value="<?= $v['id']; ?>" <?= $_GET['bc'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                            <option value="<?php echo $v['id']; ?>" <?php echo $_GET['bc'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                             <?php
                         }
                         ?>
@@ -38,8 +38,8 @@ require_once(INC_ADMIN . "head.inc.php");
                 <div class="group">
                     狀態 <select class="span2" data-target="status">
                         <option>全部</option>
-                        <option value="1" <?= $_GET['cs'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
-                        <option value="0" <?= $_GET['cs'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
+                        <option value="1" <?php echo $_GET['cs'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
+                        <option value="0" <?php echo $_GET['cs'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
                     </select>
                 </div>
                 <?php if (is_numeric($_GET['bc']) && $_GET['cs'] != '1' && $_GET['cs'] != '0'): ?>
@@ -66,12 +66,12 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?= $v['id']; ?>"/></td>
-                                    <td width="200"><?= $v['bc']; ?></td>
-                                    <td><a href="product.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></td>
-                                    <td width="100" align="center"><?= $obj->get_status($v['status']); ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="product_catalog_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
-                                <input type="hidden" name="sort_arr[]" value="<?= $v['id']; ?>"/>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?php echo $v['id']; ?>"/></td>
+                                    <td width="200"><?php echo $v['bc']; ?></td>
+                                    <td><a href="product.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></td>
+                                    <td width="100" align="center"><?php echo $obj->get_status($v['status']); ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="product_catalog_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
+                                <input type="hidden" name="sort_arr[]" value="<?php echo $v['id']; ?>"/>
                                 </tr>
                             <?php }
                             ?>

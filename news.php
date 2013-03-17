@@ -33,7 +33,7 @@ require_once("inc/head.inc.php");
                     foreach ($news_arr as $v)
                     {
                         ?>
-                        <li <?= $id == $v['id'] ? 'class="active"' : ''; ?>><a href="?id=<?= $v['id']; ?>"><?= mb_substr($v['title'], 0, 30) . '...'; ?></a></li>
+                        <li <?php echo $id == $v['id'] ? 'class="active"' : ''; ?>><a href="?id=<?php echo $v['id']; ?>"><?php echo mb_substr($v['title'], 0, 30) . '...'; ?></a></li>
                         <?php
                     }
                     ?>
@@ -41,9 +41,9 @@ require_once("inc/head.inc.php");
             </div>
             <div class="right-col">
                 <div class="static-html">
-                    <legend><?= $ret['title']; ?></legend>
-                    <small><?= $ret['dates']; ?></small>
-                    <p><?= ($ret['content']); ?></p>
+                    <legend><?php echo $ret['title']; ?></legend>
+                    <small><?php echo $ret['dates']; ?></small>
+                    <p><?php echo ($ret['content']); ?></p>
                 </div>
             </div>
         </div>            	            

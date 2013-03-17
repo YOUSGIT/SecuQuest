@@ -23,7 +23,7 @@ require_once("inc/head.inc.php");
                 foreach ($pro_imgs as $v)
                 {
                     ?>
-                    <div class="media" data-type="image" style="background-image:url(<?= $product->get_dir() . $v['path']; ?>);"></div>
+                    <div class="media" data-type="image" style="background-image:url(<?php echo $product->get_dir() . $v['path']; ?>);"></div>
                     <?php
                 }
                 ?>
@@ -34,8 +34,8 @@ require_once("inc/head.inc.php");
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1><?= $ret['title'] ?></h1>
-                    <div class="content"><?= nl2br($ret['brief']); ?></div>               
+                    <h1><?php echo $ret['title'] ?></h1>
+                    <div class="content"><?php echo nl2br($ret['brief']); ?></div>               
                 </div>                           
             </div>
             <div class="pager">   
@@ -44,7 +44,7 @@ require_once("inc/head.inc.php");
                 {
                     ?>
                     <div>
-                        <a href="#" class="stick"><img src="<?= $product->get_pre_img($v['path']); ?>" width="50"/></a>
+                        <a href="#" class="stick"><img src="<?php echo $product->get_pre_img($v['path']); ?>" width="50"/></a>
                     </div>
                     <?php
                 }
@@ -60,8 +60,8 @@ require_once("inc/head.inc.php");
                     foreach ($bc_arr as $v)
                     {
                         ?>
-                        <li <?= $v['id'] == $catalog->get_parent_for_product($ret['parent']) ? 'class="active"' : ''; ?>>
-                            <a href="products.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a>
+                        <li <?php echo $v['id'] == $catalog->get_parent_for_product($ret['parent']) ? 'class="active"' : ''; ?>>
+                            <a href="products.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a>
                             <ul>
                                 <?php
                                 $cat_arr = $catalog->get_cat_all_front($v['id']);
@@ -69,7 +69,7 @@ require_once("inc/head.inc.php");
                                 foreach ($cat_arr as $v2)
                                 {
                                     ?>
-                                    <li <?= $v2['id'] == $ret['parent'] ? 'class="active"' : ''; ?>><a href="products.php?c=<?= $v2['id']; ?>"><?= $v2['title']; ?></a></li>
+                                    <li <?php echo $v2['id'] == $ret['parent'] ? 'class="active"' : ''; ?>><a href="products.php?c=<?php echo $v2['id']; ?>"><?php echo $v2['title']; ?></a></li>
                                     <?php
                                 }
                                 ?>
@@ -90,10 +90,10 @@ require_once("inc/head.inc.php");
                     <li><a href="#downloads">Downloads</a></li>
                 </ul>
                 <div id="features" class="product-detail">
-                    <p><?= $ret['feature']; ?></p>
+                    <p><?php echo $ret['feature']; ?></p>
                 </div>
                 <div id="specifications" class="product-detail">
-                    <p><?= $ret['spec']; ?></p>                   	
+                    <p><?php echo $ret['spec']; ?></p>                   	
                 </div>
                 <div id="downloads" class="product-detail">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-normal">
@@ -109,11 +109,11 @@ require_once("inc/head.inc.php");
                         {
                             ?>
                             <tr>
-                                <td><?= $v['title']; ?></td>
-                                <td><?= $v['brief']; ?></td>
-                                <td align="center"><?= date('Y-m-d', strtotime($v['dates'])); ?></td>
-                                <td align="center"><?= file_size($support->get_dir() . $v['path']); ?> MB</td>
-                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?= base64_encode('attach'); ?>&t1=<?= base64_encode(Extension($v['path'])); ?>&b=<?= base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i>Download</a></td>
+                                <td><?php echo $v['title']; ?></td>
+                                <td><?php echo $v['brief']; ?></td>
+                                <td align="center"><?php echo date('Y-m-d', strtotime($v['dates'])); ?></td>
+                                <td align="center"><?php echo file_size($support->get_dir() . $v['path']); ?> MB</td>
+                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i>Download</a></td>
                             </tr>
                             <?php
                         }

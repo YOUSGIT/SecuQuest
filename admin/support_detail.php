@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -43,7 +43,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">標題</th>
-                                    <td><input type="text" placeholder="請輸入問題…" name="title" value="<?= $ret['title']; ?>" class="span10" required/></td>
+                                    <td><input type="text" placeholder="請輸入問題…" name="title" value="<?php echo $ret['title']; ?>" class="span10" required/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">分類</th>
@@ -54,7 +54,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                             foreach ($catalog as $v)
                                             {
                                                 ?>
-                                                <option value="<?= $v['id']; ?>" <?= $ret['catalog'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <option value="<?php echo $v['id']; ?>" <?php echo $ret['catalog'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                                             <?php }
                                             ?>
                                         </select>
@@ -62,12 +62,12 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr>
                                     <th align="right">問題解答</th>
-                                    <td><textarea rows="14" name="content" class="span6" required><?= ($ret['content']); ?></textarea></td>
+                                    <td><textarea rows="14" name="content" class="span6" required><?php echo ($ret['content']); ?></textarea></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="support"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>

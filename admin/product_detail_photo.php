@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 3);
 
 $obj = new Product;
@@ -34,8 +34,8 @@ require_once(INC_ADMIN . "head.inc.php");
             </div> 
             <div class="module-form">
                 <ul class="mheader">
-                    <li><a href="product_detail.php?id=<?= $_GET['p']; ?>">新增產品/修改產品</a></li>
-                    <li><a href="product_detail_photo.php?p=<?= $_GET['p']; ?>" class="active">產品圖片</a></li>                        
+                    <li><a href="product_detail.php?id=<?php echo $_GET['p']; ?>">新增產品/修改產品</a></li>
+                    <li><a href="product_detail_photo.php?p=<?php echo $_GET['p']; ?>" class="active">產品圖片</a></li>                        
                 </ul>
                 <div class="main-container">
                     <div class="mbody">
@@ -53,8 +53,8 @@ require_once(INC_ADMIN . "head.inc.php");
                                         {
                                             ?>
                                             <span data-target="imgs" style="display:inline-block;">
-                                                <input type="radio" value="<?= $v['id']; ?>" <?= $v['master'] == '1' ? 'checked="checked"' : ''; ?> name="master" data-target="master"/>
-                                                <a href="#" class="remove" onclick="return pic_remove(this,<?= $v['id']; ?>);"><span class="text">移除</span><img src="<?= PD_Image . 's_' . $v['path']; ?>" width="150" /></a>
+                                                <input type="radio" value="<?php echo $v['id']; ?>" <?php echo $v['master'] == '1' ? 'checked="checked"' : ''; ?> name="master" data-target="master"/>
+                                                <a href="#" class="remove" onclick="return pic_remove(this,<?php echo $v['id']; ?>);"><span class="text">移除</span><img src="<?php echo PD_Image . 's_' . $v['path']; ?>" width="150" /></a>
                                             </span>
                                             <?php
                                         }
@@ -63,7 +63,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="product_img"/>
-                            <input type="hidden" name="parent" value="<?= (int) $_GET['p']; ?>"/>
+                            <input type="hidden" name="parent" value="<?php echo (int) $_GET['p']; ?>"/>
                             <input type="hidden" name="doit" value="renew"/>
                         </form>
                     </div>
@@ -74,7 +74,7 @@ require_once(INC_ADMIN . "head.inc.php");
 </table>
 <script type="text/javascript">
     var _FORM = $("form[data-target='form']");
-    var _image_url = "<?= $obj->get_dir(); ?>";
+    var _image_url = "<?php echo $obj->get_dir(); ?>";
     var pre_img = $('img[data-target="pre_img"]');
     var setup = $('tr[data-target="setup"]');
     var upload = $('tr[data-target="upload"]');

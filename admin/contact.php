@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 5);
 
 $obj = new Contact;
@@ -37,12 +37,12 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?= $v['id']; ?>" /></td>
-                                    <td width="200"><?= $v['name']; ?></td>
-                                    <td width="250"><a href="mailto:<?= $v['email']; ?>"><?= $v['email']; ?></a></td>
-                                    <td><?= $v['subject']; ?></td>
-                                    <td width="100" align="center" class="date"><?= date('Y-m-d', strtotime($v['dates'])); ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="contact_detail.php?id=<?= $v['id']; ?>">內容</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?php echo $v['id']; ?>" /></td>
+                                    <td width="200"><?php echo $v['name']; ?></td>
+                                    <td width="250"><a href="mailto:<?php echo $v['email']; ?>"><?php echo $v['email']; ?></a></td>
+                                    <td><?php echo $v['subject']; ?></td>
+                                    <td width="100" align="center" class="date"><?php echo date('Y-m-d', strtotime($v['dates'])); ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="contact_detail.php?id=<?php echo $v['id']; ?>">內容</a></td>
                                 </tr>
                                 <?php
                             }

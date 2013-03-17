@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 1);
 
 $obj = new Banner;
@@ -37,11 +37,11 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?= $v['id']; ?>" /></td>
-                                    <td width="150"><img src="<?= $obj->get_pre_img($v['type'], $v['path']); ?>" width="150" /></td>
-                                    <td width="100" align="center"><?= $obj->get_type($v['type']); ?></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="website_banner_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?php echo $v['id']; ?>" /></td>
+                                    <td width="150"><img src="<?php echo $obj->get_pre_img($v['type'], $v['path']); ?>" width="150" /></td>
+                                    <td width="100" align="center"><?php echo $obj->get_type($v['type']); ?></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="website_banner_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                             <?php }
                             ?>

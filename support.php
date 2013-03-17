@@ -38,7 +38,7 @@ require_once("inc/head.inc.php");
                             foreach ($support_arr as $v)
                             {
                                 ?>
-                                <li <?= $v['id'] == $c ? 'class="active"' : ''; ?>><a href="support.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <li <?php echo $v['id'] == $c ? 'class="active"' : ''; ?>><a href="support.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></li>
                                 <?php
                             }
                             ?>
@@ -50,7 +50,7 @@ require_once("inc/head.inc.php");
                             foreach ($catalog_arr as $v)
                             {
                                 ?>
-                                <li><a href="download.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <li><a href="download.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></li>
                                 <?php
                             }
                             ?>
@@ -69,9 +69,9 @@ require_once("inc/head.inc.php");
                     {
                         ?>
                         <div class="item">
-                            <h1><?= $v['title']; ?></h1>
+                            <h1><?php echo $v['title']; ?></h1>
                             <div class="content">
-                                <?= nl2br($v['content']); ?>
+                                <?php echo nl2br($v['content']); ?>
                             </div>
                         </div>
                         <?php

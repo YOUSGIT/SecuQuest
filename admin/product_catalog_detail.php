@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 3);
 
 $obj = new Catalog;
@@ -37,7 +37,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">分類名稱</th>
-                                    <td><input type="text" placeholder="請輸入名稱…" name="title" value="<?= $ret['title']; ?>" class="span10" required/></td>
+                                    <td><input type="text" placeholder="請輸入名稱…" name="title" value="<?php echo $ret['title']; ?>" class="span10" required/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">大分類</th>
@@ -48,7 +48,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                             foreach ($bcatalog as $v)
                                             {
                                                 ?>
-                                                <option value="<?= $v['id']; ?>" <?= $ret['parent'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <option value="<?php echo $v['id']; ?>" <?php echo $ret['parent'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                                                 <?php
                                             }
                                             ?>
@@ -58,15 +58,15 @@ require_once(INC_ADMIN . "head.inc.php");
                                     <th align="right">狀態</th>
                                     <td>
                                         <select name="status" class="span2">
-                                            <option value="1" <?= $ret['status'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
-                                            <option value="0" <?= $ret['status'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
+                                            <option value="1" <?php echo $ret['status'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
+                                            <option value="0" <?php echo $ret['status'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
                                         </select>
                                     </td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="catalog"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>

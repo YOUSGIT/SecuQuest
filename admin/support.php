@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -26,12 +26,12 @@ require_once(INC_ADMIN . "head.inc.php");
             <div class="module-tool">
                 <div class="group">
                     分類 <select data-target="catalog" class="span4">                        	
-                        <option value="0" <?= $_GET['c'] == '0' || $_GET['c'] == '' ? 'selected="selected"' : ''; ?>>全部</option>
+                        <option value="0" <?php echo $_GET['c'] == '0' || $_GET['c'] == '' ? 'selected="selected"' : ''; ?>>全部</option>
                         <?php
                         foreach ($catalog as $v)
                         {
                             ?>
-                            <option value="<?= $v['id']; ?>" <?= $_GET['c'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                            <option value="<?php echo $v['id']; ?>" <?php echo $_GET['c'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                         <?php }
                         ?>
                     </select>
@@ -54,10 +54,10 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?= $v['id']; ?>" /></td>
-                                    <td width="200"><?= $obj->get_catalog($v['catalog']); ?></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?php echo $v['id']; ?>" /></td>
+                                    <td width="200"><?php echo $obj->get_catalog($v['catalog']); ?></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                                 <?php
                             }

@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -36,9 +36,9 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?= $v['id']; ?>" /></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_catalog_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item" value="<?php echo $v['id']; ?>" /></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="support_catalog_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                                 <?php
                             }

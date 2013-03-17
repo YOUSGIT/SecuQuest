@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 2);
 
 $obj = new News;
@@ -36,11 +36,11 @@ require_once(INC_ADMIN . "head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?= $v['id']; ?>"/></td>
-                                    <td width="100"><img src="<?= $obj->get_pre_img($v['path']); ?>" width="150"/></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="100" align="center" class="date"><?= date("Y-m-d", strtotime($v['dates'])); ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="news_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?php echo $v['id']; ?>"/></td>
+                                    <td width="100"><img src="<?php echo $obj->get_pre_img($v['path']); ?>" width="150"/></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="100" align="center" class="date"><?php echo date("Y-m-d", strtotime($v['dates'])); ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="news_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                             <?php }
                             ?>

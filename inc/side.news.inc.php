@@ -5,9 +5,9 @@ foreach ($side_news_arr as $v)
 {
     ?>
     <li>
-        <a href="news.php?id=<?= $v['id']; ?>" class="clearfix">
-            <img src="<?= $side_news->get_pre_img($v['path']); ?>" width="60" />
-            <h1><?= $v['title']; ?></h1>
+        <a href="news.php?id=<?php echo $v['id']; ?>" class="clearfix">
+            <img src="<?php echo $side_news->get_pre_img($v['path']); ?>" width="60" />
+            <h1><?php echo $v['title']; ?></h1>
         </a>
     </li>
     <?php

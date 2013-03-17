@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 3);
 
 $obj = new Catalog;
@@ -38,11 +38,11 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">分類名稱</th>
-                                    <td><input type="text" placeholder="請輸入名稱…" name="title" value="<?= $ret['title']; ?>" class="span10" required/></td>
+                                    <td><input type="text" placeholder="請輸入名稱…" name="title" value="<?php echo $ret['title']; ?>" class="span10" required/></td>
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= $obj->get_dir() . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
+                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
                                 </tr>
                                 <tr class="tr_image">
                                     <td><div id="jquery-wrapped-fine-uploader"></div></td>
@@ -51,15 +51,15 @@ require_once(INC_ADMIN . "head.inc.php");
                                     <th align="right">狀態</th>
                                     <td>
                                         <select name="status" class="span2">
-                                            <option value="1" <?= $ret['status'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
-                                            <option value="0" <?= $ret['status'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
+                                            <option value="1" <?php echo $ret['status'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
+                                            <option value="0" <?php echo $ret['status'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
                                         </select>
                                     </td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="catalog"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>
@@ -70,20 +70,20 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    var _image_url = "<?= $obj->get_dir(); ?>";
+    var _image_url = "<?php echo $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
-
+    
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
         init_file_upload();
     });
-
+    
     function save()
     {
         if (_FORM.valid()) _FORM.submit();
-
+        
         return false;
     }
     
@@ -102,8 +102,9 @@ require_once(INC_ADMIN . "head.inc.php");
             if (responseJSON.success)
             {
                 path.val(responseJSON.filename);
-                pre_img.load(_image_url + responseJSON.filename,function(){
-                    $(this).prop("src",_image_url + responseJSON.filename).fadeIn();
+                pre_img.load(_image_url + responseJSON.filename, function ()
+                {
+                    $(this).prop("src", _image_url + responseJSON.filename).fadeIn();
                     $('li[class=" qq-upload-success"]').fadeOut("slow");
                 });
             }

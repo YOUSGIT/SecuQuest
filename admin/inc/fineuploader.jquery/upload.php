@@ -19,7 +19,7 @@
   echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 
   /***************************************** */
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 
 switch ($_GET['func'])
 {

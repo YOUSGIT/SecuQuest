@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 5);
 
 $obj = new Contact;
@@ -37,13 +37,13 @@ require_once(INC_ADMIN . "head.inc.php");
                         <form data-target="form" method="post" action="func.php">
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
-                                    <td><textarea rows="14" name="content" class="span6" required><?= ($ret['content']); ?></textarea></td>
+                                    <td><textarea rows="14" name="content" class="span6" required><?php echo ($ret['content']); ?></textarea></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="contact" />
                             <input type="hidden" name="doit" value="info" />
                             <input type="hidden" name="dates" value="" />
-                            <input type="hidden" name="id" value="<?= !$ret['id'] ? '' : $ret['id']; ?>" />
+                            <input type="hidden" name="id" value="<?php echo !$ret['id'] ? '' : $ret['id']; ?>" />
                         </form>
                     </div>
                 </div>

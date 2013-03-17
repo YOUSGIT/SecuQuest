@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 3);
 
 $obj = new Product;
@@ -28,12 +28,12 @@ require_once(INC_ADMIN . "head.inc.php");
                 <div class="group">
                     大分類 <select class="span5" data-target="bcatalog">                        	
                         <option>請選擇...</option>
-                        <option value="0" <?= $_GET['p'] == 0 ? 'selected="selected"' : ''; ?>>全部</option>
+                        <option value="0" <?php echo $_GET['p'] == 0 ? 'selected="selected"' : ''; ?>>全部</option>
                         <?php
                         foreach ($bcatalog_arr as $v)
                         {
                             ?>
-                            <option value="<?= $v['id']; ?>" <?= $_GET['p'] == $v['id'] || ($bcatalog == $v['id']) ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                            <option value="<?php echo $v['id']; ?>" <?php echo $_GET['p'] == $v['id'] || ($bcatalog == $v['id']) ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                             <?php
                         }
                         ?>
@@ -41,12 +41,12 @@ require_once(INC_ADMIN . "head.inc.php");
                 </div>
                 <div class="group">
                     子分類 <select class="span5" data-target="bcatalog">                        	
-                        <option value="<?= $bcatalog; ?>">請選擇大分類</option>
+                        <option value="<?php echo $bcatalog; ?>">請選擇大分類</option>
                         <?php
                         foreach ($catalog_arr as $v)
                         {
                             ?>
-                            <option value="<?= $v['id']; ?>" <?= $_GET['p'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                            <option value="<?php echo $v['id']; ?>" <?php echo $_GET['p'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                             <?php
                         }
                         ?>
@@ -55,8 +55,8 @@ require_once(INC_ADMIN . "head.inc.php");
                 <div class="group">
                     狀態 <select class="span2" data-target="status">
                         <option>全部</option>
-                        <option value="1" <?= $_GET['s'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
-                        <option value="0" <?= $_GET['s'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
+                        <option value="1" <?php echo $_GET['s'] == "1" ? 'selected="selected"' : ''; ?>>上架</option>
+                        <option value="0" <?php echo $_GET['s'] == "0" ? 'selected="selected"' : ''; ?>>下架</option>
                     </select>
                 </div>                    
             </div> 
@@ -81,13 +81,13 @@ require_once(INC_ADMIN . "head.inc.php");
                                 $bc = $catalog->get_parent_for_product($v['parent']);
                                 ?>
                                 <tr>
-                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?= $v['id']; ?>"/></td>
-                                    <td width="100"><img src="<?= $obj->get_pre_img($v['path']); ?>" width="100" /></td>
-                                    <td width="200"><?= $bc > 0 ? $parent_title_arr[$bc] : $parent_title_arr[$v['parent']]; ?></td>
-                                    <td width="200"><?= $bc > 0 ? $parent_title_arr[$v['parent']] : ''; ?></td>
-                                    <td><?= $v['title']; ?></td>
-                                    <td width="100" align="center"><?= $obj->get_status($v['status']); ?></td>
-                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="product_detail.php?id=<?= $v['id']; ?>">編輯</a></td>
+                                    <td width="30" align="center"><input name="delid[]" type="checkbox" class="check-item"  value="<?php echo $v['id']; ?>"/></td>
+                                    <td width="100"><img src="<?php echo $obj->get_pre_img($v['path']); ?>" width="100" /></td>
+                                    <td width="200"><?php echo $bc > 0 ? $parent_title_arr[$bc] : $parent_title_arr[$v['parent']]; ?></td>
+                                    <td width="200"><?php echo $bc > 0 ? $parent_title_arr[$v['parent']] : ''; ?></td>
+                                    <td><?php echo $v['title']; ?></td>
+                                    <td width="100" align="center"><?php echo $obj->get_status($v['status']); ?></td>
+                                    <td width="50"><a class="btn btn-info btn-small" type="button" href="product_detail.php?id=<?php echo $v['id']; ?>">編輯</a></td>
                                 </tr>
                                 <?php
                             }
@@ -96,7 +96,7 @@ require_once(INC_ADMIN . "head.inc.php");
                         <input type="hidden" name="status" value="0"/>
                         <input type="hidden" name="func" value="product"/>
                         <input type="hidden" name="doit" value="del"/>
-                        <input type="hidden" name="parent" value="<?= $_GET['p']; ?>"/>
+                        <input type="hidden" name="parent" value="<?php echo $_GET['p']; ?>"/>
                     </form>
                 </div>
             </div>

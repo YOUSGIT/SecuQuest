@@ -34,7 +34,7 @@ require_once("inc/head.inc.php");
                     foreach ($about_arr as $v)
                     {
                         ?>
-                        <li <?= $v['id'] == $ret['id'] ? 'class="active"' : '' ?>><a href="about.php?id=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                        <li <?php echo $v['id'] == $ret['id'] ? 'class="active"' : '' ?>><a href="about.php?id=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></li>
                         <?php
                     }
                     ?>
@@ -45,8 +45,8 @@ require_once("inc/head.inc.php");
             </div>
             <div class="right-col">
                 <div class="static-html">
-                    <legend><?= $ret['title']; ?></legend>
-                    <p><?= nl2br($ret['content']); ?></p>
+                    <legend><?php echo $ret['title']; ?></legend>
+                    <p><?php echo nl2br($ret['content']); ?></p>
                 </div>
             </div>
         </div>            	            

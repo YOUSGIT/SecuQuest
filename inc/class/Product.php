@@ -230,7 +230,7 @@ class Product extends Superobj
                 . " FROM " . $this->tbname . " a
                             LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
                             WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1 
-                            ORDER BY a.`sequ` ASC";
+                            ORDER BY a.`sequ` ASC, a.`dates` DESC";
         // exit($this->list_this);
         return parent::get_list($this->list_this . $limit);
     }
@@ -279,10 +279,12 @@ class Product extends Superobj
             return;
         }
 
-        $returnID = (!$_POST['id']) ? $this->get_lastID() : $_POST['id'];
+        parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
+        $returnID = (!is_numeric($_POST['id'])) ? $this->get_lastID() : $_POST['id'];
         // self::set_back("product_detail.php?p=" . $_POST['parent']);
         self::set_back("product_detail.php?id=" . $returnID);
-        parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
+        // echo $_POST['id'].'::'.$this->get_lastID();
+        // exit;
     }
 
     function killu()

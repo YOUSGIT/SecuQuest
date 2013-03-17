@@ -21,13 +21,13 @@ $news_arr = $news->get_front(3);
                     if ($v['type'] == '0')
                     {
                         ?>
-                        <div class="media" data-type="image" style="background-image:url(<?= $banner->get_dir() . $v['path']; ?>);"></div>
+                        <div class="media" data-type="image" style="background-image:url(<?php echo $banner->get_dir() . $v['path']; ?>);"></div>
                         <?php
                     }
                     elseif ($v['type'] == '1')
                     {
                         ?>
-                        <div class="media" data-type="video" ><div id="<?= $banner->get_youtubeID($v['path']); ?>"></div></div>
+                        <div class="media" data-type="video" ><div id="<?php echo $banner->get_youtubeID($v['path']); ?>"></div></div>
                         <?php
                     }
                 }
@@ -39,9 +39,9 @@ $news_arr = $news->get_front(3);
                 ?>
                 <div class="title">
                     <div class="intro">
-                        <h1><?= $v['title']; ?></h1>
-                        <div class="content"><?= strip_tags($v['content']) . '...'; ?></div>
-                        <a href="<?= $v['link']; ?>" target="_blank" class="more">Learn More</a>
+                        <h1><?php echo $v['title']; ?></h1>
+                        <div class="content"><?php echo strip_tags($v['content']) . '...'; ?></div>
+                        <a href="<?php echo $v['link']; ?>" target="_blank" class="more">Learn More</a>
                     </div>                           
                 </div>
                 <?php
@@ -55,12 +55,12 @@ $news_arr = $news->get_front(3);
                     <div>
                         <div class="pop">
                             <div class="bg">
-                                <h1><?= $v['title']; ?></h1>
-                                <p><?= mb_substr(strip_tags($v['content']), 0, 50) . '...'; ?></p>
+                                <h1><?php echo $v['title']; ?></h1>
+                                <p><?php echo mb_substr(strip_tags($v['content']), 0, 50) . '...'; ?></p>
                             </div>
                             <span class="arrow"></span>
                         </div>
-                        <a href="#" class="stick"><img src="<?= $banner->get_pre_img($v['type'], $v['path']); ?>" width="50"/></a>
+                        <a href="#" class="stick"><img src="<?php echo $banner->get_pre_img($v['type'], $v['path']); ?>" width="50"/></a>
                     </div>
                     <?php
                 }
@@ -80,9 +80,9 @@ $news_arr = $news->get_front(3);
                         if (($k) % 5 == 0 || $k == 0)
                             echo'<div class="group">';
                         ?>
-                        <?= $k; ?><a class="item" href="product_detail.php?id=<?= $v['id']; ?>">
-                            <span class="photo"><img src="<?= $product->get_pre_img($v['path']); ?>" /></span>
-                            <span class="name"><?= $v['title']; ?></span>
+                        <?php echo $k; ?><a class="item" href="product_detail.php?id=<?php echo $v['id']; ?>">
+                            <span class="photo"><img src="<?php echo $product->get_pre_img($v['path']); ?>" /></span>
+                            <span class="name"><?php echo $v['title']; ?></span>
                         </a>
                         <?php
                         if (($k + 1) % 5 == 0 || (($k + 1) == $counts))
@@ -97,11 +97,11 @@ $news_arr = $news->get_front(3);
                 foreach ($news_arr as $k => $v)
                 {
                     ?>
-                    <div class="item <?= $k == 2 ? "lst" : "" ?>">
-                        <div class="photo" style="background-image:url(<?= $news->get_pre_img($v['path']); ?>)"></div>
-                        <a href="news.php?id=<?= $v['id']; ?>" class="content">
-                            <h1><?= $v['title']; ?></h1>
-                            <p><?= mb_substr(strip_tags($v['content']), 0, 50); ?></p>
+                    <div class="item <?php echo $k == 2 ? "lst" : "" ?>">
+                        <div class="photo" style="background-image:url(<?php echo $news->get_pre_img($v['path']); ?>)"></div>
+                        <a href="news.php?id=<?php echo $v['id']; ?>" class="content">
+                            <h1><?php echo $v['title']; ?></h1>
+                            <p><?php echo mb_substr(strip_tags($v['content']), 0, 50); ?></p>
                         </a>
                     </div>
                     <?php

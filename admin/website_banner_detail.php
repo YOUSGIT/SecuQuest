@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 1);
 
 $obj = new Banner;
@@ -38,24 +38,24 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">標題</th>
-                                    <td><input value="<?= $ret['title']; ?>" type="text" placeholder="請輸入標題…" name="title" class="span10" required></td>
+                                    <td><input value="<?php echo $ret['title']; ?>" type="text" placeholder="請輸入標題…" name="title" class="span10" required></td>
                                 </tr>
                                 <tr>
                                     <th align="right">媒體類型</th>
                                     <td>
                                         <select name="type" id="media_type" class="span2">
-                                            <option value="0" <?= $ret['type'] == 0 ? 'selected="selected"' : ''; ?>>圖片</option>
-                                            <option value="1" <?= $ret['type'] == 1 ? 'selected="selected"' : ''; ?>>影片</option>
+                                            <option value="0" <?php echo $ret['type'] == 0 ? 'selected="selected"' : ''; ?>>圖片</option>
+                                            <option value="1" <?php echo $ret['type'] == 1 ? 'selected="selected"' : ''; ?>>影片</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th align="right">連結</th>
-                                    <td><input type="text" placeholder="請輸入連結…" name="link" value="<?= $ret['link']; ?>" class="span6" required/><?= $ret['link'] ? '<a href="' . $ret['link'] . '" target="_blank">( Open link )</a>' : '' ?></td>
+                                    <td><input type="text" placeholder="請輸入連結…" name="link" value="<?php echo $ret['link']; ?>" class="span6" required/><?php echo $ret['link'] ? '<a href="' . $ret['link'] . '" target="_blank">( Open link )</a>' : '' ?></td>
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= $obj->get_dir() . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a>                                	
+                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a>                                	
                                     </td>
                                 </tr>
                                 <tr class="tr_image">
@@ -63,16 +63,16 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr class="tr_vedio">
                                     <th align="right">影片</th>
-                                    <td><input type="text" placeholder="請輸入Youtube連結…" class="span6" name="path" required value="<?= $ret['path']; ?>"/></td>
+                                    <td><input type="text" placeholder="請輸入Youtube連結…" class="span6" name="path" required value="<?php echo $ret['path']; ?>"/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">內容</th>
-                                    <td><textarea rows="10" name="content" class="span6" required><?= htmlentities($ret['content']); ?></textarea></td>
+                                    <td><textarea rows="10" name="content" class="span6" required><?php echo htmlentities($ret['content']); ?></textarea></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="adv"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    var _image_url = "<?= $obj->get_dir(); ?>";
+    var _image_url = "<?php echo $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
     

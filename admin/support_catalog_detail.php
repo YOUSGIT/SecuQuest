@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -38,12 +38,12 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">分類名稱</th>
-                                    <td><input type="text" name="title" value="<?= $ret['title']; ?>" placeholder="請輸入名稱…" class="span10" required/></td>
+                                    <td><input type="text" name="title" value="<?php echo $ret['title']; ?>" placeholder="請輸入名稱…" class="span10" required/></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="support_cat"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>

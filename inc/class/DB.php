@@ -18,17 +18,18 @@ class DB
 
         if ($debug)
         {
-
-            $this->hostname_prof = "Secuquest.db.9606194.hostedresource.com";
+			$this->hostname_prof = "localhost";
+            $this->username_prof = "sqi2admin";
+            $this->password_prof = "";
+            /*$this->hostname_prof = "Secuquest.db.9606194.hostedresource.com";
             $this->username_prof = "Secuquest";
-            $this->password_prof = "ZAQ!2wsx";
+            $this->password_prof = "ZAQ!2wsx";*/
         }
         else
         {
-
             $this->hostname_prof = "localhost";
-            $this->username_prof = "vhost62112";
-            $this->password_prof = "10141014";
+            $this->username_prof = "sqi2admin";
+            $this->password_prof = "";
         }
 
         if (!$this->prof = mysql_connect($this->hostname_prof, $this->username_prof, $this->password_prof))

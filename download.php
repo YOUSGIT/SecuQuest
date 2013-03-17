@@ -43,7 +43,7 @@ require_once("inc/head.inc.php");
                             foreach ($support_arr as $v)
                             {
                                 ?>
-                                <li><a href="support.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <li><a href="support.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></li>
                                 <?php
                             }
                             ?>
@@ -55,7 +55,7 @@ require_once("inc/head.inc.php");
                             foreach ($catalog_arr as $v)
                             {
                                 ?>
-                                <li <?= $v['id'] == $c ? 'class="active"' : ''; ?>><a href="download.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a></li>
+                                <li <?php echo $v['id'] == $c ? 'class="active"' : ''; ?>><a href="download.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a></li>
                                 <?php
                             }
                             ?>
@@ -75,7 +75,7 @@ require_once("inc/head.inc.php");
                         {
                             ?>
                             <tr>                          
-                                <th colspan="5" align="left"><?= $v['title']; ?></th>
+                                <th colspan="5" align="left"><?php echo $v['title']; ?></th>
                             </tr>
                             <?php
                             $down_arr = $support->get_down_all_front($c, $v['id']);
@@ -83,11 +83,11 @@ require_once("inc/head.inc.php");
                             {
                                 ?>
                                 <tr>
-                                    <td><?= $v2['title']; ?></td>
-                                    <td><?= $v2['brief']; ?></td>
-                                    <td align="center"><?= date('Y-m-d', strtotime($v2['dates'])); ?></td>
-                                    <td align="center"><?= file_size($support->get_dir() . $v2['path']); ?> MB</td>
-                                    <td align="center"><a href="readfile.php?title=<?= base64_encode('attach'); ?>&t1=<?= base64_encode(Extension($v2['path'])); ?>&b=<?= base64_encode($support->get_dir() . $v2['path']); ?>" class="download">Download</a></td>
+                                    <td><?php echo $v2['title']; ?></td>
+                                    <td><?php echo $v2['brief']; ?></td>
+                                    <td align="center"><?php echo date('Y-m-d', strtotime($v2['dates'])); ?></td>
+                                    <td align="center"><?php echo file_size($support->get_dir() . $v2['path']); ?> MB</td>
+                                    <td align="center"><a href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v2['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v2['path']); ?>" class="download">Download</a></td>
                                 </tr>
                                 <?php
                             }

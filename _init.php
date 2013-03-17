@@ -5,19 +5,20 @@
 # HTTP="true"
 //header("Content-Type:text/html; charset=utf-8");
 ob_start();
-ini_set('display_errors', '1');
+// ini_set('display_errors', '1');
 session_start();
-// error_reporting(); #-1
+// error_reporting(E_ALL ^ E_NOTICE);
 
 if (true)
 {
-    define('myDB', 'Secuquest');
+    define('myDB', 'sqi2');
     define('Debug', true);
-    $root_f = '/SecuQuest/';
+    // $root_f = '/_offline/';
+    $root_f = '/';
 }
 else
 {
-    define('myDB', 'Secuquest');
+    define('myDB', 'sqi2');
     define('Debug', false);
     $root_f = '/';
 }
@@ -73,17 +74,16 @@ else
 
 define("_KEY", 192); //編號編碼
 ####################################################
-$root_f = '/SecuQuest/';
+// $root_f = '/SecuQuest/';
 $inPage = pathinfo($_SERVER["PHP_SELF"]);
 define('this_Page', $inPage["basename"]); //本頁檔名
-define('_ROOT', "/Hosting/9606194/html" . $root_f); //根目錄
+define('_ROOT', "/var/www/html/secuquest" . $root_f); //根目錄
 // exit(_ROOT);
 
 if (file_exists("admin.admin"))
     $root = '../';
 else
     $root = '';
-
 
 #################圖片存放位置
 define('ADM_Image', $root . 'images/user_images/ad/');
@@ -97,7 +97,7 @@ define('FILES_down', $root . 'download/');
 define('INC_CLASS', 'inc/class/');
 define('INC_ADMIN', _ROOT . 'admin/inc/');
 define('IMAGES', $root . 'images/');
-define('WEB', 'http://www.besdon.com.tw' . $root_f);
+define('WEB', 'http://www.secuquest.com' . $root_f);
 
 $image_Prefix = array("s_", "m_", "l_", "ss_", ""); //圖檔名前綴
 #######################################################

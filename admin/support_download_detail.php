@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Support;
@@ -44,7 +44,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">名稱</th>
-                                    <td><input type="text" placeholder="請輸入名稱…" name="title" class="span10" value="<?= $ret['title']; ?>" required/></td>
+                                    <td><input type="text" placeholder="請輸入名稱…" name="title" class="span10" value="<?php echo $ret['title']; ?>" required/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">分類</th>
@@ -55,7 +55,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                             foreach ($bcatalog_arr as $v)
                                             {
                                                 ?>
-                                                <option value="<?= $v['id']; ?>" <?= ($ret['parent'] == $v['id']) ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <option value="<?php echo $v['id']; ?>" <?php echo ($ret['parent'] == $v['id']) ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                                                 <?php
                                             }
                                             ?>
@@ -70,7 +70,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                             foreach ($pd_arr as $v)
                                             {
                                                 ?>
-                                                <option value="<?= $v['id']; ?>" <?= $ret['pid'] == $v['id'] ? 'selected="selected"' : ''; ?>><?= $v['title']; ?></option>
+                                                <option value="<?php echo $v['id']; ?>" <?php echo $ret['pid'] == $v['id'] ? 'selected="selected"' : ''; ?>><?php echo $v['title']; ?></option>
                                                 <?php
                                             }
                                             ?>
@@ -79,13 +79,13 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr>
                                     <th align="right">簡述</th>
-                                    <td><input type="text" name="brief" placeholder="請輸入簡述…" class="span10" value="<?= $ret['brief']; ?>" required/></td>
+                                    <td><input type="text" name="brief" placeholder="請輸入簡述…" class="span10" value="<?php echo $ret['brief']; ?>" required/></td>
                                 </tr>
                                 <tr>
                                     <th rowspan="2" align="right">檔案上傳</th>
-                                    <td><div <?= !$ret['path'] ? 'style="display:none;"' : ''; ?> data-target="download">
-                                            <a href="#" class="remove word" data-target="link_path"><span data-target="pre_path"><?= $ret['path']; ?></span><span class="text" onclick="return file_remove(this,<?= $v['id']; ?>);">移除</span></a>
-                                            <a data-target="download"  href="<?= $obj->get_dir() . $ret['path']; ?>" target="_blank"> (開啟檔案)</a>
+                                    <td><div <?php echo !$ret['path'] ? 'style="display:none;"' : ''; ?> data-target="download">
+                                            <a href="#" class="remove word" data-target="link_path"><span data-target="pre_path"><?php echo $ret['path']; ?></span><span class="text" onclick="return file_remove(this,<?php echo $v['id']; ?>);">移除</span></a>
+                                            <a data-target="download"  href="<?php echo $obj->get_dir() . $ret['path']; ?>" target="_blank"> (開啟檔案)</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -95,8 +95,8 @@ require_once(INC_ADMIN . "head.inc.php");
                             </table>
                             <input type="hidden" name="func" value="support_down"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="path" value="<?= $ret['path']; ?>"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="path" value="<?php echo $ret['path']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    var _path_url = "<?= $obj->get_dir(); ?>";
+    var _path_url = "<?php echo $obj->get_dir(); ?>";
     var file_path = $("input[name='path']");
     var pre_link = $('a[data-target="link_path"]');
     var pre_download = $('div[data-target="download"]');

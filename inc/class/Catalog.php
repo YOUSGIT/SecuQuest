@@ -262,6 +262,17 @@ class Catalog extends Superobj
         return $this->status_arr[$v];
     }
 
+    function get_first_catalog_for_bcatalog_front($p)
+    {
+        if (!is_numeric($p))
+            return false;
+
+        $this->list_this = "SELECT a.`id` FROM " . $this->tbname . " a WHERE a.`status` = 1 AND a.`parent` = " . $p . " " . $wheres . " ORDER BY a.`sequ` ASC";
+        // exit($this->list_this);
+        $ret = parent::get_list($this->list_this);
+        return $ret[0]['id'];
+    }
+
     ############################################################################
     function renew()
     {

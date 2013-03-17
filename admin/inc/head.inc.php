@@ -25,17 +25,17 @@
                     </ul>
                 </div>
                 <ul class="nav">
-                    <li><a href="website_banner.php" <?= CAT == 1 ? 'class="active"' : ''; ?>>網站管理</a></li>
-                    <li><a href="news.php" <?= CAT == 2 ? 'class="active"' : ''; ?>>新聞管理</a></li>
-                    <li><a href="product_bcatalog.php" <?= CAT == 3 ? 'class="active"' : ''; ?>>產品管理</a></li>
-                    <li><a href="support.php" <?= CAT == 4 ? 'class="active"' : ''; ?>>支援管理</a></li>
-                    <li><a href="contact.php" <?= CAT == 5 ? 'class="active"' : ''; ?>>聯絡我們</a></li>                
-                    <li><a href="about.php" <?= CAT == 6 ? 'class="active"' : ''; ?>>關於我們</a></li>
+                    <li><a href="website_banner.php" <?php echo CAT == 1 ? 'class="active"' : ''; ?>>網站管理</a></li>
+                    <li><a href="news.php" <?php echo CAT == 2 ? 'class="active"' : ''; ?>>新聞管理</a></li>
+                    <li><a href="product_bcatalog.php" <?php echo CAT == 3 ? 'class="active"' : ''; ?>>產品管理</a></li>
+                    <li><a href="support.php" <?php echo CAT == 4 ? 'class="active"' : ''; ?>>支援管理</a></li>
+                    <li><a href="contact.php" <?php echo CAT == 5 ? 'class="active"' : ''; ?>>聯絡我們</a></li>                
+                    <li><a href="about.php" <?php echo CAT == 6 ? 'class="active"' : ''; ?>>關於我們</a></li>
                 </ul>
                 <div class="tool-bar clearfix">            	
-                    <?= $toolbar; ?>             
+                    <?php echo $toolbar; ?>             
                 </div>
                 <div class="info-bar">
-                    <?= $crumb; ?>
+                    <?php echo $crumb; ?>
                 </div>
             </div>

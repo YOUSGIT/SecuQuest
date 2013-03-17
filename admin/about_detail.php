@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 6);
 
 $obj = new About;
@@ -36,16 +36,16 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">項目名稱</th>
-                                    <td><input type="text" name="title" value="<?= $ret['title']; ?>" placeholder="請輸入名稱…" class="span10" required/></td>
+                                    <td><input type="text" name="title" value="<?php echo $ret['title']; ?>" placeholder="請輸入名稱…" class="span10" required/></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><textarea rows="10" name="content" class="span6" required><?= ($ret['content']); ?></textarea></td>
+                                    <td colspan="2"><textarea rows="10" name="content" class="span6" required><?php echo ($ret['content']); ?></textarea></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="about"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="sequ" value="<?= $ret['sequ'] ? $ret['sequ'] : 999; ?>"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="sequ" value="<?php echo $ret['sequ'] ? $ret['sequ'] : 999; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>

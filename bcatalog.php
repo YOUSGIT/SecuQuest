@@ -31,12 +31,15 @@ require_once("inc/head.inc.php");
         <div class="container clearfix">
             <div class="left-col">
                 <ul class="side-nav">
+                    <li>
+                        <a href="products.php">New Item</a>
+                    </li>
                     <?php
                     foreach ($bc_arr as $v)
                     {
                         ?>
-                        <li <?= $v['id'] == $catalog->get_parent_for_product($_GET['c']) ? 'class="active"' : ''; ?>>
-                            <a href="products.php?c=<?= $v['id']; ?>"><?= $v['title']; ?></a>
+                        <li <?php echo $v['id'] == $catalog->get_parent_for_product($_GET['c']) ? 'class="active"' : ''; ?>>
+                            <a href="products.php?c=<?php echo $v['id']; ?>"><?php echo $v['title']; ?></a>
                             <ul>
                                 <?php
                                 $cat_arr = $catalog->get_cat_all_front($v['id']);
@@ -44,7 +47,7 @@ require_once("inc/head.inc.php");
                                 foreach ($cat_arr as $v2)
                                 {
                                     ?>
-                                    <li <?= $v2['id'] == $_GET['c'] ? 'class="active"' : ''; ?>><a href="products.php?c=<?= $v2['id']; ?>"><?= $v2['title']; ?></a></li>
+                                    <li <?php echo $v2['id'] == $_GET['c'] ? 'class="active"' : ''; ?>><a href="products.php?c=<?php echo $v2['id']; ?>"><?php echo $v2['title']; ?></a></li>
                                     <?php
                                 }
                                 ?>
@@ -63,12 +66,13 @@ require_once("inc/head.inc.php");
                     <?php
                     foreach ($bc_arr as $v)
                     {
+                        $parent = $catalog->get_first_catalog_for_bcatalog_front($v['id']);
                         ?>
                         <li class="item">
-                            <a href="catalog.php?c=<?= $v['id']; ?>">
-                                <img src="<?= $catalog->get_pre_img($v['path']); ?>" />
-                                <h1><?= $v['title']; ?></h1>
-                                <!--<p><?= mb_substr(strip_tags($v['brief']), 0, 50) . '...'; ?></p>-->
+                            <a href="products.php?c=<?php echo $parent; ?>">
+                                <img src="<?php echo $catalog->get_pre_img($v['path']); ?>" />
+                                <h1><?php echo $v['title']; ?></h1>
+                                <!--<p><?php echo mb_substr(strip_tags($v['brief']), 0, 50) . '...'; ?></p>-->
                             </a>
                         </li>
                         <?php

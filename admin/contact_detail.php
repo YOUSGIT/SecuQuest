@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 4);
 
 $obj = new Contact;
@@ -32,23 +32,23 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">姓名</th>
-                                    <td><?= $ret['name']; ?></td>
+                                    <td><?php echo $ret['name']; ?></td>
                                 </tr>
                                 <tr>
                                     <th align="right">郵件</th>
-                                    <td><a href="mailto:<?= $ret['email']; ?>"><?= $ret['email']; ?></a></td>
+                                    <td><a href="mailto:<?php echo $ret['email']; ?>"><?php echo $ret['email']; ?></a></td>
                                 </tr>
                                 <tr>
                                     <th align="right">日期</th>
-                                    <td class="date"><?= $ret['dates']; ?></td>
+                                    <td class="date"><?php echo $ret['dates']; ?></td>
                                 </tr>
                                 <tr>
                                     <th align="right">主旨</th>
-                                    <td><?= $ret['subject']; ?></td>
+                                    <td><?php echo $ret['subject']; ?></td>
                                 </tr>
                                 <tr>
                                     <th align="right">內容</th>
-                                    <td><?= nl2br($ret['content']); ?></td>
+                                    <td><?php echo nl2br($ret['content']); ?></td>
                                 </tr>
                             </table>
                         </form>

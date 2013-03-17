@@ -1,5 +1,5 @@
 <?php
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/var/www/html/secuquest/_init.php");
 define("CAT", 2);
 
 $obj = new News;
@@ -38,23 +38,23 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th align="right">標題</th>
-                                    <td><input type="text" value="<?= $ret['title']; ?>" name="title" placeholder="請輸入標題…" class="span10" required/></td>
+                                    <td><input type="text" value="<?php echo $ret['title']; ?>" name="title" placeholder="請輸入標題…" class="span10" required/></td>
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?= $obj->get_dir() . $ret['path']; ?>" <?= (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
+                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
                                 </tr>
                                 <tr class="tr_image">
                                     <td><div id="jquery-wrapped-fine-uploader"></div></td>
                                 </tr>
                                 <tr class="tr_image">
                                     <th align="right">內容</th>
-                                    <td><textarea rows="10" name="content" class="span6" required><?= ($ret['content']); ?></textarea></td>
+                                    <td><textarea rows="10" name="content" class="span6" required><?php echo ($ret['content']); ?></textarea></td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="news"/>
                             <input type="hidden" name="doit" value="renew"/>
-                            <input type="hidden" name="id" value="<?= $ret['id']; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ require_once(INC_ADMIN . "head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    var _image_url = "<?= $obj->get_dir(); ?>";
+    var _image_url = "<?php echo $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
     

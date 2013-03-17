@@ -1,6 +1,6 @@
 <?php
 
-require_once("/Hosting/9606194/html/SecuQuest/_init.php");
+require_once("/_offline/_init.php");
 header('Content-Type: text/html; charset=utf-8');
 $back = './';
 
