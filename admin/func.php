@@ -66,7 +66,12 @@ if ($FUNC)
             $func->set_field(SUPPORT_DOWN);
             break;
 
+        case "password":
+            $func = new Site;
+            $func->modPW();
 
+            exit;
+            break;
         default:
 
             break;

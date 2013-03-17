@@ -90,4 +90,28 @@ class Site extends Superobj
                 header("Location:  ./");
     }
 
+    function modPW()
+    {
+        $sql = "SELECT * FROM " . $this->tbname . " WHERE `userid` = '" . $this->quote($_SESSION['AdmiN']) . "' AND pw = '" . $this->quote(md5($_POST['pw'])) . "'";
+
+        if (!$ret = $this->get_list($sql, 1))
+        {
+            goback("website_password.php", 0, "原密碼錯誤");
+            exit;
+        }
+
+        if (($_POST['npw1'] == $_POST['npw2']) && $_POST['npw1'] != '')
+        {
+            $sql = "UPDATE " . $this->tbname . " SET `pw` = '" . md5($_POST['npw1']) . "' WHERE `id` = '" . $ret['id'] . "'";
+
+
+            if ($this->qry($sql))
+                goback("logout.php", 0, "更新成功，請重新登入");
+            else
+                goback("logout.php", 0, "更新失敗[077]");
+        }
+        else
+            goback("website_password.php", 0, "請再次確認新密碼");
+    }
+
 }
