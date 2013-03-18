@@ -25,7 +25,7 @@ switch (LANG)
         $_LANG['Products']['Features']['cn'] = '特性';
         $_LANG['Products']['Specifications']['cn'] = '规格';
         $_LANG['Products']['Name']['cn'] = '标题';
-        $_LANG['Products']['Description'] = '叙述';
+        $_LANG['Products']['Description']['cn'] = '叙述';
         $_LANG['Products']['Date']['cn'] = '日期';
         $_LANG['Products']['Size']['cn'] = '大小';
 
@@ -52,7 +52,7 @@ switch (LANG)
         $_LANG['Products']['Features']['en'] = 'Features';
         $_LANG['Products']['Specifications']['en'] = 'Specifications';
         $_LANG['Products']['Name']['cn'] = 'Name';
-        $_LANG['Products']['Description'] = 'Description';
+        $_LANG['Products']['Description']['en'] = 'Description';
         $_LANG['Products']['Date']['cn'] = 'Date';
         $_LANG['Products']['Size']['cn'] = 'Size';
         break;

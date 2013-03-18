@@ -69,28 +69,29 @@ require_once("inc/head.inc.php");
 <script type="text/javascript">
     var validator;
     var _FORM = $("form[data-target='form']");
-    
-    $(document).ready(function (e)
+
+    $(document).ready(function(e)
     {
         validator = _FORM.validate();
     });
-    
+
     function save()
     {
-        if (_FORM.valid()){
+        if (_FORM.valid()) {
 
-            $.post("func.php",_FORM.serializeArray(),function(ret){
-                if(ret=='vcode'){
+            $.post("func.php", _FORM.serializeArray(), function(ret) {
+                if (ret == 'vcode') {
                     alert("Please input the correct verify code.");
                     return false;
                 }
-                
+
                 $('input[name="check"]').val("0");
-                if (_FORM.valid()) _FORM.submit();
-                
-            },"html");
-        }        
-        
+                if (_FORM.valid())
+                    _FORM.submit();
+
+            }, "html");
+        }
+
         return false;
     }
 </script>

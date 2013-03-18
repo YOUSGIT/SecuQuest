@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 1);
 
 $catalog = new Catalog;
@@ -29,7 +30,7 @@ require_once("inc/head.inc.php");
                 ?>
             </div>
             <ul class="crumb">
-                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?>Home</a>/</li>
+                <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
                 <li><?php echo $_LANG['btn']['Products'][LANG]; ?></li>
             </ul>
             <div class="title">
