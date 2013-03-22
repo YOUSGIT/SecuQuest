@@ -92,7 +92,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr>
                                     <th align="right">產品概述</th>
-                                    <td><textarea name="brief" class="span10" rows="5"><?php echo htmlentities($ret['brief']); ?></textarea></td>
+                                    <td><textarea name="brief" class="span10" rows="5"><?php echo ($ret['brief']); ?></textarea></td>
                                 </tr>
                                 <tr>
                                     <th align="right">特色</th>
@@ -129,8 +129,10 @@ require_once(INC_ADMIN . "head.inc.php");
         validator = _FORM.validate();
         
         /* init ckeditor */
+        var editor1 = CKEDITOR.replace('brief');
         var editor2 = CKEDITOR.replace('feature');
         var editor3 = CKEDITOR.replace('spec');
+        CKFinder.setupCKEditor(editor1, 'inc/ckfinder/');
         CKFinder.setupCKEditor(editor2, 'inc/ckfinder/');
         CKFinder.setupCKEditor(editor3, 'inc/ckfinder/');
         
