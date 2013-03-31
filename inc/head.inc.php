@@ -12,8 +12,7 @@
         <script type="text/javascript" language="javascript" src="script/jquery-ui-1.10.0.custom.min.js"></script>
         <script type="text/javascript" language="javascript" src="script/jquery.cycle.all.js"></script>
         <script type="text/javascript" language="javascript" src="css/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" language="javascript" src="script/global.js"></script>
-        <script type="text/javascript" language="javascript" src="script/index.js"></script>
+        <script type="text/javascript" language="javascript" src="script/global.js"></script>        
     </head>
     <body>
         <div class="header">

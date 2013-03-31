@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 2);
 
 $support = New Support;

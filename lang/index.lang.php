@@ -42,7 +42,7 @@ switch (LANG)
         $_LANG['btn']['News']['en'] = 'News';
         $_LANG['btn']['About Us']['en'] = 'About Us';
         $_LANG['btn']['Home']['en'] = 'Home';
-        $_LANG['btn']['General Info']['cn'] = 'General Info';
+        $_LANG['btn']['General Info']['en'] = 'General Info';
         $_LANG['notice']['Contact']['en'] = 'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.';
         $_LANG['notice']['verify']['en'] = 'Please enter the letters as they are shown in the image above. 
     Letters are not case-sensitive.';
@@ -51,9 +51,9 @@ switch (LANG)
         $_LANG['Products']['New Item']['en'] = 'New Item';
         $_LANG['Products']['Features']['en'] = 'Features';
         $_LANG['Products']['Specifications']['en'] = 'Specifications';
-        $_LANG['Products']['Name']['cn'] = 'Name';
+        $_LANG['Products']['Name']['en'] = 'Name';
         $_LANG['Products']['Description']['en'] = 'Description';
-        $_LANG['Products']['Date']['cn'] = 'Date';
-        $_LANG['Products']['Size']['cn'] = 'Size';
+        $_LANG['Products']['Date']['en'] = 'Date';
+        $_LANG['Products']['Size']['en'] = 'Size';
         break;
 }

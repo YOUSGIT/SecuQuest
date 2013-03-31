@@ -90,7 +90,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><div id="jquery-wrapped-fine-uploader"></div></td>
+                                    <td><div id="jquery-wrapped-fine-uploader"></div>( 上限:<?php echo ini_get('upload_max_filesize'); ?> )</td>
                                 </tr>
                             </table>
                             <input type="hidden" name="func" value="support_down"/>
@@ -155,7 +155,7 @@ require_once(INC_ADMIN . "head.inc.php");
                 link_download.prop("href", _path_url + responseJSON.filename);
                 // addedFiles++;
             }
-            else alert("上傳失敗");
+            else alert("上傳失敗: " + responseJSON.error);
         });
 
         // alert(upload_temp_path);
