@@ -13,7 +13,6 @@ $news = new News;
 $news_arr = $news->get_front(3);
 ?>
 <div class="body">
-	<script type="text/javascript" language="javascript" src="script/index.js"></script>
     <div class="banner index">
         <div class="container">
             <div class="gallery">

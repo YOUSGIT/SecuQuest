@@ -18,7 +18,7 @@ require_once("inc/head.inc.php");
 ?>
 <div class="body">
     <div class="banner product">
-        <div class="container block">            	
+        <div class="container">            	
             <div class="gallery">
                 <?php
                 foreach ($pro_imgs as $v)

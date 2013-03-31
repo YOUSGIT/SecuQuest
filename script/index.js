@@ -8,7 +8,6 @@ $(document).ready(function(e) {
 		next:   '.index-new-products .next', 
 		prev:   '.index-new-products .prev'
 		});
-		
 		$('.banner .gallery').cycle({
 			fx:'fade',
 			pager:'.pager',
@@ -36,12 +35,6 @@ $(document).ready(function(e) {
 				}
 			}			
 		});
-		
-		
-		
-		if($(".gallery .media").length==1){
-			$('.banner .title:eq(0)').animate({'opacity':'1','left':'00px'},1000,'easeOutQuad');
-		}
 		
 		$('.banner').mouseenter(function(){$('.banner .gallery').cycle('pause');}).mouseleave(function(){$('.banner .gallery').cycle('resume');});
 });

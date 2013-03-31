@@ -13,7 +13,7 @@ class Catalog extends Superobj
     protected $tbname = CATALOG;
     var $sdir = BC_Image;
     var $back = './product_bcatalog.php';
-    public $s_size = array("m" => array("w" => 400, "h" => 400), "s" => array("w" => 2400, "h" => 150), "ss" => array("w" => 2400, "h" => 50));
+    public $s_size = array("m" => array("w" => 400, "h" => 400), "s" => array("w" => 100, "h" => 2400), "ss" => array("w" => 2400, "h" => 50));
     var $is_image = true;
     var $list_this;
     var $detail_this;
