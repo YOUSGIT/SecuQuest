@@ -13,6 +13,9 @@ $news = new News;
 $news_arr = $news->get_front(3);
 ?>
 <div class="body">
+	<script type="text/javascript" language="javascript" src="http://player.youku.com/jsapi"></script>
+	<script type="text/javascript" language="javascript" src="http://www.youtube.com/iframe_api"></script>
+	<script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>
     <div class="banner index">
         <div class="container">
             <div class="gallery">

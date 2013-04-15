@@ -149,7 +149,10 @@ a:hover{ color:#666;}
 .body .banner > .container{
 	width:1000px;
 	margin:auto;
-	position:relative;		
+	position:relative;	
+}
+.body .banner > .container.block{
+	min-height:430px;
 }
 .body .banner.product > .container{
 	padding-bottom:50px;
@@ -174,6 +177,10 @@ a:hover{ color:#666;}
 }
 .body .banner .gallery .media iframe{
 	margin-top:10px;
+}
+.body .banner .gallery .media div{
+	margin-top:10px;
+	float:right;
 }
 
 .body .banner .crumb{
@@ -400,6 +407,7 @@ a:hover{ color:#666;}
 	margin-right:10px;
 	width:150px;
 	text-decoration:none;
+	vertical-align:top;
 }
 .index-new-products .frame .group .item .photo{
 	display:inline-block;
@@ -628,6 +636,7 @@ vertical-align:middle;
 	margin:0px;
 	margin-top:5px;
 	text-align:left;
+	line-height:16pt;
 }
 .products-list .item p{
 	font-size:9pt;

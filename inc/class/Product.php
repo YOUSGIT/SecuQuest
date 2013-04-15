@@ -14,7 +14,7 @@ class Product extends Superobj
     protected $tbname_img = PRODUCT_IMG;
     var $sdir = PD_Image;
     var $back = './product.php?p=';
-    public $s_size = array("m" => array("w" => 2400, "h" => 360), "s" => array("w" => 2400, "h" => 150), "ss" => array("w" => 2400, "h" => 50));
+    public $s_size = array("m" => array("w" => 500, "h" => 370), "s" => array("w" => 225, "h" => 150), "ss" => array("w" => 75, "h" => 50));
     var $is_image = false;
     var $list_this;
     var $detail_this;
@@ -48,7 +48,7 @@ class Product extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
+                    <li><a href="product_bcatalog.php">產品管理</a></li>
                     <li><span>產品列表</span></li>
                 </ul>';
 
@@ -86,7 +86,7 @@ class Product extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">產品管理</a></li>                    
+                    <li><a href="product_bcatalog.php">產品管理</a></li>
                     <li><span>產品列表</span></li>
                 </ul>';
 
@@ -105,7 +105,7 @@ class Product extends Superobj
         if (is_numeric($p) && $p != '')
             $parent = " AND a.`parent` = " . $p;
 
-        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` 
+        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path`
                             FROM " . $this->tbname . " a
                             LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
                             WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */
@@ -229,7 +229,7 @@ class Product extends Superobj
         $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` " . $brief
                 . " FROM " . $this->tbname . " a
                             LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
-                            WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1 
+                            WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1
                             ORDER BY a.`sequ` ASC, a.`dates` DESC";
         // exit($this->list_this);
         return parent::get_list($this->list_this . $limit);

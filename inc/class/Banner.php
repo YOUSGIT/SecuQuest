@@ -15,7 +15,7 @@ class Banner extends Superobj
     public $is_sort = false; //是否排序
     public $sdir = ADM_Image;
     public $back = './website_banner.php';
-    public $s_size = array("m" => array("w" => 1000, "h" => 1000), "s" => array("w" => 150, "h" => 2400), "ss" => array("w" => 2400, "h" => 50));
+    public $s_size = array("m" => array("w" => 600, "h" => 400), "s" => array("w" => 225, "h" => 150), "ss" => array("w" => 75, "h" => 50));
     public $detail_id; //編輯細節ID
     public $is_image = true;
     public $list_this;
@@ -70,7 +70,7 @@ class Banner extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="website_banner.php">網站管理</a></li>                    
+                    <li><a href="website_banner.php">網站管理</a></li>
                     <li><span>首頁廣告設定</span></li>
                     </ul>';
 

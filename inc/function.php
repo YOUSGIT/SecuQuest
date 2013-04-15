@@ -53,7 +53,7 @@ function Crumbs($arg)
             $ret.='<li>' . $a . $k . '</a> ' . $arrow . '</li>';
         }
     }
-    // $ret.='  <li>首頁廣告設定</li>';	
+    // $ret.='  <li>首頁廣告設定</li>';
     return $ret;
 }
 
@@ -142,26 +142,65 @@ function resizeimage($dir, $sor, $new_w, $new_h, $new_name, $thumbnail = false, 
 
     if ($sorsize[2] == '2')
     {
+        $ow = $sorsize[0];
+        $oh = $sorsize[1];
 
-        if ($target_ratio > $img_ratio)
+        // 橫
+        if ($img_ratio > 1)
         {
-            $newsize[1] = $new_h;
-            $newsize[0] = $img_ratio * $new_h;
+            if ($ow > $new_w)
+            {
+                $target_ratio = $ow / $new_w;
+                $newsize[0] = $new_w;
+                $newsize[1] = $oh / $target_ratio;
+
+                if ($newsize[1] > $new_h)
+                {
+                    $target_ratio = $newsize[1] / $new_h;
+                    $newsize[1] = $new_h;
+                    $newsize[0] = $newsize[0] / $target_ratio;
+                }
+            }
         }
+        // 直
         else
         {
-            $newsize[1] = $new_w / $img_ratio;
-            $newsize[0] = $new_w;
+            if ($oh > $new_h)
+            {
+                $target_ratio = $oh / $new_h;
+                $newsize[1] = $new_h;
+                $newsize[0] = $ow / $target_ratio;
+
+                if ($newsize[0] > $new_w)
+                {
+                    $target_ratio = $newsize[0] / $new_w;
+                    $newsize[0] = $new_w;
+                    $newsize[1] = $newsize[1] / $target_ratio;
+                }
+            }
         }
 
-        if ($newsize[1] > $new_h)
-        {
-            $newsize[1] = $new_h;
-        }
-        if ($newsize[0] > $new_w)
-        {
-            $newsize[1] = $new_w;
-        }
+        /*
+          if ($target_ratio > $img_ratio)
+          {
+          $newsize[1] = $new_h;
+          $newsize[0] = $img_ratio * $new_h;
+          }
+          else
+          {
+          $newsize[1] = $new_w / $img_ratio;
+          $newsize[0] = $new_w;
+          }
+
+          if ($newsize[1] > $new_h)
+          {
+          $newsize[1] = $new_h;
+          }
+          if ($newsize[0] > $new_w)
+          {
+          $newsize[1] = $new_w;
+          }
+         */
         //=======判斷開始=================================================
         #$newsize[1]=$new_h;
         #$newsize[0]=$new_h*$sorratio;
@@ -215,15 +254,15 @@ function resizeimage($dir, $sor, $new_w, $new_h, $new_name, $thumbnail = false, 
 }
 
 /*
- * Add the quote "`" to the input string 
- * 
- * @param {String} $str - the database or table name 
- * 
- * @return {String} $ret - the added quote string 
- * 
+ * Add the quote "`" to the input string
+ *
+ * @param {String} $str - the database or table name
+ *
+ * @return {String} $ret - the added quote string
+ *
  * Input: database.table
  * Output: `database`.`table`
- * 
+ *
  * */
 function add_field_quotes($str)
 {

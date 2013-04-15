@@ -1,5 +1,6 @@
 <?php
 require_once("_init.php");
+require_once("./lang/index.lang.php");
 define("CAT", 2);
 
 $support = New Support;
@@ -87,7 +88,7 @@ require_once("inc/head.inc.php");
                                     <td><?php echo $v2['brief']; ?></td>
                                     <td align="center"><?php echo date('Y-m-d', strtotime($v2['dates'])); ?></td>
                                     <td align="center"><?php echo file_size($support->get_dir() . $v2['path']); ?> MB</td>
-                                    <td align="center"><a href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v2['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v2['path']); ?>" class="download">Download</a></td>
+                                    <td align="center"><a href="readfile.php?title=<?php echo base64_encode($v2['title']); ?>&t1=<?php echo base64_encode(Extension($v2['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v2['path']); ?>" class="download">Download</a></td>
                                 </tr>
                                 <?php
                             }

@@ -18,7 +18,7 @@ require_once("inc/head.inc.php");
 ?>
 <div class="body">
     <div class="banner product">
-        <div class="container">            	
+        <div class="container block">            	
             <div class="gallery">
                 <?php
                 foreach ($pro_imgs as $v)
@@ -117,7 +117,7 @@ require_once("inc/head.inc.php");
                                 <td><?php echo $v['brief']; ?></td>
                                 <td align="center"><?php echo date('Y-m-d', strtotime($v['dates'])); ?></td>
                                 <td align="center"><?php echo file_size($support->get_dir() . $v['path']); ?> MB</td>
-                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?php echo base64_encode('attach'); ?>&t1=<?php echo base64_encode(Extension($v['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i><?php echo $_LANG['Support']['Download'][LANG]; ?></a></td>
+                                <td align="center"><a class="btn btn-warning" href="readfile.php?title=<?php echo base64_encode($v['title']); ?>&t1=<?php echo base64_encode(Extension($v['path'])); ?>&b=<?php echo base64_encode($support->get_dir() . $v['path']); ?>" class="download"><i class="icon-download-alt icon-white"></i><?php echo $_LANG['Support']['Download'][LANG]; ?></a></td>
                             </tr>
                             <?php
                         }
