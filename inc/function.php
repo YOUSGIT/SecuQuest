@@ -142,8 +142,8 @@ function resizeimage($dir, $sor, $new_w, $new_h, $new_name, $thumbnail = false, 
 
     if ($sorsize[2] == '2')
     {
-        $ow = $sorsize[0];
-        $oh = $sorsize[1];
+        $newsize[0] = $ow = $sorsize[0];
+        $newsize[1] = $oh = $sorsize[1];
 
         // 橫
         if ($img_ratio > 1)
