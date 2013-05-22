@@ -6,7 +6,6 @@ define("CAT", 2);
 $support = New Support;
 $support_arr = $support->get_cat_all_front();
 
-
 $catalog = new Catalog;
 $catalog_arr = $catalog->get_all_front();
 
@@ -14,14 +13,13 @@ $c = (!$_GET['c']) ? (int) $catalog_arr[0]['id'] : $_GET['c'];
 $pd = new Product;
 $pd_arr = $pd->get_product($c);
 
-
 require_once("inc/head.inc.php");
 ?>
 <div class="body">
     <div class="banner">
-        <div class="container">            	
+        <div class="container">
             <div class="gallery">
-                <div class="media"></div>                
+                <div class="media"></div>
             </div>
             <ul class="crumb">
                 <li><a href="index.php">Home</a>/</li>
@@ -29,8 +27,8 @@ require_once("inc/head.inc.php");
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1>Support</h1>                        
-                </div>                           
+                    <h1>Support</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -74,8 +72,9 @@ require_once("inc/head.inc.php");
                         <?php
                         foreach ($pd_arr as $v)
                         {
+                            if($v['status'] != '1') continue;
                             ?>
-                            <tr>                          
+                            <tr>
                                 <th colspan="5" align="left"><?php echo $v['title']; ?></th>
                             </tr>
                             <?php
@@ -97,7 +96,7 @@ require_once("inc/head.inc.php");
                     </table>
                 </div>
             </div>
-        </div>            	            
+        </div>
     </div>
 </div>
 <?php

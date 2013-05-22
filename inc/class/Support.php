@@ -52,7 +52,7 @@ class Support extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="support.php">支援管理</a></li>                    
+                    <li><a href="support.php">支援管理</a></li>
                     <li><span>支援列表</span></li>
                 </ul>';
 
@@ -75,7 +75,7 @@ class Support extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="support_catalog.php">支援管理</a></li>                    
+                    <li><a href="support_catalog.php">支援管理</a></li>
                     <li><span>支援分類</span></li>
                 </ul>';
 
@@ -86,7 +86,7 @@ class Support extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">支援管理</a></li>                    
+                    <li><a href="product_bcatalog.php">支援管理</a></li>
                     <li><span>檔案下載列表</span></li>
                 </ul>';
 
@@ -97,7 +97,7 @@ class Support extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="product_bcatalog.php">支援管理</a></li>                    
+                    <li><a href="product_bcatalog.php">支援管理</a></li>
                     <li><span>支援列表</span></li>
                 </ul>';
 
@@ -187,7 +187,7 @@ class Support extends Superobj
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT a.*, IF(c.`parent` > 0, c.`parent`, c.`id`) `parent` 
+            $this->detail_this = "SELECT a.*, IF(c.`parent` > 0, c.`parent`, c.`id`) `parent`
                                     FROM " . $this->tbname_down . " a
                                     LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
                                     LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
@@ -200,8 +200,8 @@ class Support extends Superobj
     { //找出檔案產品父分類
         $pid = (is_numeric($pid)) ? $pid : '';
         if (trim($pid) != '')
-            $this->detail_this = "SELECT IF(c.`parent` > 0, c.`parent`, c.`id`) `parent` 
-                                FROM " . $this->tbname_product . " b 
+            $this->detail_this = "SELECT IF(c.`parent` > 0, c.`parent`, c.`id`) `parent`
+                                FROM " . $this->tbname_product . " b
                                 LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
                                 WHERE b.`id` = " . (int) $pid;
         // exit($this->detail_this);
@@ -264,7 +264,7 @@ class Support extends Superobj
                                 LEFT JOIN " . $this->tbname_product . " b ON a.`pid` = b.`id`
                                 LEFT JOIN " . $this->tbname_bcat . " c ON c.`id` = b.`parent`
                                 LEFT JOIN " . $this->tbname_bcat . " d ON c.`parent` = d.`id`
-                                WHERE a.`pid` = " . $p . " " . $wheres;
+                                WHERE b.`status` = 1 AND a.`pid` = " . $p . " " . $wheres;
         // exit($this->detail_this);
         return parent::get_list($this->detail_this);
     }

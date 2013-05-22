@@ -283,7 +283,10 @@ function add_field_quotes($str)
 function TrimArray(&$Input)
 {
     if (!is_array($Input))
+    {
+        // $Input = trim($Input);
         return trim($Input);
+    }
 
     return array_map('TrimArray', $Input);
 }

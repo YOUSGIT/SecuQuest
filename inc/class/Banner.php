@@ -133,8 +133,11 @@ class Banner extends Superobj
 
     function get_youtubeID($path)
     {
-        $a = 'youtube.com/watch?v=';
-        $b = 'youtu.be/';
+        $a = (LANG == 'en') ? 'youtube.com/watch?v=' : 'v.youku.com/v_show/id_';
+        $b = (LANG == 'en') ? 'youtu.be/' : 'i.youku.com/u/';
+
+        $c = explode('.html', $path);
+        $path = $c[0];
 
         $find = (mb_substr_count($path, $a) > 0) ? $a : $b;
         $StrArray = explode($find, $path);

@@ -8,7 +8,7 @@ $crumb = $obj->get_crumb_html();
 $toolbar = $obj->get_toolbar_html();
 $ret = $obj->get_all();
 require_once(INC_ADMIN . "head.inc.php");
-?> 
+?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
         <td class="left-col">
@@ -33,7 +33,7 @@ require_once(INC_ADMIN . "head.inc.php");
                         <button class="btn btn-info" onclick="return save();" type="button">儲存順序</button>
                     </div>
                 <?php endif; ?>
-            </div> 
+            </div>
             <div class="module-list">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mheader">
                     <tr>
@@ -74,29 +74,29 @@ require_once(INC_ADMIN . "head.inc.php");
 </table>
 <script>
     var form = $('form[data-target="form"]');
-    
+
     $(function ()
     {
         sel_status();
     });
-    
+
     function del()
     {
-        
+
         var ret = form.find("input[type='checkbox']:checked");
-        
+
         if (!ret.length > 0)
         {
             alert("Please select item");
             return false;
         }
-        
+
         if (!confirm("Confirm to delete ?")) return false;
-        
+
         form.submit();
         return false;
     }
-    
+
     function sel_status()
     {
         $("select[data-target='status']").on("change", function ()
@@ -104,14 +104,14 @@ require_once(INC_ADMIN . "head.inc.php");
             window.location = '?s=' + $(this).val();
         });
     }
-    
+
     function save()
     {
         $("input[name='doit']").val("sort");
         form.submit();
         return false;
     }
-    
+
     function sale(status)
     {
         if (isNaN(status))
@@ -119,15 +119,15 @@ require_once(INC_ADMIN . "head.inc.php");
             alert("Error");
             return false;
         }
-        
+
         var ret = form.find("input[type='checkbox']:checked");
-        
+
         if (!ret.length > 0)
         {
             alert("Please select item");
             return false;
         }
-        
+
         if (!confirm("Confirm to update ?")) return false;
         $("input[name='doit']").val("sale");
         $("input[name='status']").val(status);

@@ -5,6 +5,7 @@ body {
 	color: #000;
 	margin:0px;
 	background-color:#DDD;
+	min-height:700px;
 }
 button{font-family: "微軟正黑體"; font-weight:bold;}
 select{ margin:0px;}

@@ -7,15 +7,12 @@ $banner = new Banner;
 $banner_arr = $banner->get_all_front();
 
 $product = new Product;
-$product_arr = $product->get_all_front('', 20);
+$product_arr = $product->get_new_item_front();
 
 $news = new News;
 $news_arr = $news->get_front(3);
 ?>
 <div class="body">
-	<script type="text/javascript" language="javascript" src="http://player.youku.com/jsapi"></script>
-	<script type="text/javascript" language="javascript" src="http://www.youtube.com/iframe_api"></script>
-	<script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>
     <div class="banner index">
         <div class="container">
             <div class="gallery">
@@ -25,7 +22,7 @@ $news_arr = $news->get_front(3);
                     if ($v['type'] == '0')
                     {
                         ?>
-                        <div class="media" data-type="image" style="background-image:url(<?php echo $banner->get_dir() . $v['path']; ?>);"></div>
+                        <a href="<?php echo $v['link']; ?>" class="media" data-type="image" style="background-image:url(<?php echo $banner->get_dir() . $v['path']; ?>);"></a>
                         <?php
                     }
                     elseif ($v['type'] == '1')
@@ -46,12 +43,12 @@ $news_arr = $news->get_front(3);
                         <h1><?php echo $v['title']; ?></h1>
                         <div class="content"><?php echo strip_tags($v['content']) . '...'; ?></div>
                         <a href="<?php echo $v['link']; ?>" target="_blank" class="more">Learn More</a>
-                    </div>                           
+                    </div>
                 </div>
                 <?php
             }
             ?>
-            <div class="pager">  
+            <div class="pager">
                 <?php
                 foreach ($banner_arr as $v)
                 {
@@ -105,14 +102,14 @@ $news_arr = $news->get_front(3);
                         <div class="photo" style="background-image:url(<?php echo $news->get_pre_img($v['path']); ?>)"></div>
                         <a href="news.php?id=<?php echo $v['id']; ?>" class="content">
                             <h1><?php echo $v['title']; ?></h1>
-                            <p><?php echo mb_substr(strip_tags($v['content']), 0, 50); ?></p>
+                            <p><?php echo mb_substr(strip_tags($v['content'],"<br>"), 0, 100)."..."; ?></p>
                         </a>
                     </div>
                     <?php
                 }
                 ?>
             </div>
-        </div>            
+        </div>
     </div>
 </div>
 <?php

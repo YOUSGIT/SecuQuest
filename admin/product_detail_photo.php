@@ -43,7 +43,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr data-target="upload">
                                     <th width="100" align="right">上傳圖片</th>
-                                    <td><div id="jquery-wrapped-fine-uploader"></div><div target="input"></div></td>
+                                    <td><div id="jquery-wrapped-fine-uploader"></div><div target="input"></div><span>建議尺寸：500px*370px</span></td>
                                 </tr>
                                 <tr data-target="setup">
                                     <th align="right">主圖設定</th>

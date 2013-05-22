@@ -29,9 +29,10 @@ class Product extends Superobj
     {
         $this->post_arr = (is_array($_POST)) ? $_POST : "";
         $this->file_arr = (is_array($_FILES)) ? $_FILES : "";
+        $this->sort_arr = (isset($_POST['sort'])) ? $_POST['sort'] : "";
         $this->del_arr = (isset($_REQUEST['delid'])) ? $_REQUEST['delid'] : "";
         $this->detail_id = (is_numeric($_GET['id'])) ? $_GET['id'] : "";
-        $this->set_sort_arr();
+        // $this->set_sort_arr();
 
         parent::__construct($debug);
 
@@ -95,7 +96,6 @@ class Product extends Superobj
 
     function get_all($p = '', $s = '')
     {
-
         $s = (!is_numeric($s)) ? $_GET['s'] : $s;
         $p = (!is_numeric($p)) ? $_GET['p'] : $p;
 
@@ -105,11 +105,11 @@ class Product extends Superobj
         if (is_numeric($p) && $p != '')
             $parent = " AND a.`parent` = " . $p;
 
-        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path`
+        $this->list_this = "SELECT a.`sequ`, a.`id`, a.`title`, a.`parent`, a.`status`, b.`path`
                             FROM " . $this->tbname . " a
                             LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
                             WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */
-                            ORDER BY a.`sequ` ASC";
+                            ORDER BY a.`sequ` ASC, a.`dates` DESC, a.`status` DESC";
         // exit($this->list_this);
         return parent::get_list($this->list_this);
     }
@@ -179,7 +179,8 @@ class Product extends Superobj
                 $vr = $v2['id'];
                 $tr = $v2['title'];
                 $ret_arr[] = $v2;
-                $output .= '<option value="' . $v2['id'] . '">' . $v2['title'] . '</option>';
+                $status = $v2['status'] != '1' ? '(下架) ' : '';
+                $output .= '<option value="' . $v2['id'] . '">' . $status . $v2['title'] . '</option>';
             }
         }
 
@@ -235,6 +236,22 @@ class Product extends Superobj
         return parent::get_list($this->list_this . $limit);
     }
 
+    function get_new_item_front($l = 20)
+    {
+        $brief = " , a.`brief` ";
+        $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` " . $brief
+                . " FROM " . $this->tbname . " a
+                LEFT JOIN " . $this->tbname_img . " b ON a.`id` = b.`parent` AND b.`master` = 1
+                WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1
+                ORDER BY a.`dates` DESC";
+
+        if (is_numeric($l) && $l > 0)
+            $limit = " LIMIT 0, " . $l;
+
+        // exit($this->list_this);
+        return parent::get_list($this->list_this . $limit);
+    }
+
     function get_detail_front($pk = '')
     { //列出單筆細節
         $pk = (is_numeric($pk)) ? $pk : $this->detail_id;
@@ -279,6 +296,12 @@ class Product extends Superobj
             return;
         }
 
+        /* for 置頂 */
+        if ($this->post_arr['status'] == '1')
+        {
+            $this->post_arr['dates'] = date("Y-m-d H:i:s");
+        }
+
         parent::renew($this->post_arr, $this->file_arr, $this->sdir, $this->s_size);
         $returnID = (!is_numeric($_POST['id'])) ? $this->get_lastID() : $_POST['id'];
         // self::set_back("product_detail.php?p=" . $_POST['parent']);
@@ -320,6 +343,10 @@ class Product extends Superobj
             $arr = array();
             $arr['id'] = $v;
             $arr['status'] = $_POST['status'];
+            if ($_POST['status'] == '1')
+            {
+                $arr['dates'] = date("Y-m-d H:i:s");
+            }
             parent::renew($arr);
         }
         return;
@@ -344,8 +371,9 @@ class Product extends Superobj
     {
         if ($this->post_arr['parent'] > 0)
         {
-            self::set_back("product_catalog.php?bc=" . $_POST['parent']);
+            self::set_back("product.php?p=" . $_POST['parent']);
         }
+
         return $this->sort_arr;
     }
 

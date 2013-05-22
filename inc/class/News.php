@@ -44,7 +44,7 @@ class News extends Superobj
     {
         $crumb = '<ul class="crumb">
                     <li><a href="index.php" class="home">&nbsp;</a></li>
-                    <li><a href="news.php">新聞管理</a></li>                    
+                    <li><a href="news.php">新聞管理</a></li>
                     <li><span>新聞管理</span></li>
                   </ul>';
 
@@ -74,7 +74,7 @@ class News extends Superobj
 
     function get_all()
     {
-        $this->list_this = "SELECT `id`, `title`, `path` FROM " . $this->tbname . " ORDER BY `dates` DESC";
+        $this->list_this = "SELECT `id`, `title`, `path`, `dates` FROM " . $this->tbname . " ORDER BY `dates` DESC";
         return parent::get_list($this->list_this);
     }
 
@@ -103,7 +103,9 @@ class News extends Superobj
         if (is_numeric($l) && $l > 0)
             $limit = " LIMIT 0, " . $l;
 
-        $this->list_this = "SELECT `title`, `id`, `dates`, `path` FROM " . $this->tbname . " ORDER BY `dates` DESC";
+        $this->list_this = "SELECT `title`, `id`, `dates`, `path` FROM " . $this->tbname . "
+                            WHERE `dates` <= NOW()
+                            ORDER BY `dates` DESC";
         return parent::get_list($this->list_this . $limit);
     }
 
@@ -112,7 +114,7 @@ class News extends Superobj
         $pk = (trim($pk) != '') ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  1 AND " . $this->PK . " = " . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  1 AND `dates` <= NOW() AND " . $this->PK . " = " . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }

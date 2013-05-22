@@ -86,5 +86,5 @@ else
     unserialize($_SESSION['loginObj'])->checkLogin();
 
 ##########################################################
-TrimArray($_POST);
+$_POST = TrimArray($_POST);
 TrimArray($_GET);

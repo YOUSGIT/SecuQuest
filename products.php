@@ -7,15 +7,22 @@ $catalog = new Catalog;
 $bc_arr = $catalog->get_all_front();
 
 $product = New Product;
-$product_arr = $product->get_all_front($_GET['c']);
+if (is_numeric($_GET['c']))
+{
+    $product_arr = $product->get_all_front($_GET['c']);
+}
+else
+{
+    $product_arr = $product->get_new_item_front();
+}
 
 require_once("inc/head.inc.php");
 ?>
 <div class="body">
     <div class="banner">
-        <div class="container">            	
+        <div class="container">
             <div class="gallery">
-                <div class="media"></div>                
+                <div class="media"></div>
             </div>
             <ul class="crumb">
                 <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
@@ -23,8 +30,8 @@ require_once("inc/head.inc.php");
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1><?php echo $_LANG['btn']['Products'][LANG]; ?></h1>                        
-                </div>                           
+                    <h1><?php echo $_LANG['btn']['Products'][LANG]; ?></h1>
+                </div>
             </div>
         </div>
     </div>
@@ -72,7 +79,7 @@ require_once("inc/head.inc.php");
                             <a href="product_detail.php?id=<?php echo $v['id']; ?>">
                                 <img src="<?php echo $product->get_pre_img($v['path']); ?>" />
                                 <h1><?php echo $v['title']; ?></h1>
-                                <p><?php echo mb_substr(strip_tags($v['brief']), 0, 50) . '...'; ?></p>
+                                <p><?php echo mb_substr(strip_tags($v['brief'], "<br>"), 0, 50) . '...'; ?></p>
                             </a>
                         </li>
                         <?php
@@ -80,7 +87,7 @@ require_once("inc/head.inc.php");
                     ?>
                 </ul>
             </div>
-        </div>            	            
+        </div>
     </div>
 </div>
 <script type="text/javascript">

@@ -36,7 +36,7 @@ require_once("inc/head.inc.php");
             <div class="title">
                 <div class="intro">
                     <h1><?php echo $ret['title'] ?></h1>
-                    <div class="content"><?php echo nl2br($ret['brief']); ?></div>               
+                    <div class="content"><?php echo $ret['brief']; ?></div>               
                 </div>                           
             </div>
             <div class="pager">   

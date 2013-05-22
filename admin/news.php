@@ -58,16 +58,16 @@ require_once(INC_ADMIN . "head.inc.php");
     {
         var form=$('form[data-target="form"]');
         var ret = form.find("input[type='checkbox']:checked");
-        
+
         if (!ret.length > 0)
         {
             alert("Please select item");
             return false;
         }
-        
+
         if(!confirm("Confirm to delete ?"))
             return false;
-        
+
         form.submit();
         return false;
     }

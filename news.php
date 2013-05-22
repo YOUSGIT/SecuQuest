@@ -11,9 +11,9 @@ require_once("inc/head.inc.php");
 ?>
 <div class="body">
     <div class="banner">
-        <div class="container">            	
+        <div class="container">
             <div class="gallery">
-                <div class="media"></div>                
+                <div class="media"></div>
             </div>
             <ul class="crumb">
                 <li><a href="index.php"><?php echo $_LANG['btn']['Home'][LANG]; ?></a>/</li>
@@ -21,8 +21,8 @@ require_once("inc/head.inc.php");
             </ul>
             <div class="title">
                 <div class="intro">
-                    <h1><?php echo $_LANG['btn']['News'][LANG]; ?></h1>                        
-                </div>                           
+                    <h1><?php echo $_LANG['btn']['News'][LANG]; ?></h1>
+                </div>
             </div>
         </div>
     </div>
@@ -43,11 +43,11 @@ require_once("inc/head.inc.php");
             <div class="right-col">
                 <div class="static-html">
                     <legend><?php echo $ret['title']; ?></legend>
-                    <small><?php echo $ret['dates']; ?></small>
+                    <small><?php echo date("Y-m-d", strtotime($ret['dates'])); ?></small>
                     <p><?php echo ($ret['content']); ?></p>
                 </div>
             </div>
-        </div>            	            
+        </div>
     </div>
 </div>
 <?php

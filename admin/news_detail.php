@@ -27,10 +27,10 @@ require_once(INC_ADMIN . "head.inc.php");
                     <button class="btn btn-info" type="button" onclick="return save();">儲存</button>
                     <!--<button class="btn" type="button">取消</button>-->
                 </div>
-            </div> 
+            </div>
             <div class="module-form">
                 <ul class="mheader">
-                    <li><a href="#" class="active">新增新聞</a></li>                        
+                    <li><a href="#" class="active">新增新聞</a></li>
                 </ul>
                 <div class="main-container">
                     <div class="mbody">
@@ -40,9 +40,13 @@ require_once(INC_ADMIN . "head.inc.php");
                                     <th align="right">標題</th>
                                     <td><input type="text" value="<?php echo $ret['title']; ?>" name="title" placeholder="請輸入標題…" class="span10" required/></td>
                                 </tr>
+                                <tr>
+                                    <th align="right">發佈日期</th>
+                                    <td><input name="dates" data-target="dates" type="text" value="<?php echo date("Y-m-d", strtotime($ret['dates'])); ?>" placeholder="請輸入日期…" class="span4" readonly required/></td>
+                                </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
+                                    <td><input name="path" value="<?php echo $ret['path']; ?>" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
                                 </tr>
                                 <tr class="tr_image">
                                     <td><div id="jquery-wrapped-fine-uploader"></div></td>
@@ -68,30 +72,35 @@ require_once(INC_ADMIN . "head.inc.php");
     var _image_url = "<?php echo $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
-    
+
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
-        var editor = CKEDITOR.replace( 'content' );
-        CKFinder.setupCKEditor( editor, 'inc/ckfinder/' ) ;
+        var editor = CKEDITOR.replace('content');
+        CKFinder.setupCKEditor(editor, 'inc/ckfinder/');
         init_file_upload();
         // validator.resetForm();
+        $("input[data-target='dates']").datepicker(
+        {
+            dateFormat: "yy-mm-dd"
+        });
     });
-    
+
     function save()
     {
         if (_FORM.valid()) _FORM.submit();
-        
+
         return false;
     }
-    
+
     function init_file_upload()
     {
         // var addedFiles=0;
         // var fileLimit=1;
         $('#jquery-wrapped-fine-uploader').fineUploader(
         {
-            request: {
+            request:
+                {
                 endpoint: 'inc/fineuploader.jquery/upload.php?func=news'
             },
             debug: true
@@ -100,18 +109,19 @@ require_once(INC_ADMIN . "head.inc.php");
             if (responseJSON.success)
             {
                 path.val(responseJSON.filename);
-                pre_img.load(_image_url + responseJSON.filename,function(){
-                    $(this).prop("src",_image_url + responseJSON.filename).fadeIn();
+                pre_img.load(_image_url + responseJSON.filename, function ()
+                {
+                    $(this).prop("src", _image_url + responseJSON.filename).fadeIn();
                     $('li[class=" qq-upload-success"]').fadeOut("slow");
                 });
             }
-            
+
         });
-        
+
         // alert(upload_temp_path);
         return;
     }
-    
+
     function pic_remove()
     {
         path.val("");

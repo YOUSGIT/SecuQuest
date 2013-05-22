@@ -45,7 +45,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                     <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
                                 </tr>
                                 <tr class="tr_image">
-                                    <td><div id="jquery-wrapped-fine-uploader"></div></td>
+                                    <td><div id="jquery-wrapped-fine-uploader"></div><span>建議尺寸：200px*200px</span></td>
                                 </tr>
                                 <tr>
                                     <th align="right">狀態</th>
