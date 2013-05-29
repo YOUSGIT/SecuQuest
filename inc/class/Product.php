@@ -245,11 +245,37 @@ class Product extends Superobj
                 WHERE  1 " . $parent . " " . $wheres . " /* AND b.`master` = 1 */ AND a.`status` = 1
                 ORDER BY a.`dates` DESC";
 
-        if (is_numeric($l) && $l > 0)
-            $limit = " LIMIT 0, " . $l;
+        // if (is_numeric($l) && $l > 0)
+        // $limit = " LIMIT 0, " . $l;
 
+        $ret = parent::get_list($this->list_this . $limit);
         // exit($this->list_this);
-        return parent::get_list($this->list_this . $limit);
+        $Catalog = new Catalog;
+        $nosale = 0;
+        $new_ret = array();
+        foreach ($ret as $k => $v)
+        {
+
+            $bcatalog = $Catalog->get_parent_for_product($v['parent']) == 0 ? $v['parent'] : $Catalog->get_parent_for_product($v['parent']);
+
+            $bstatus = $Catalog->get_detail_front($bcatalog);
+            $pstatus = $Catalog->get_detail_front($v['parent']);
+            if ($bstatus['status'] != '1' || $pstatus['status'] != '1')
+            {
+                // unset($ret[$k]);
+                $nosale++;
+                continue;
+            }
+
+            if (($k - $nosale) > $l)
+            {
+                continue;
+            }
+
+            array_push($new_ret, $v);
+        }
+
+        return $new_ret;
     }
 
     function get_detail_front($pk = '')

@@ -7,7 +7,7 @@ $crumb = $obj->get_detail_crumb_html();
 $ret = $obj->get_detail();
 $catalog = new Catalog;
 $bcatalog_arr = $catalog->get_all_for_product(0);
-$bcatalog = $catalog->get_parent_for_product($ret['parent']);
+$bcatalog = $catalog->get_parent_for_product($ret['parent']) == 0 ? $ret['parent'] : $catalog->get_parent_for_product($ret['parent']);
 $catalog_arr = $bcatalog > 0 ? $catalog->get_all_for_product($bcatalog) : $catalog->get_all_for_product($ret['parent']);
 $product_arr = $obj->get_all($ret['parent']);
 require_once(INC_ADMIN . "head.inc.php");
@@ -35,7 +35,7 @@ require_once(INC_ADMIN . "head.inc.php");
                 <div class="group">
                     大分類 <select class="span5" data-target="bcatalog">
                         <option>請選擇...</option>
-                        <option value="" <?php echo $_GET['p'] == 0 ? 'selected="selected"' : ''; ?>>全部</option>
+                        <!--<option value="" <?php echo ($_GET['p'] == 0 && $bcatalog == 0) ? 'selected="selected"' : ''; ?>>全部</option>-->
                         <?php
                         foreach ($bcatalog_arr as $v)
                         {
@@ -89,7 +89,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <th width="100" align="right">產品名稱</th>
-                                    <td><input name="title" type="text" placeholder="請輸入名稱…" value="<?php echo htmlentities($ret['title']); ?>" class="span10" required/></td>
+                                    <td><input name="title" type="text" placeholder="請輸入名稱…" value="<?php echo strip_tags($ret['title']); ?>" class="span10" required/></td>
                                 </tr>
                                 <tr>
                                     <th align="right">大分類</th>

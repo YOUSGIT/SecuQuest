@@ -5,9 +5,9 @@
 # HTTP="true"
 //header("Content-Type:text/html; charset=utf-8");
 ob_start();
-// ini_set('display_errors', '1');
+ini_set('display_errors', '1');
 session_start();
-// error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL ^ E_NOTICE);
 
 if (true)
 {

@@ -42,7 +42,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr>
                                     <th align="right">發佈日期</th>
-                                    <td><input name="dates" data-target="dates" type="text" value="<?php echo date("Y-m-d", strtotime($ret['dates'])); ?>" placeholder="請輸入日期…" class="span4" readonly required/></td>
+                                    <td><input name="dates" data-target="dates" type="text" value="<?php echo !$ret['dates'] ? date("Y-m-d") : date("Y-m-d", strtotime($ret['dates'])); ?>" placeholder="請輸入日期…" class="span4" readonly required/></td>
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
@@ -82,6 +82,7 @@ require_once(INC_ADMIN . "head.inc.php");
         // validator.resetForm();
         $("input[data-target='dates']").datepicker(
         {
+			gotoCurrent: true,
             dateFormat: "yy-mm-dd"
         });
     });

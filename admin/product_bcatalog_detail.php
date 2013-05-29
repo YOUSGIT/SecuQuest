@@ -27,10 +27,10 @@ require_once(INC_ADMIN . "head.inc.php");
                     <button class="btn btn-info" type="button" onclick="return save();">儲存</button>
                     <!--<button class="btn" type="button">取消</button>-->
                 </div>
-            </div> 
+            </div>
             <div class="module-form">
                 <ul class="mheader">
-                    <li><a href="#" class="active">新增大分類/修改大分類</a></li>                        
+                    <li><a href="#" class="active">新增大分類/修改大分類</a></li>
                 </ul>
                 <div class="main-container">
                     <div class="mbody">
@@ -42,7 +42,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 </tr>
                                 <tr class="tr_image">
                                     <th rowspan="2" align="right">圖片</th>
-                                    <td><input name="path" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
+                                    <td><input name="path" value="<?php echo $ret['path'];?>" type="hidden" readonly required /><a data-target="remove" href="#" class="remove" onclick="return pic_remove();"><span class="text">移除</span><img data-target="pre_img" src="<?php echo $obj->get_dir() . $ret['path']; ?>" <?php echo (!$ret['path']) ? 'style="display:none;"' : ''; ?>/></a> </td>
                                 </tr>
                                 <tr class="tr_image">
                                     <td><div id="jquery-wrapped-fine-uploader"></div><span>建議尺寸：200px*200px</span></td>
@@ -73,20 +73,20 @@ require_once(INC_ADMIN . "head.inc.php");
     var _image_url = "<?php echo $obj->get_dir(); ?>";
     var path = $("input[name='path']");
     var pre_img = $('img[data-target="pre_img"]');
-    
+
     $(document).ready(function (e)
     {
         validator = _FORM.validate();
         init_file_upload();
     });
-    
+
     function save()
     {
         if (_FORM.valid()) _FORM.submit();
-        
+
         return false;
     }
-    
+
     function init_file_upload()
     {
         // var addedFiles=0;
@@ -108,13 +108,13 @@ require_once(INC_ADMIN . "head.inc.php");
                     $('li[class=" qq-upload-success"]').fadeOut("slow");
                 });
             }
-            
+
         });
-        
+
         // alert(upload_temp_path);
         return;
     }
-    
+
     function pic_remove()
     {
         path.val("");

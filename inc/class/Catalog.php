@@ -252,7 +252,7 @@ class Catalog extends Superobj
         $pk = (trim($pk) != '') ? $pk : $this->detail_id;
 
         if (trim($pk) != '')
-            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  sale='1' and " . $this->PK . "=" . $pk;
+            $this->detail_this = "SELECT * FROM " . $this->tbname . " WHERE  status = '1' and " . $this->PK . "=" . $pk;
 
         return parent::get_list($this->detail_this, 1);
     }
