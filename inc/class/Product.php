@@ -236,7 +236,7 @@ class Product extends Superobj
         return parent::get_list($this->list_this . $limit);
     }
 
-    function get_new_item_front($l = 20)
+    function get_new_item_front($l = 29)
     {
         $brief = " , a.`brief` ";
         $this->list_this = "SELECT a.`id`, a.`title`, a.`parent`, a.`status`, b.`path` " . $brief

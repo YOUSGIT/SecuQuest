@@ -89,9 +89,9 @@ require_once("inc/head.inc.php");
             </div>
             <div class="right-col">
                 <ul class="product-switch">
-                    <li><a href="#features" class="active"><?php echo $_LANG['Products']['Features'][LANG]; ?></a></li>
-                    <li><a href="#specifications"><?php echo $_LANG['Products']['Specifications'][LANG]; ?></a></li>
-                    <li><a href="#downloads"><?php echo $_LANG['Support']['Download'][LANG]; ?></a></li>
+                    <li><a href="#" class="active" data-target="features"><?php echo $_LANG['Products']['Features'][LANG]; ?></a></li>
+                    <li><a href="#" data-target="specifications"><?php echo $_LANG['Products']['Specifications'][LANG]; ?></a></li>
+                    <li><a href="#" data-target="downloads"><?php echo $_LANG['Support']['Download'][LANG]; ?></a></li>
                 </ul>
                 <div id="features" class="product-detail">
                     <p><?php echo $ret['feature']; ?></p>
@@ -131,9 +131,6 @@ require_once("inc/head.inc.php");
 <script type="text/javascript">
     $(document).ready(function(e) {
             
-        setPage();
-        $(".product-switch a").click(setPage);
-            
         $('.banner .gallery').cycle({
             fx:'fade',
             pager:'.pager',
@@ -143,29 +140,17 @@ require_once("inc/head.inc.php");
                 return $(".pager A:eq("+(index)+")");
             }
         });
-    });
-        
-    function setPage(){
-        $(".product-detail").hide();		
-        if(window.location.hash=="") window.location.hash = "#features";
-        var t;
-        try{
-            t="#"+$(this).prop("href").split('#')[1];
-        }catch(e){ t=window.location.hash;}
-        $(t).fadeIn();
-            
-            
-            
-        $(".product-switch a").removeClass("active");
-            
-        $(".product-switch a").each(function(index, element) {
-            if("#"+$(this).prop("href").split('#')[1]==t)
-                $(this).addClass("active");
-        });		
-            
-        return false;
-            
-    }
+		
+		$("#features").show();
+		
+		$(".product-switch a").on("click",function(){
+			$(".product-switch a").removeClass("active");
+			$(this).addClass("active");
+			$(".product-detail").hide();
+			$("#"+$(this).attr("data-target")).fadeIn();
+			return false;
+			});
+    }); 
         
 </script>
 <?php

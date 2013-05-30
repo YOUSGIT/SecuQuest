@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
             <title>SecuQuest 網站管理系統</title>
-            <link href="theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <link href="theme/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
             <link href="theme/core/admin.css" rel="stylesheet" type="text/css" />
             <link href="theme/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet" type="text/css" />
 

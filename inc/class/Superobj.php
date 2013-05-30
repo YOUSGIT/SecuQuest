@@ -110,7 +110,7 @@ class Superobj extends DB
     { //排序
         $tbname = (trim($tbname) == '') ? $this->tbname : $tbname;
         $pk = (trim($pk) == '') ? $this->PK : $pk;
-        // $where = "WHERE 1 " . ((trim($where) == '') ? $this->sort_where : $where);
+        $where = "WHERE 1 " . ((trim($where) == '') ? $this->sort_where : $where);
 
         // $sort_arr = explode(',', $this->sort_arr);
         $sort_arr = $this->get_sort_arr();
@@ -118,7 +118,12 @@ class Superobj extends DB
         {
             if (is_numeric($v))
             {
+                // $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote(($i + 1), $pk, $v);
+                // $arr = array();
                 $sql = sprintf("UPDATE %s SET `%s`=%d WHERE %s=%d", $tbname, $sequ, $this->quote($i + 1), $pk, $v);
+                // $arr[$sequ] = $i + 1;
+                // $arr[$pk] = $v;
+                // self::renew($arr);
                 if (!$this->qry($sql))
                     return false("排序失敗");
             }

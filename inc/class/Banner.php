@@ -63,7 +63,7 @@ class Banner extends Superobj
             else
                 return "images/logo.png";
         }else
-            return "images/youtube.jpg";
+            return "images/video.png";
     }
 
     function get_crumb_html()
