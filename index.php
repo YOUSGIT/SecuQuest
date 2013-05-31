@@ -57,7 +57,7 @@ $news_arr = $news->get_front(3);
                         <div class="pop">
                             <div class="bg">
                                 <h1><?php echo $v['title']; ?></h1>
-                                <p><?php echo mb_substr(strip_tags($v['content']), 0, 50) . '...'; ?></p>
+                                <p><?php echo mb_substr(strip_tags($v['content']), 0, 50,'UTF-8') . '...'; ?></p>
                             </div>
                             <span class="arrow"></span>
                         </div>
@@ -102,7 +102,7 @@ $news_arr = $news->get_front(3);
                         <div class="photo" style="background-image:url(<?php echo $news->get_pre_img($v['path']); ?>)"></div>
                         <a href="news.php?id=<?php echo $v['id']; ?>" class="content">
                             <h1><?php echo $v['title']; ?></h1>
-                            <p><?php echo mb_substr(strip_tags($v['content'],"<br>"), 0, 100)."..."; ?></p>
+                            <p><?php echo mb_substr(strip_tags($v['content'],"<br>"), 0, 100, 'UTF-8')."..."; ?></p>
                         </a>
                     </div>
                     <?php

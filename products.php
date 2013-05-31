@@ -79,7 +79,7 @@ require_once("inc/head.inc.php");
                             <a href="product_detail.php?id=<?php echo $v['id']; ?>">
                                 <img src="<?php echo $product->get_pre_img($v['path']); ?>" />
                                 <h1><?php echo $v['title']; ?></h1>
-                                <p><?php echo mb_substr(strip_tags($v['brief'], "<br>"), 0, 50) . '...'; ?></p>
+                                <p><?php echo mb_substr(strip_tags($v['brief']), 0, 50, 'UTF-8') . '...'; ?></p>
                             </a>
                         </li>
                         <?php

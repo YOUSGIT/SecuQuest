@@ -59,7 +59,7 @@ imagestring($img, $fontid, $ix, $iy, $number, $white);
 
 // 输出图片
 //header("Content-type: " . image_type_to_mime_type(IMAGETYPE_PNG));
-imagepng($img);
+imagejpeg($img);
 imagedestroy($img);
 
 ?>
