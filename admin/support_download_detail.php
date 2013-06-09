@@ -33,10 +33,10 @@ require_once(INC_ADMIN . "head.inc.php");
                     <button class="btn btn-info" type="button" onclick="return save();">儲存</button>
                     <!--<button class="btn" type="button">取消</button>-->
                 </div>
-            </div> 
+            </div>
             <div class="module-form">
                 <ul class="mheader">
-                    <li><a href="#" class="active">新增檔案/修改檔案</a></li>                        
+                    <li><a href="#" class="active">新增檔案/修改檔案</a></li>
                 </ul>
                 <div class="main-container">
                     <div class="mbody">
@@ -49,7 +49,7 @@ require_once(INC_ADMIN . "head.inc.php");
                                 <tr>
                                     <th align="right">分類</th>
                                     <td>
-                                        <select data-target="bcatalog" class="span4">                        	
+                                        <select data-target="bcatalog" class="span4">
                                             <option value="">請選擇分類</option>
                                             <?php
                                             foreach ($bcatalog_arr as $v)
@@ -95,6 +95,7 @@ require_once(INC_ADMIN . "head.inc.php");
                             </table>
                             <input type="hidden" name="func" value="support_down"/>
                             <input type="hidden" name="doit" value="renew"/>
+                            <input type="hidden" name="dates" value=""/>
                             <input type="hidden" name="path" value="<?php echo $ret['path']; ?>"/>
                             <input type="hidden" name="id" value="<?php echo $ret['id']; ?>"/>
                         </form>
