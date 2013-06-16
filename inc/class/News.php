@@ -94,7 +94,7 @@ class News extends Superobj
         if (is_numeric($l) && $l > 0)
             $limit = " LIMIT 0, " . $l;
 
-        $this->list_this = "SELECT * FROM " . $this->tbname . " ORDER BY `dates` DESC";
+        $this->list_this = "SELECT * FROM " . $this->tbname . " WHERE `dates` <= NOW() ORDER BY `dates` DESC";
         return parent::get_list($this->list_this . $limit);
     }
 
