@@ -405,7 +405,9 @@ a:hover{ color:#666;}
 	font-size:0pt;
 	width:850px;
 }
-.index-new-products .frame .group{}
+.index-new-products .frame .group{
+	width:850px;
+}
 .index-new-products .frame .group .item{
 	display:inline-block;
 	*display:inline;

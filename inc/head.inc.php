@@ -14,16 +14,14 @@
         <script type="text/javascript" language="javascript" src="script/jquery.cycle.all.js"></script>
         <script type="text/javascript" language="javascript" src="css/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" language="javascript" src="script/global.js"></script>
-        <?php if($_SERVER['PHP_SELF']=="/index.php"){?>        
-        <script type="text/javascript" language="javascript" src="http://player.youku.com/jsapi"></script>
-        <script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>        
-        <?php } ?>
         <script>
 		$(document).ready(function(e) {
             //網址判斷				
 				$("a:not(.lang)").each(function(index, element) {
+					
 					var regex = new RegExp(/\?/);
 					var url = $(element).prop("href");
+					console.log(url);
 					if(regex.test(url)){
 						regex = new RegExp(/\?LANG=/);
 						if(!regex.test(url)){
@@ -35,6 +33,10 @@
 				});
         });
 		</script>
+		<?php if($_SERVER['PHP_SELF']=="/index.php"){?>        
+        <script type="text/javascript" language="javascript" src="http://player.youku.com/jsapi"></script>
+        <script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>        
+        <?php } ?>
     </head>
     <body>
         <div class="header">
