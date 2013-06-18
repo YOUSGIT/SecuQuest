@@ -16,8 +16,25 @@
         <script type="text/javascript" language="javascript" src="script/global.js"></script>
         <?php if($_SERVER['PHP_SELF']=="/index.php"){?>        
         <script type="text/javascript" language="javascript" src="http://player.youku.com/jsapi"></script>
-        <script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>
+        <script type="text/javascript" language="javascript" src="script/index.<?php echo LANG; ?>.js"></script>        
         <?php } ?>
+        <script>
+		$(document).ready(function(e) {
+            //網址判斷				
+				$("a:not(.lang)").each(function(index, element) {
+					var regex = new RegExp(/\?/);
+					var url = $(element).prop("href");
+					if(regex.test(url)){
+						regex = new RegExp(/\?LANG=/);
+						if(!regex.test(url)){
+							$(element).prop("href",url+"&LANG=<?php echo LANG; ?>");
+						}
+					}else{
+						$(element).prop("href",url+"?LANG=<?php echo LANG; ?>");
+					}
+				});
+        });
+		</script>
     </head>
     <body>
         <div class="header">
@@ -27,10 +44,10 @@
                         <li><a href="index.php" title="Home">Home</a></li>
                         <li>
                             <div class="btn-group">
-                                <a class="btn dropdown-toggle btn-small btn-inverse" data-toggle="dropdown" href="#"><?php echo $_lang['title'][LANG]; ?> <span class="caret"></span></a>
+                                <a class="btn dropdown-toggle btn-small btn-inverse lang" data-toggle="dropdown"><?php echo $_lang['title'][LANG]; ?> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="?LANG=en" <?php echo(LANG == 'en') ? 'class="active"' : ''; ?>>English</a></li>
-                                    <li><a href="?LANG=cn" <?php echo(LANG == 'cn') ? 'class="active"' : ''; ?>>簡体中文</a></li>
+                                    <li><a href="index.php?LANG=en" <?php echo(LANG == 'en') ? 'class="active"' : ''; ?>>English</a></li>
+                                    <li><a href="index.php?LANG=cn" <?php echo(LANG == 'cn') ? 'class="active"' : ''; ?>>簡体中文</a></li>
                                 </ul>
                             </div>
                         </li>

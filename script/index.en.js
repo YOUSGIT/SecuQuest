@@ -2,6 +2,8 @@
 var playlist = new Array();
 var playing = false;
 $(document).ready(function(e) {
+	
+	
     $('.index-new-products .frame').cycle({ 
 		fx:    'scrollHorz', 
 		timeout:5000,
