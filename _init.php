@@ -53,7 +53,7 @@ else
     $_LANG_KEY = "FRONT_LANG";
 }
 
-$_SESSION[$_LANG_KEY] = (isset($_REQUEST['LANG']) && in_array($_REQUEST['LANG'], $_LANG_KEY)) ? $_REQUEST['LANG'] : $_SESSION[$_LANG_KEY];
+$_SESSION[$_LANG_KEY] = (isset($_REQUEST['LANG']) && in_array($_REQUEST['LANG'], $_lang)) ? $_REQUEST['LANG'] : $_SESSION[$_LANG_KEY];
 
 if ($_SESSION[$_LANG_KEY] == '')
     $_SESSION[$_LANG_KEY] = 'en';
