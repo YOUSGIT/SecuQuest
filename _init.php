@@ -24,14 +24,41 @@ else
 }
 
 #############################################
-$_lang = array('cht', 'cn', 'en', 'db' => array('cht' => '_cht', 'cn' => '_cn', 'en' => ''), 'title' => array('cht' => '正體中文', 'cn' => '简体中文', 'en' => 'English'));
+$_lang = array(
+    'cht',
+    'cn',
+    'en',
+    'db' => array(
+        'cht' => '_cht',
+        'cn' => '_cn',
+        'en' => ''
+    ),
+    'title' => array(
+        'cht' => '正體中文',
+        'cn' => '简体中文',
+        'en' => 'English'
+    )
+);
 
-$_SESSION['LANG'] = (isset($_REQUEST['LANG']) && in_array($_REQUEST['LANG'], $_lang)) ? $_REQUEST['LANG'] : $_SESSION['LANG'];
+if (file_exists("admin.admin"))
+{
+    $root = '../';
+    $_LANG_KEY = "ADM_LANG";
 
-if ($_SESSION['LANG'] == '')
-    $_SESSION['LANG'] = 'en';
+// front
+}
+else
+{
+    $root = '';
+    $_LANG_KEY = "FRONT_LANG";
+}
 
-define('LANG', $_SESSION['LANG']);
+$_SESSION[$_LANG_KEY] = (isset($_REQUEST['LANG']) && in_array($_REQUEST['LANG'], $_LANG_KEY)) ? $_REQUEST['LANG'] : $_SESSION[$_LANG_KEY];
+
+if ($_SESSION[$_LANG_KEY] == '')
+    $_SESSION[$_LANG_KEY] = 'en';
+
+define('LANG', $_SESSION[$_LANG_KEY]);
 // exit(LANG);
 define('myDB', 'Secuquest' . $_lang['db'][LANG]);
 
@@ -56,12 +83,6 @@ $inPage = pathinfo($_SERVER["PHP_SELF"]);
 define('this_Page', $inPage["basename"]); //本頁檔名
 define('_ROOT', "/var/www/html/secuquest" . $root_f); //根目錄
 // exit(_ROOT);
-
-if (file_exists("admin.admin"))
-    $root = '../';
-else
-    $root = '';
-
 #################圖片存放位置
 define('ADM_Image', $root . 'images/user_images/ad/');
 define('NEWS_Image', $root . 'images/user_images/news/');

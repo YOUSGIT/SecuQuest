@@ -17,6 +17,7 @@ class Site extends Superobj
     var $detail_id; //編輯細節ID
     var $is_sort = true;
     var $sort_arr = array();
+    var $lang_key = "ADM_LANG";
     var $_lang = array('cht' => '正體中文', 'cn' => '簡體中文', 'en' => '英文');
 
     ####################################################################################
@@ -65,7 +66,7 @@ class Site extends Superobj
         if (!is_array($ret))
             return false;
 
-        $lang = $_SESSION['LANG'];
+        $lang = $_SESSION[$this->lang_key];
 
         session_destroy();
         session_start();
@@ -73,7 +74,7 @@ class Site extends Superobj
         $_SESSION['sid'] = (session_id());
         $_SESSION['token'] = md5($ret['userid'] . $_SESSION['sid']);
         $_SESSION['loginObj'] = serialize($this);
-        $_SESSION['LANG'] = $lang;
+        $_SESSION[$this->lang_key] = $lang;
 
         return true;
     }
