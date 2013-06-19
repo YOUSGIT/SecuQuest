@@ -21,7 +21,6 @@
 					
 					var regex = new RegExp(/\?/);
 					var url = $(element).prop("href");
-					console.log(url);
 					if(regex.test(url)){
 						regex = new RegExp(/\?LANG=/);
 						if(!regex.test(url)){
