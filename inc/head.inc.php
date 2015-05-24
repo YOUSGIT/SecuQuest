@@ -17,8 +17,11 @@
         <script>
 		$(document).ready(function(e) {
             //網址判斷				
-				$("a:not(.lang)").each(function(index, element) {
-					
+				$(".header a:not(.lang)").each(ReplaceUrl);
+				$(".banner a:not(.lang)").each(ReplaceUrl);
+				$(".body a").not($("div.static-html a")).each(ReplaceUrl);
+				
+				function ReplaceUrl(index, element){
 					var regex = new RegExp(/\?/);
 					var url = $(element).prop("href");
 					if(regex.test(url)){
@@ -29,7 +32,7 @@
 					}else{
 						$(element).prop("href",url+"?LANG=<?php echo LANG; ?>");
 					}
-				});
+				}
         });
 		</script>
 		<?php if($_SERVER['PHP_SELF']=="/index.php"){?>        
