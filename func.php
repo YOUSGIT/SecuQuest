@@ -1,6 +1,6 @@
 <?php
 
-require_once("/_offline/_init.php");
+require_once("./_init.php");
 header('Content-Type: text/html; charset=utf-8');
 $back = './';
 
@@ -9,10 +9,8 @@ $DOIT = trim($_REQUEST['doit']);
 
 if ($FUNC)
 {
-
     switch ($FUNC)
     {
-
         case "contact":
 
             if ($_POST['check'] == '1')
@@ -32,7 +30,6 @@ if ($FUNC)
 
 switch ($DOIT)
 {
-
     case "renew":
 
         $func->renew();

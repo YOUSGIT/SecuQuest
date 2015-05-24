@@ -5,6 +5,9 @@ define("CAT", 3);
 
 require_once("inc/head.inc.php");
 ?>
+<style>
+    label.error { color : red; }
+</style>
 <script type="text/javascript" src='./script/jquery.validate.js'></script>
 <script type="text/javascript" src='./script/jquery.form.js'></script>
 <div class="body">
